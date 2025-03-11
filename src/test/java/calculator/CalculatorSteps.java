@@ -77,7 +77,7 @@ public class CalculatorSteps {
 	@Then("^its (.*) notation is (.*)$")
 	public void thenItsNotationIs(String notation, String s) {
 		if (notation.equals("PREFIX")||notation.equals("POSTFIX")||notation.equals("INFIX")) {
-			op.notation = Notation.valueOf(notation);
+			op.acceptNotation(Notation.valueOf(notation));
 			assertEquals(s, op.toString());
 		}
 		else fail(notation + " is not a correct notation! ");
@@ -88,6 +88,29 @@ public class CalculatorSteps {
 		//add extra parameter to the operation
 		params = new ArrayList<>();
 		params.add(new MyNumber(val));
+		op.addMoreParams(params);
+	}
+
+	@When("I provide an expression containing an integer operation {string} with the following list of integer numbers")
+	public void whenIProvideAnExpressionContainingAnIntegerOperationWithTheFollowingListOfNumbers(String s, List<List<String>> numbers) {
+		params = new ArrayList<>();
+		ArrayList<Expression> internalParams = new ArrayList<>();
+		Operation internalOp = null;
+		// Since we only use one line of input, we use get(0) to take the first line of the list,
+		// which is a list of strings, that we will manually convert to integers:
+		numbers.get(0).forEach(n -> internalParams.add(new MyNumber(Integer.parseInt(n))));
+		try {
+			switch (s) {
+				case "+"	->	internalOp = new Plus(internalParams);
+				case "-"	->	internalOp = new Minus(internalParams);
+				case "*"	->	internalOp = new Times(internalParams);
+				case "/"	->	internalOp = new Divides(internalParams);
+				default		->	fail();
+			}
+		} catch (IllegalConstruction e) {
+			fail();
+		}
+		params.add(internalOp);
 		op.addMoreParams(params);
 	}
 

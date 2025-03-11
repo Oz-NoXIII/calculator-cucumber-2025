@@ -44,8 +44,14 @@ public final class Divides extends Operation
      * The actual computation of the (binary) arithmetic division of two integers
      * @param l The first integer
      * @param r The second integer that should divide the first
-     * @return The integer that is the result of the division
+     * @return The integer that is the result of the division, or Integer.MIN_VALUE if the second integer is 0
      */
-  public int op(int l, int r)
-    { return (l/r); }
+    public int op(int l, int r) throws ArithmeticException {
+        try {
+            return (l / r);
+        }
+        catch (ArithmeticException e) {
+            return Integer.MIN_VALUE;
+        }
+    }
 }

@@ -3,6 +3,7 @@ package calculator;
 //Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+import visitor.Counter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,8 @@ class TestOperation {
 		List<Expression> params3 = Arrays.asList(new Plus(params1), new Minus(params2), new MyNumber(7));
 		o = new Divides(params3);
 		o2 = new Divides(params3);
+		o.accept(new Counter());
+		o2.accept(new Counter());
 	}
 
 	@Test

@@ -14,7 +14,9 @@ public class Evaluator extends Visitor {
     /**
      * Default constructor of the class. Does not initialise anything.
      */
-    public Evaluator() {}
+    public Evaluator() {
+        // nothing to initialise
+    }
 
     /** The result of the evaluation will be stored in this private variable */
     private int computedValue;
@@ -40,11 +42,11 @@ public class Evaluator extends Visitor {
     public void visit(Operation o) {
         ArrayList<Integer> evaluatedArgs = new ArrayList<>();
         //first loop to recursively evaluate each subexpression
-        for(Expression a:o.args) {
+        for(Expression a: o.getArgs()) {
             a.accept(this);
             evaluatedArgs.add(computedValue);
         }
-        //second loop to accumulate all the evaluated subresults
+        //second loop to accumulate all the evaluated sub results
         int temp = evaluatedArgs.get(0);
         int max = evaluatedArgs.size();
         for(int counter=1; counter<max; counter++) {

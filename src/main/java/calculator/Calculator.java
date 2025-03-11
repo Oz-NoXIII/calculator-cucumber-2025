@@ -1,10 +1,11 @@
 package calculator;
 
+import visitor.Counter;
 import visitor.Evaluator;
 
 /**
  * This class represents the core logic of a Calculator.
- * It can be used to print and evaluate artihmetic expressions.
+ * It can be used to print and evaluate arithmetic expressions.
  *
  * @author tommens
  */
@@ -14,9 +15,8 @@ public class Calculator {
      * Default constructor of the class.
      * Does nothing since the class does not have any variables that need to be initialised.
      */
-    public Calculator() {}
-
-    /*
+    public Calculator() {
+        /*
      For the moment the calculator only contains a print method and an eval method
      It would be useful to complete this with a read method, so that we would be able
      to implement a full REPL cycle (Read-Eval-Print loop) such as in Scheme, Python, R and other languages.
@@ -24,6 +24,9 @@ public class Calculator {
      into an arithmetic expression:
      public Expression read(String s)
     */
+    }
+
+
 
     /**
      * Prints an arithmetic expression provided as input parameter.
@@ -31,8 +34,9 @@ public class Calculator {
      * @see #printExpressionDetails(Expression) 
      */
     public void print(Expression e) {
+        int result = eval(e);
         System.out.println("The result of evaluating expression " + e);
-        System.out.println("is: " + eval(e) + ".");
+        System.out.println("is: " + (result == Integer.MIN_VALUE ? "NaN" : result) + ".");
         System.out.println();
     }
 
@@ -43,6 +47,7 @@ public class Calculator {
      */
     public void printExpressionDetails(Expression e) {
         print(e);
+        e.accept(new Counter());
         System.out.print("It contains " + e.countDepth() + " levels of nested expressions, ");
         System.out.print(e.countOps() + " operations");
         System.out.println(" and " + e.countNbs() + " numbers.");

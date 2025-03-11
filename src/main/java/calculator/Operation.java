@@ -1,5 +1,6 @@
 package calculator;
 
+import visitor.Printer;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public abstract class Operation implements Expression
 	/**
 	 * The list of expressions passed as an argument to the arithmetic operation
 	 */
-	public List<Expression> args;
+	private final List<Expression> args;
 
   /**
    * The character used to represent the arithmetic operation (e.g. "+", "*")
@@ -30,11 +31,15 @@ public abstract class Operation implements Expression
    */
   protected int neutral;
 
-  /**
+	/**
    * The notation used to render operations as strings.
    * By default, the infix notation will be used.
    */
-  public Notation notation = Notation.INFIX;
+  private Notation notation = Notation.INFIX;
+
+	private int depth = 0;
+	private int ops = 0;
+	private int nbs = 0;
 
   /** It is not allowed to construct an operation with a null list of expressions.
    * Note that it is allowed to have an EMPTY list of arguments.
@@ -106,39 +111,50 @@ public abstract class Operation implements Expression
 
 	/**
 	 * Count the depth of an arithmetic expression recursively,
-	 * using Java 8 functional programming capabilities (streams, maps, etc...)
 	 *
  	 * @return	The depth of the arithmetic expression being traversed
 	 */
 	public final int countDepth() {
-	    // use of Java 8 functional programming capabilities
-	return 1 + args.stream()
-			   .mapToInt(Expression::countDepth)
-			   .max()
-			   .getAsInt();  
+		return depth;
   }
 
 	/**
 	 * Count the number of operations contained in an arithmetic expression recursively,
-	 * using Java 8 functional programming capabilities (streams, maps, etc...)
 	 *
 	 * @return	The number of operations contained in an arithmetic expression being traversed
 	 */
 	public final int countOps() {
-	    // use of Java 8 functional programming capabilities
-	return 1 + args.stream()
-			   .mapToInt(Expression::countOps)
-			   .reduce(Integer::sum)
-			   .getAsInt();
+		return ops;
   }
 
   public final int countNbs() {
-	    // use of Java 8 functional programming capabilities
-	return args.stream()
-			   .mapToInt(Expression::countNbs)
-			   .reduce(Integer::sum)
-			   .getAsInt();  
+		return nbs;
   }
+
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+
+	public void setOps(int ops) {
+		this.ops = ops;
+	}
+
+	public void setNbs(int nbs) {
+		this.nbs = nbs;
+	}
+
+	public Notation getNotation() {
+		return notation;
+	}
+
+	public void setNotation(Notation notation) {
+		this.notation = notation;
+	}
+
+	public void acceptNotation(Notation notation) {
+		this.notation = notation;
+		this.accept(new Printer(notation));
+	}
 
   /**
    * Convert the arithmetic operation into a String to allow it to be printed,
@@ -162,21 +178,21 @@ public abstract class Operation implements Expression
 	   Stream<String> s = args.stream().map(Object::toString);
 	   return switch (n) {
 		   case INFIX -> "( " +
-				   s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2).get() +
+				   s.reduce((s1, s2) -> s1 + " " + symbol + " " + s2).orElse("") +
 				   " )";
 		   case PREFIX -> symbol + " " +
 				   "(" +
-				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+				   s.reduce((s1, s2) -> s1 + ", " + s2).orElse("") +
 				   ")";
 		   case POSTFIX -> "(" +
-				   s.reduce((s1, s2) -> s1 + ", " + s2).get() +
+				   s.reduce((s1, s2) -> s1 + ", " + s2).orElse("") +
 				   ")" +
 				   " " + symbol;
 	   };
   }
 
 	/**
-	 * Two operation objects are equal if their list of arguments is equal and they correspond to the same operation.
+	 * Two operation objects are equal if their list of arguments is equal, and they correspond to the same operation.
 	 *
 	 * @param o	The object to compare with
 	 * @return	The result of the equality comparison
@@ -202,11 +218,11 @@ public abstract class Operation implements Expression
 	@Override
 	public int hashCode()
 	{
-		int result = 5, prime = 31;
+		int result = 5;
+		int prime = 31;
 		result = prime * result + neutral;
 		result = prime * result + symbol.hashCode();
 		result = prime * result + args.hashCode();
 		return result;
 	}
-
 }

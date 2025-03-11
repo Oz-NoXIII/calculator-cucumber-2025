@@ -36,6 +36,16 @@ Feature: Integer Arithmetic Expressions
     And I provide a second number 5
     Then the operation evaluates to 1
 
+  Scenario Outline: Dividing by zero
+    Given an integer operation '/'
+    When I provide a first number 5
+    And I provide a second number 0
+    Then the operation evaluates to <NaN>
+
+    Examples:
+      |NaN|
+      |-2147483648|
+
   Scenario: Printing the sum of two integer numbers
     Given the sum of two numbers 8 and 6
     Then its INFIX notation is ( 8 + 6 )
@@ -91,3 +101,33 @@ Feature: Integer Arithmetic Expressions
       | "-" | 8| 5|     3|
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
+
+  Scenario Outline: Evaluating composite expressions with a hierarchy depth higher than one
+    Given an integer operation <op>
+    When I provide an expression containing an integer operation <op2> with the following list of integer numbers
+      | 3 | 4 | 5 |
+    And I provide an expression containing an integer operation <op3> with the following list of integer numbers
+      | 5 | 3 |
+    And I provide a last number 5
+    Then the operation evaluates to <result>
+    Examples:
+      | op | op2 | op3 | result |
+      | "+"  |  "+"  |  "+" | 25 |
+      | "-"  |  "-"  |  "-" | -13 |
+      | "*"  |  "*"  |  "*" | 4500 |
+      | "/"  |  "/"  |  "/" | 0 |
+      | "/"  |  "+"  |  "-" | 1 |
+
+  Scenario Outline: Testing the output notation of composite expressions with a hierarchy depth higher than one
+    Given an integer operation "<op>"
+    When I provide an expression containing an integer operation "<op2>" with the following list of integer numbers
+      | 3 | 4 | 5 |
+    And I provide an expression containing an integer operation "<op3>" with the following list of integer numbers
+      | 5 | 3 |
+    And I provide a last number 5
+    Then its INFIX notation is ( ( 3 <op2> 4 <op2> 5 ) <op> ( 5 <op3> 3 ) <op> 5 )
+    And its PREFIX notation is <op> (<op2> (3, 4, 5), <op3> (5, 3), 5)
+    And its POSTFIX notation is ((3, 4, 5) <op2>, (5, 3) <op3>, 5) <op>
+    Examples:
+      | op | op2 | op3 |
+      | /  |  +  |  - |

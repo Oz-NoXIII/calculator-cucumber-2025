@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import visitor.Counter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
@@ -26,6 +28,7 @@ class TestCounting {
     @Test
     void testNumberCounting() {
         e = new MyNumber(value1);
+        e.accept(new Counter());
         //test whether a number has zero depth (i.e. no nested expressions)
         assertEquals( 0, e.countDepth());
         //test whether a number contains zero operations
@@ -38,7 +41,6 @@ class TestCounting {
     @ValueSource(strings = {"*", "+", "/", "-"})
     void testOperationCounting(String symbol) {
         List<Expression> params = Arrays.asList(new MyNumber(value1),new MyNumber(value2));
-        //Operation op = null;
         try {
             //construct another type of operation depending on the input value
             //of the parameterised test
@@ -49,9 +51,10 @@ class TestCounting {
                 case "/"	->	e = new Divides(params);
                 default		->	fail();
             }
-        } catch (IllegalConstruction e) {
+        } catch (IllegalConstruction exception) {
             fail();
         }
+        e.accept(new Counter());
         //test whether a binary operation has depth 1
         assertEquals(1, e.countDepth(),"counting depth of an Operation");
         //test whether a binary operation contains 1 operation
