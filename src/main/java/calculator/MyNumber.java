@@ -43,7 +43,7 @@ public class MyNumber implements Expression
      *
      * @return The depth of a number expression
      */
-  public int countDepth() {
+  public int getDepth() {
 	  return 0;
   }
 
@@ -51,7 +51,7 @@ public class MyNumber implements Expression
      *
      * @return The number of operations contained in a number expression
      */
-  public int countOps() {
+  public int getOps() {
 	  return 0;
   }
 
@@ -59,7 +59,7 @@ public class MyNumber implements Expression
      *
      * @return The number of numbers contained in  a number expression
      */
-  public int countNbs() {
+  public int getNbs() {
 	  return 1;
   }
 

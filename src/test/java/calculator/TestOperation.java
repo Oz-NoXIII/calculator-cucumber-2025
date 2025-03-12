@@ -30,18 +30,18 @@ class TestOperation {
 	}
 
 	@Test
-	void testCountDepth() {
-		assertEquals(2, o.countDepth());
+	void testGetDepth() {
+		assertEquals(2, o.getDepth());
 	}
 
 	@Test
-	void testCountOps() {
-		assertEquals(3, o.countOps());
+	void testGetOps() {
+		assertEquals(3, o.getOps());
 	}
 
 	@Test
-	void testCountNbs() {
-		assertEquals(Integer.valueOf(6), o.countNbs());
+	void testGetNbs() {
+		assertEquals(Integer.valueOf(6), o.getNbs());
 	}
 
 }

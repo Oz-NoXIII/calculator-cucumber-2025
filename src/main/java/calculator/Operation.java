@@ -110,24 +110,32 @@ public abstract class Operation implements Expression
   }
 
 	/**
-	 * Count the depth of an arithmetic expression recursively,
+	 * Get the depth of an arithmetic expression,
+	 * Disclaimer: a Counter need to be accepted before calling this method.
 	 *
  	 * @return	The depth of the arithmetic expression being traversed
 	 */
-	public final int countDepth() {
+	public final int getDepth() {
 		return depth;
   }
 
 	/**
-	 * Count the number of operations contained in an arithmetic expression recursively,
+	 * Get the number of operations contained in an arithmetic expression,
+	 * Disclaimer: a Counter need to be accepted before calling this method.
 	 *
-	 * @return	The number of operations contained in an arithmetic expression being traversed
+	 * @return	The number of operations contained in an arithmetic expression
 	 */
-	public final int countOps() {
+	public final int getOps() {
 		return ops;
   }
 
-  public final int countNbs() {
+	/**
+	 * Get the number of numbers contained in an arithmetic expression,
+	 * Disclaimer: a Counter need to be accepted before calling this method.
+	 *
+	 * @return The number of numbers contained in an arithmetic expression
+	 */
+  public final int getNbs() {
 		return nbs;
   }
 

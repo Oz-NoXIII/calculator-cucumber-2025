@@ -18,7 +18,7 @@ public class Counter extends Visitor {
     @Override
     public void visit(Operation o) {
         int maxDepth = o.getArgs().stream()
-                .mapToInt(Expression::countDepth)
+                .mapToInt(Expression::getDepth)
                 .max()
                 .orElse(0);
         depth = Math.max(depth, maxDepth + 1);
