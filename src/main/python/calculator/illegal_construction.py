@@ -1,0 +1,2 @@
+class IllegalConstruction(Exception):
+	pass
