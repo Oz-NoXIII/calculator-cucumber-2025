@@ -1,9 +1,7 @@
-from re import match
-
-from pyxtension.streams import stream
 from abc import ABC, abstractmethod
 
-from src.main.python.calculator import notation
+from pyxtension.streams import stream
+
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
 from src.main.python.visitor.printer import Printer
@@ -12,22 +10,20 @@ from src.main.python.visitor.printer import Printer
 class Operation(ABC):
 
 	@abstractmethod
-	def __init__(self, elist, n):
+	def __init__(self, elist, n=None):
 		if elist is None:
 			raise IllegalConstruction("the list of expressions is None")
 		else:
 			self.__args = elist
+		self.__notation = Notation.INFIX
 		if n is not None:
 			self.__notation = n
+		self.accept_notation(self.__notation)
 		self.__depth = 0
 		self.__ops = 0
 		self.__nbs = 0
 		self._symbol = ""
 		self._neutral = None
-
-	@abstractmethod
-	def __init__(self, elist):
-		self.__init__(elist, None)
 
 	@abstractmethod
 	def op(self, l, r):
@@ -41,9 +37,9 @@ class Operation(ABC):
 			a.accept(visitor)
 		visitor.visit_operation(self)
 
-	def accept_notation(self, notation):
-		self.__notation = notation
-		self.accept(Printer(notation))
+	def accept_notation(self, n):
+		self.__notation = n
+		self.accept(Printer(n))
 
 	def get_args(self):
 		return self.__args
@@ -76,21 +72,21 @@ class Operation(ABC):
 		s = stream(self.__args).map(str)
 		match self.__notation:
 			case Notation.INFIX:
-				return ("( " +
-						s.reduce(lambda s1, s2: s1 + " " + self._symbol + " " + s2).orElse("") +
-						" )")
+				return (f"( "
+						f"{s.reduce(lambda s1, s2: f"{s1} {self._symbol} {s2}")}"
+						f" )")
 
 			case Notation.PREFIX:
-				return (self._symbol + " " +
-						"(" +
-						s.reduce(lambda s1, s2:s1 + ", " + s2).orElse("") +
-						")")
+				return (f"{self._symbol} "
+						f"("
+						f"{s.reduce(lambda s1, s2: f"{s1}, {s2}")}"
+						f")")
 
 			case Notation.POSTFIX:
-				return ("(" +
-						s.reduce(lambda s1, s2:s1 + ", " + s2).orElse("") +
-						")" +
-						" " + self._symbol)
+				return (f"("
+						f"{s.reduce(lambda s1, s2: s1 + ", " + s2)}"
+						f")"
+						f" {self._symbol}")
 
 
 	def __eq__(self, other):
@@ -98,7 +94,7 @@ class Operation(ABC):
 			return False
 		if self == other:
 			return True
-		# getClass() instead of instanceof() because an addition is not the same as a multiplication
+		# __class__ instead of instanceof because an addition is not the same as a multiplication
 		if self.__class__ != other.__class__:
 			return False
 		if self.__args != other.get_args():

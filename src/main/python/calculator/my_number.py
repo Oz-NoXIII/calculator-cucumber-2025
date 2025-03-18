@@ -5,9 +5,6 @@ class MyNumber(Expression):
 	"""
 	MyNumber is a concrete class that represents arithmetic numbers,
 	which are a special kind of Expressions, just like operations are.
-
-	:see: src.main.python.calculator.expression.Expression
-	:see: src.main.python.calculator.operation.Operation
 	"""
 
 	def __init__(self, value):

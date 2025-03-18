@@ -4,9 +4,6 @@ class Expression(ABC):
 	"""
 	Expression is an abstract class that represents arithmetic expressions.
 	It has two concrete subclasses Operation and MyNumber.
-
-	:see: operation.Operation
-	:see: my_number.MyNumber
 	"""
 
 	@abstractmethod

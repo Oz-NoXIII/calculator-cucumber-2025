@@ -6,3 +6,5 @@
 .idea/*
 
 /target
+/src/main/python/calculator/__pycache__
+/src/main/python/visitor/__pycache__
