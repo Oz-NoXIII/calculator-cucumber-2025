@@ -43,17 +43,17 @@ class TestNotation(unittest.TestCase):
 		params = [MyNumber(value1), MyNumber(value2)]
 
 		try:
-			# Construct the operation based on the symbol
-			if symbol == "+":
-				op = Plus(params)
-			elif symbol == "-":
-				op = Minus(params)
-			elif symbol == "*":
-				op = Times(params)
-			elif symbol == "/":
-				op = Divides(params)
-			else:
-				self.fail("Invalid symbol")
+			match symbol:
+				case "+":
+					op = Plus(params)
+				case "-":
+					op = Minus(params)
+				case "*":
+					op = Times(params)
+				case "/":
+					op = Divides(params)
+				case _:
+					self.fail("Invalid symbol")
 		except IllegalConstruction as e:
 			self.fail(f"IllegalConstruction exception: {e}")
 

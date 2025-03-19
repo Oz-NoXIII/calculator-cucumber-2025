@@ -62,6 +62,8 @@ class MyNumber(Expression):
 		:param other: The other number to compare
 		:return: True if the numbers are equal, False otherwise
 		"""
+		if not isinstance(other, MyNumber):
+			return False
 		return self.value == other.value
 
 	def __hash__(self):
