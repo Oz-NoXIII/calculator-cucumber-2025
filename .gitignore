@@ -8,3 +8,4 @@
 /target
 /src/main/python/calculator/__pycache__
 /src/main/python/visitor/__pycache__
+/src/test/python/calculator/__pycache__

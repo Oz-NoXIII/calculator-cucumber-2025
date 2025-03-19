@@ -92,13 +92,14 @@ class Operation(ABC):
 	def __eq__(self, other):
 		if other is None:
 			return False
-		if self == other:
-			return True
 		# __class__ instead of instanceof because an addition is not the same as a multiplication
 		if self.__class__ != other.__class__:
 			return False
 		if self.__args != other.get_args():
 			return False
 		return True
+
+	def __hash__(self):
+		return hash((self._neutral, hash(self._symbol), tuple(self.__args)))
 
 

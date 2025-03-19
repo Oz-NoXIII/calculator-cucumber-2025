@@ -63,3 +63,10 @@ class MyNumber(Expression):
 		:return: True if the numbers are equal, False otherwise
 		"""
 		return self.value == other.value
+
+	def __hash__(self):
+		"""
+		Generate a hash code for the number
+		:return: The hash code for the number
+		"""
+		return hash(self.value)
