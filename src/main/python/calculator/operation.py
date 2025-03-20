@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from pyxtension.streams import stream
-
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
 from src.main.python.visitor.printer import Printer
@@ -69,24 +67,25 @@ class Operation(ABC):
 		self.__nbs = nbs
 
 	def __str__(self):
-		s = stream(self.__args).map(str)
+		args_str = [str(arg) for arg in self.__args]
 		match self.__notation:
 			case Notation.INFIX:
-				return (f"( "
-						f"{s.reduce(lambda s1, s2: f"{s1} {self._symbol} {s2}")}"
-						f" )")
+				if not args_str:
+					return "()"
+				combined = f" {self._symbol} ".join(args_str)
+				return f"( {combined} )"
 
 			case Notation.PREFIX:
-				return (f"{self._symbol} "
-						f"("
-						f"{s.reduce(lambda s1, s2: f"{s1}, {s2}")}"
-						f")")
+				if not args_str:
+					return f"{self._symbol} ("
+				combined = ", ".join(args_str)
+				return f"{self._symbol} ({combined})"
 
 			case Notation.POSTFIX:
-				return (f"("
-						f"{s.reduce(lambda s1, s2: s1 + ", " + s2)}"
-						f")"
-						f" {self._symbol}")
+				if not args_str:
+					return f"() {self._symbol}"
+				combined = ", ".join(args_str)
+				return f"({combined}) {self._symbol}"
 
 
 	def __eq__(self, other):

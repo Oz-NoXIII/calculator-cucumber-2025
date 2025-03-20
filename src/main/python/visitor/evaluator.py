@@ -6,7 +6,7 @@ class Evaluator(Visitor):
 		self.__computed_value = None
 
 	def get_result(self):
-		return self.__computed_value
+		return self.__computed_value if self.__computed_value == self.__computed_value else "NaN"
 
 	def visit_my_number(self, number):
 		self.__computed_value = number.get_value()
@@ -16,7 +16,8 @@ class Evaluator(Visitor):
 		for arg in o.get_args():
 			arg.accept(self)
 			evaluated_args.append(self.__computed_value)
-
+		if not evaluated_args:
+			print(o)
 		temp = evaluated_args[0]
 		maximum = len(evaluated_args)
 		for counter in range(1, maximum):
