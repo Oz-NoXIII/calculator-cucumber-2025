@@ -63,7 +63,7 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 ## Acknowledgments
 
 * Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
-* 
+
 
 # Calculating arithmetic expressions (after migration to python)
 
