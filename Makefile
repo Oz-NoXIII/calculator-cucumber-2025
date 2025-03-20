@@ -13,6 +13,7 @@ ifeq ($(OS),Windows_NT)
     DEL = del /s /q
     MKDIR = mkdir
     CHECK_DIR = if exist
+    PYTHON_EXE = python.exe
 else
     # Linux/MacOS
     SOURCE_VENV = . $(VENV)/bin/activate
@@ -20,6 +21,7 @@ else
     DEL = find . -type f -name "*.pyc" -delete
     MKDIR = mkdir -p
     CHECK_DIR = test -d
+    PYTHON_EXE = python
 endif
 
 # Directories
@@ -42,7 +44,7 @@ install:
 	@echo "Setting up virtual environment..."
 	$(PYTHON) -m venv $(VENV)
 	@echo "Installing dependencies..."
-	$(SOURCE_VENV) && python.exe -m pip install --upgrade pip
+	$(SOURCE_VENV) && $(PYTHON_EXE) -m pip install --upgrade pip
 	$(SOURCE_VENV) && $(PIP) install -r requirements.txt
 
 # Run all tests (unit and behavior)
@@ -56,7 +58,7 @@ unit-test:
 # Run behavior tests (behave)
 behave-test:
 	@echo "Running behavior tests..."
-	$(SOURCE_VENV) && $(RM) allure-results
+	$(SOURCE_VENV) && $(RM) allure-results 2> /dev/null || echo "No allure-results directory to delete, skipping..."
 	$(SOURCE_VENV) && $(BEHAVE)
 	$(SOURCE_VENV) && $(ALLURE) serve
 
@@ -86,11 +88,11 @@ ifeq ($(OS),Windows_NT)
 	@if exist *.pyc ( $(DEL) *.pyc ) else ( echo "No .pyc files to delete, skipping..." )
 	@if exist __pycache__ ( $(RM) __pycache__ ) else ( echo "__pycache__ not found, skipping..." )
 else
-	@$(CHECK_DIR_CMD) $(VENV) && $(RM) $(VENV) || echo "venv not found, skipping..."
-	@$(CHECK_DIR_CMD) dist && $(RM) dist || echo "dist not found, skipping..."
-	@$(CHECK_DIR_CMD) build && $(RM) build || echo "build not found, skipping..."
+	@$(CHECK_DIR) $(VENV) && $(RM) $(VENV) || echo "venv not found, skipping..."
+	@$(CHECK_DIR) dist && $(RM) dist || echo "dist not found, skipping..."
+	@$(CHECK_DIR) build && $(RM) build || echo "build not found, skipping..."
 	@$(DEL) || echo "No .pyc files to delete, skipping..."
-	@$(CHECK_DIR_CMD) __pycache__ && $(RM) __pycache__ || echo "__pycache__ not found, skipping..."
+	@$(CHECK_DIR) __pycache__ && $(RM) __pycache__ || echo "__pycache__ not found, skipping..."
 endif
 
 # Run the application
