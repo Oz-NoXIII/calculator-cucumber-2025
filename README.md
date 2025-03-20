@@ -6,7 +6,7 @@ Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
 
 
-# Calculating arithmetic expressions
+# Calculating arithmetic expressions (before migration to python)
 
 ## About
 
@@ -63,3 +63,38 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 ## Acknowledgments
 
 * Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
+* 
+
+# Calculating arithmetic expressions (after migration to python)
+
+## About
+
+This repository contains Java code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
+It also contains Python code of the same calculator, which will be more developed in the future than the Java code.
+
+### Unit testing and BDD
+
+*  All tests can be found in the src\test\python directory. They serve as executable documentation of the source code.
+*  The source code is accompanied by a set of unittest unit tests. These tests can be written and run in the usual way. If you are not familiar with unit testing , please refer to https://docs.python.org/fr/3/library/unittest.html#.
+*  The source code is accompanied by a set of Behave BDD scenarios. If you are not familiar with Behave and BDD, please refer to https://behave.readthedocs.io/en/stable/index.html#.
+The BDD scenarios are specified as .feature files in the src\test\python\features directory. Some classes defined in src\test\python\features\steps take care of converting these scenarios to executable tests.
+
+### Prerequisites
+
+*  You will need to have a running version of python 3 on your machine in order to be able to execute this code.
+*  You will need to have a running version of pip and make, since this project is accompanied by a Makefile file so that it can be installed, compiled, tested and run using make.
+*  You will need to have a running version of allure, since behave does not generate html reports by default. (https://github.com/allure-framework/allure2)
+
+### Installation and testing instructions
+
+*  Upon first use of the code in this repository, you will need to run "make clean install" to ensure that all required project dependencies (e.g. for python, unittest, behave, allure, and make) will be downloaded and installed locally.
+*  You can execute the main of the Python code using "make run" 
+*  The tests and BDD scenarios are executable with Maven using "make test"
+
+### Test coverage and Doc reporting (not yet implemented)
+
+
+## Licence
+
+[This code is available under the GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/) (GPLv3)
+

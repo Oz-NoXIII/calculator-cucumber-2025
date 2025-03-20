@@ -1,0 +1,8 @@
+behave~=1.2.6
+parameterized~=0.9.0
+behave~=1.2.6
+allure-behave~=2.13.5
+streamerate~=1.1.2
+flake8
+black
+isort

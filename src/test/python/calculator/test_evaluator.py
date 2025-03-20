@@ -37,7 +37,7 @@ class TestEvaluator(unittest.TestCase):
 				case "*":
 					self.assertEqual(self.value1 * self.value2, calculator.eval_expression(Times(params)))
 				case "/":
-					self.assertEqual(self.value1 / self.value2, calculator.eval_expression(Divides(params)))
+					self.assertEqual(self.value1 // self.value2, calculator.eval_expression(Divides(params)))
 				case _:
 					self.fail("Invalid symbol")
 		except IllegalConstruction as e:
