@@ -28,6 +28,10 @@ class Divides(Operation):
 		:return: The integer that is the result of the division, or NaN if the second integer is 0
 		"""
 		try:
-			return l // r
+			return l / r
 		except ZeroDivisionError:
+			if isinstance(l,float) and r ==0.0:
+				if l ==0.0:
+					return float("nan")
+				return float('inf') if l >0 else float('-inf')
 			return float("nan")

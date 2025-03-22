@@ -1,5 +1,5 @@
 from src.main.python.calculator.expression import Expression
-
+import math
 
 class MyNumber(Expression):
 	"""
@@ -12,6 +12,8 @@ class MyNumber(Expression):
 		Constructor for MyNumber
 		:param value: The value of the number
 		"""
+		if not isinstance(value, (int, float)):
+			raise TypeError("value must be an integer or a float")
 		self.value = value
 
 	def accept(self, visitor):
@@ -54,7 +56,7 @@ class MyNumber(Expression):
 		Convert the number to a string
 		:return: The number as a string
 		"""
-		return str(self.value)
+		return str(int(self.value)) if self.value == int(self.value) else str(self.value)
 
 	def __eq__(self, other):
 		"""
@@ -64,7 +66,7 @@ class MyNumber(Expression):
 		"""
 		if not isinstance(other, MyNumber):
 			return False
-		return self.value == other.value
+		return math.isclose(self.value, other.value) if isinstance(self.value, float) or isinstance(other.value,float) else self.value == other.value
 
 	def __hash__(self):
 		"""
