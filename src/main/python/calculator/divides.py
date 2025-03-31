@@ -27,11 +27,22 @@ class Divides(Operation):
 		:param r: The second integer that should divide the first
 		:return: The integer that is the result of the division, or NaN if the second integer is 0
 		"""
+
 		try:
+
+			if isinstance(r, complex) and r.real == 0 and r.imag == 0:
+				raise ZeroDivisionError("Division by zero complex number")
+			elif r == 0:
+				raise ZeroDivisionError("Division by zero")
+
 			return l / r
 		except ZeroDivisionError:
-			if isinstance(l,float) and r ==0.0:
-				if l ==0.0:
+
+			if isinstance(l, float):
+				if l == 0.0:
 					return float("nan")
-				return float('inf') if l >0 else float('-inf')
-			return float("nan")
+				return float("inf") if l > 0 else float("-inf")
+			elif isinstance(l, complex):
+				return complex(float("nan"), float("nan"))
+			else:
+				return float("nan")
