@@ -44,24 +44,26 @@ class LinearEquationSolver:
             self.coeff_matrix.append(row)
             self.constants.append(const)
 
+
     def solve(self):
-        self.parse_equations()
-        A = np.array(self.coeff_matrix, dtype=int)
-        b = np.array(self.constants, dtype=int)
-
         try:
+            self.parse_equations()
+            A = np.array(self.coeff_matrix, dtype=int)
+            b = np.array(self.constants, dtype=int)
             solution = np.linalg.solve(A, b)
-        except np.linalg.LinAlgError as e:
-            return f"Error: {str(e)}"
 
-        result = {}
-        for var, val in zip(self.variables, solution):
-    # Si c’est (presque) un entier, on arrondit à l'entier
-            if np.isclose(val, round(val), atol=1e-8):
-                result[var] = int(round(val))
-            else:
-                result[var] = round(val, 2)
-        return result
+            result = {}
+            for var, val in zip(self.variables, solution):
+                if np.isclose(val, round(val), atol=1e-8):
+                    result[var] = int(round(val))
+                else:
+                    result[var] = round(val, 2)
+            return result
+
+        except np.linalg.LinAlgError:
+            return "Incompatible system: no unique solution (none or infinite)."
+        except Exception as e:
+            return f"Syntax or analysis errors: {e}"
 
 
 if __name__ == "__main__":
