@@ -6,6 +6,7 @@ from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.times import Times
+from src.main.python.calculator.linear_solver import LinearEquationSolver
 
 try:
 	e = MyNumber(8)
@@ -36,6 +37,20 @@ try:
 	e = Divides(params4, Notation.POSTFIX)
 	calculator.print_result(e)
 	calculator.eval_expression(e)
+
+
+	print("Solving system of linear equations:")
+	equations = [
+		"2x+3y=5",
+		"3x-4z=7",
+		"y+z=10"
+	]
+
+	solver = LinearEquationSolver(equations)
+	solution = solver.solve()
+	print("Solution:")
+	print(solution)
+
 
 except IllegalConstruction as e:
 	print("cannot create operations without parameters")

@@ -5,6 +5,7 @@ from parameterized import parameterized
 from src.main.python.calculator import calculator
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
+from src.main.python.calculator.linear_solver import LinearEquationSolver
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
@@ -65,6 +66,33 @@ class TestEvaluator(unittest.TestCase):
 		self.assertTrue(math.isinf(result))
 		self.assertGreater(result, 0)
 
+	def test_linear_unique_solution(self):
+		equations = [
+			"2x+3y=5",
+			"3x-4z=7",
+			"y+z=10"
+		]
+		solver = LinearEquationSolver(equations)
+		solution = solver.solve()
+		self.assertEqual(solution, {'x': 121, 'y': -79, 'z': 89})
+
+	def test_linear_infinite_solutions(self):
+		equations = [
+			"x + y = 2",
+			"2x + 2y = 4"
+		]
+		solver = LinearEquationSolver(equations)
+		result = solver.solve()
+		self.assertTrue(isinstance(result, str) and "singular" in result.lower())
+
+	def test_linear_no_solution(self):
+		equations = [
+			"x + y = 2",
+			"x + y = 3"
+		]
+		solver = LinearEquationSolver(equations)
+		result = solver.solve()
+		self.assertTrue(isinstance(result, str) and "singular" in result.lower())
 
 
 
