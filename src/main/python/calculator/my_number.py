@@ -1,7 +1,8 @@
 from src.main.python.calculator.expression import Expression
+from src.main.python.calculator.number_value import NumberValue
 import math
 
-class MyNumber(Expression):
+class MyNumber(Expression, NumberValue):
 	"""
 	MyNumber is a concrete class that represents arithmetic numbers,
 	which are a special kind of Expressions, just like operations are.
