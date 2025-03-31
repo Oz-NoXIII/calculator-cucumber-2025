@@ -1,7 +1,5 @@
 import numpy as np
 import re
-from src.main.python.calculator.my_number import MyNumber
-from src.main.python.calculator.expression import Expression
 
 class LinearEquationSolver:
 
