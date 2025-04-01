@@ -62,18 +62,11 @@ jobs:
           path: reports/*.xml
           reporter: jest-junit
 
-      - id: coverage-badge
-        name: Generate Coverage Badge
-        uses: cicirello/pycov-badge-generator@v1.0.0
-        with:
-          coverage-file: coverage.xml
-          output-badge: coverage.svg
-          output-summary: coverage-summary.json
-
       - id: log-coverage-percentage
         name: Log coverage percentage
         run: |
-          echo "Coverage = ${{ steps.coverage-badge.outputs.coverage }}%"
+          coverage_percent=$(coverage report | grep 'TOTAL' | awk '{print $4}')
+          echo "Coverage = ${coverage_percent}%"
 
       - id: upload-coverage-report
         name: Upload coverage report
