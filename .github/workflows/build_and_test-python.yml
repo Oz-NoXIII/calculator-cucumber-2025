@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    name: Building
+    name: Building & Testing
     runs-on: ubuntu-latest
 
     permissions:
@@ -42,18 +42,6 @@ jobs:
           pip install -r requirements.txt
           pip install coverage
 
-  test:
-    name: Testing
-    runs-on: ubuntu-latest
-
-    needs: build
-
-    permissions:
-      # need write permissions for publishing the test report
-      checks: write
-      contents: write
-
-    steps:
       - id: run-tests
         name: Run tests with unittest and BDD scenarios
         run: |
