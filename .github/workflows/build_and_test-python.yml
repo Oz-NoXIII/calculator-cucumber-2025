@@ -1,0 +1,109 @@
+# Build and test a Java project with Maven, and compute and report test coverage
+
+name: Python CI with Unittest
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Building, Testing and Quality Analysis
+    runs-on: ubuntu-latest
+
+    permissions:
+      # need write permissions for publishing the test report
+      checks: write
+      contents: write
+
+    steps:
+      - id: checkout
+        name: checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - id: setup-python
+        name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - id: update-pip
+        name: Update pip to the latest version
+        run: python -m pip install --upgrade pip
+
+      - id: install-dependencies
+        name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - id: install-coverage
+        name: Install code coverage tool
+        run: pip install coverage
+
+      - id: run-tests
+        name: Run tests with unittest and BDD scenarios
+        run: |
+          make test
+          coverage run -m unittest discover -s tests
+          coverage xml
+          coverage report
+
+      - id: publish-test-report
+        name: Publish Test Report
+        if: ${{ always() }}
+        uses: dorny/test-reporter@v1
+        with:
+          name: Unittest Results
+          path: reports/*.xml
+          reporter: jest-junit
+
+      - id: coverage-badge
+        name: Generate Coverage Badge
+        uses: cicirello/pycov-badge-generator@v1.0.0
+        with:
+          coverage-file: coverage.xml
+          output-badge: coverage.svg
+          output-summary: coverage-summary.json
+
+      - id: log-coverage-percentage
+        name: Log coverage percentage
+        run: |
+          echo "Coverage = ${{ steps.coverage-badge.outputs.coverage }}%"
+
+      - id: upload-coverage-report
+        name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+#    - name: Commit and push the svg badges and the json coverage summary (if it changed)
+#      uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9.1.4
+#      with:
+#        default_author: github_actions
+#        message: 'commit coverage badge and summary'
+#        add: '*.svg *.json'
+#
+#    - name: Upload JaCoCo coverage report
+#      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
+#      with:
+#        name: jacoco-report
+#        path: target/site/jacoco/
+#
+#    - name: Comment on PR with coverage percentages
+#      if: ${{ github.event_name == 'pull_request' }}
+#      run: |
+#        REPORT=$(<.github/badges/coverage-summary.json)
+#        COVERAGE=$(jq -r '.coverage' <<< "$REPORT")%
+#        BRANCHES=$(jq -r '.branches' <<< "$REPORT")%
+#        NEWLINE=$'\n'
+#        BODY="## Test Coverage Summary ${NEWLINE}* __Coverage:__ ${COVERAGE}${NEWLINE}* __Branches:__ ${BRANCHES}"
+#        gh pr comment ${{github.event.pull_request.number}} -b "${BODY}"
+#      continue-on-error: true
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
