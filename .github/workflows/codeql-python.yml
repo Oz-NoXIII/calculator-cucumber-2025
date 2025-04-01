@@ -2,7 +2,7 @@ name: CodeQL security analysis for Python
 
 on:
   push:
-    branches: [master]
+    branches: [master, test_coverall]
   pull_request:
     branches: [master]
   schedule:
