@@ -57,7 +57,7 @@ jobs:
       - id: run-tests
         name: Run tests with unittest and BDD scenarios
         run: |
-          make test
+          make test-action
           coverage run -m unittest discover -s tests
           coverage xml
           coverage report
