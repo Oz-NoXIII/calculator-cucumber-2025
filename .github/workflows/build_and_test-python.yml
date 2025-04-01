@@ -26,22 +26,14 @@ jobs:
         name: checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - id: install-homebrew
-        name: Install Homebrew
-        run: |
-          if ! command -v brew &>/dev/null; then
-            echo "Homebrew not installed. Installation in progress..."
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            # Add Homebrew to PATH
-            echo "export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin" >> ~/.bashrc
-            source ~/.bashrc
-          else
-            echo "Homebrew already installed"
-          fi
-
       - id: install-allure
-        name: Install Allure
-        run: brew install allure
+        name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: build/allure-results
 
       - id: setup-python
         name: Set up Python
