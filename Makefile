@@ -35,6 +35,7 @@ UNITTEST = $(PYTHON) -m unittest
 FLAKE8 = flake8
 BLACK = black
 ISORT = isort
+COVERAGE = coverage
 
 # Default target
 all: install test
@@ -48,10 +49,10 @@ install:
 	$(SOURCE_VENV) && $(PIP) install -r requirements.txt
 
 # Run all tests (unit and behavior) and serve the report
-test: unit-test behave-test serve-behave-test
+test: unit-test behave-test serve-behave-test test-coverage
 
 # Run all tests (unit and behavior)
-test-action: unit-test behave-test
+test-action: unit-test behave-test test-coverage
 
 # Run unit tests
 unit-test:
@@ -67,6 +68,11 @@ behave-test:
 # Run behavior tests (behave)
 serve-behave-test:
 	$(SOURCE_VENV) && $(ALLURE) serve
+
+test-coverage:
+	@echo "Running unit tests with coverage..."
+	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(SOURCE_VENV) && $(COVERAGE) report -m
 
 # Lint the code
 lint:

@@ -36,19 +36,14 @@ jobs:
       - id: install-venv
         name: Install virtual environment
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install coverage
+          make install
+          
 
       - id: run-tests
         name: Run tests with unittest and BDD scenarios
         run: |
           make test-action
-          coverage run -m unittest discover -s tests
-          coverage xml
-          coverage report
+
 
       - name: Load test report history
         uses: actions/checkout@v3
@@ -64,7 +59,7 @@ jobs:
         with:
           gh_pages: gh-pages
           allure_history: allure-history
-          allure_results: build/allure-results
+          allure_results: allure-results
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
@@ -73,3 +68,11 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+
+      - name: Upload coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          coveralls --service=github-actions
+
+
