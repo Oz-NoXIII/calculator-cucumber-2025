@@ -29,4 +29,4 @@ class  Times(Operation):
 		:return: The integer that is the result of the multiplication
 		"""
 
-		return l * r
+		return l.multiply(r)

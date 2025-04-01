@@ -7,7 +7,12 @@ from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
+from fractions import Fraction
+from src.main.python.calculator.rational_number import RationalNumber
+from src.main.python.visitor.evaluator import Evaluator
+
 
 @given('I initialise a calculator')
 def step_initialize_calculator(context):
@@ -113,3 +118,77 @@ def then_the_operation_evaluates_to(context, expected):
     if expected != 'NaN':
         expected = int(expected)
     assert expected == result, f"Expected {expected}, found {result}"
+
+
+@given("the following list of rational numbers")
+def given_list_of_rational_numbers(context):
+    context.params = []
+    for value in context.table.headings:
+        num, denom = map(int, value.split("/"))
+        context.params.append(RationalNumber(num, denom))
+
+@when("I perform an addition")
+def when_i_perform_an_addition(context):
+    context.op = Plus(context.params)
+
+@then("the rational is evaluates to {expected}")
+def then_operation_evaluates_to_fraction(context, expected):
+    result = calculator.eval_expression(context.op)
+    expected_fraction = Fraction(expected)
+    assert result == expected_fraction, f"Expected {expected_fraction}, got {result}"
+
+@given('a real number {value:g}')
+def step_given_real_number_1(context, value):
+    context.num1 = MyNumber(RealNumber(value))
+
+@given('another real number {value:g}')
+def step_given_real_number_2(context, value):
+    context.num2 = MyNumber(RealNumber(value))
+
+
+@when('I divide them')
+def step_when_divide_them(context):
+    expr = Divides([context.num1, context.num2], Notation.INFIX)
+    visitor = Evaluator()
+    expr.accept(visitor)
+    context.result = visitor.get_result()
+
+
+@then('the result should be positive infinity')
+def step_then_result_inf(context):
+    assert context.result.is_infinite()
+    assert context.result.get_value() > 0
+
+@then('the result should be NaN')
+def step_then_result_nan(context):
+    assert context.result.is_nan()
+
+@when('I add them')
+def step_when_add(context):
+    expr = Plus([context.num1, context.num2], Notation.INFIX)
+    visitor = Evaluator()
+    expr.accept(visitor)
+    context.result = visitor.get_result()
+
+
+@when('I subtract them')
+def step_when_subtract(context):
+    expr = Minus([context.num1, context.num2], Notation.INFIX)
+    visitor = Evaluator()
+    expr.accept(visitor)
+    context.result = visitor.get_result()
+
+
+@when('I multiply them')
+def step_when_multiply(context):
+    expr = Times([context.num1, context.num2], Notation.INFIX)
+    visitor = Evaluator()
+    expr.accept(visitor)
+    context.result = visitor.get_result()
+
+
+@then('the result should be {expected:g}')
+def step_then_result(context, expected):
+    actual = context.result.get_value()
+    assert abs(actual - expected) < 1e-9, f"Expected {expected}, got {actual}"
+

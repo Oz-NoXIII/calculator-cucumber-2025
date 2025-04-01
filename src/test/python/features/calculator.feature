@@ -127,3 +127,41 @@ Feature: Integer Arithmetic Expressions
     Examples:
       | op | op2 | op3 |
       | /  |  +  |  - |
+
+
+  Scenario: Adding two real numbers
+    Given a real number 3.5
+    And another real number 1.2
+    When I add them
+    Then the result should be 4.7
+
+  Scenario: Dividing by zero (positive number)
+    Given a real number 1.0
+    And another real number 0.0
+    When I divide them
+    Then the result should be positive infinity
+
+
+  Scenario: Subtracting two real numbers
+    Given a real number 5.0
+    And another real number 2.5
+    When I subtract them
+    Then the result should be 2.5
+
+  Scenario: Multiplying two real numbers
+    Given a real number 3.0
+    And another real number 2.0
+    When I multiply them
+    Then the result should be 6.0
+
+  Scenario: Adding a negative real number
+    Given a real number -1.5
+    And another real number 2.0
+    When I add them
+    Then the result should be 0.5
+
+  Scenario: Multiplying by zero
+    Given a real number 0.0
+    And another real number 99.99
+    When I multiply them
+    Then the result should be 0.0

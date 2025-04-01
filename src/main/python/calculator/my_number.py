@@ -1,20 +1,18 @@
 from src.main.python.calculator.expression import Expression
-from src.main.python.calculator.number_value import NumberValue
-import math
+from src.main.python.calculator.number_type import NumberType
 
-class MyNumber(Expression, NumberValue):
+
+class MyNumber(Expression):
 	"""
 	MyNumber is a concrete class that represents arithmetic numbers,
 	which are a special kind of Expressions, just like operations are.
 	"""
 
-	def __init__(self, value):
+	def __init__(self, value:NumberType):
 		"""
 		Constructor for MyNumber
 		:param value: The value of the number
 		"""
-		if not isinstance(value, (int, float)):
-			raise TypeError("value must be an integer or a float")
 		self.value = value
 
 	def accept(self, visitor):
@@ -50,6 +48,13 @@ class MyNumber(Expression, NumberValue):
 		Get the value of the number
 		:return: The value of the number
 		"""
+		return self.value.get_value()
+
+	def get_number_type(self):
+		"""
+		Get the type of the number
+		:return: The type of the number
+		"""
 		return self.value
 
 	def __str__(self):
@@ -57,7 +62,7 @@ class MyNumber(Expression, NumberValue):
 		Convert the number to a string
 		:return: The number as a string
 		"""
-		return str(int(self.value)) if self.value == int(self.value) else str(self.value)
+		return str(self.value)
 
 	def __eq__(self, other):
 		"""
@@ -67,7 +72,7 @@ class MyNumber(Expression, NumberValue):
 		"""
 		if not isinstance(other, MyNumber):
 			return False
-		return math.isclose(self.value, other.value) if isinstance(self.value, float) or isinstance(other.value,float) else self.value == other.value
+		return  self.value == other.value
 
 	def __hash__(self):
 		"""

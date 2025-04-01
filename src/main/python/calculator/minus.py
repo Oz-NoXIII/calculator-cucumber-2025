@@ -29,4 +29,4 @@ class Minus(Operation):
 		:return: The integer that is the result of the subtraction
 		"""
 
-		return l - r
+		return l.subtract(r)

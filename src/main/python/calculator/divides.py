@@ -1,3 +1,4 @@
+from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.operation import Operation
 
 
@@ -22,27 +23,10 @@ class Divides(Operation):
 
 	def op(self, l, r):
 		"""
-		The actual computation of the (binary) arithmetic division of two integers
-		:param l: The first integer
-		:param r: The second integer that should divide the first
-		:return: The integer that is the result of the division, or NaN if the second integer is 0
-		"""
+        Delegates the division to the internal NumberType logic of MyNumber.
+        :param l: Left operand
+        :param r: Right operand
+        :return: MyNumber wrapping the result of l / r using NumberType division
+        """
+		return l.divide(r)
 
-		try:
-
-			if isinstance(r, complex) and r.real == 0 and r.imag == 0:
-				raise ZeroDivisionError("Division by zero complex number")
-			elif r == 0:
-				raise ZeroDivisionError("Division by zero")
-
-			return l / r
-		except ZeroDivisionError:
-
-			if isinstance(l, float):
-				if l == 0.0:
-					return float("nan")
-				return float("inf") if l > 0 else float("-inf")
-			elif isinstance(l, complex):
-				return complex(float("nan"), float("nan"))
-			else:
-				return float("nan")

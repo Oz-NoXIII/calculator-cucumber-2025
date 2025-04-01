@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class NumberValue(ABC):
+class NumberType(ABC):
     """
     Interface for all supported numeric types (integers, reals, rationals, complexes, etc.).
     """
@@ -10,13 +10,30 @@ class NumberValue(ABC):
         pass
 
     @abstractmethod
+    def add(self, other):
+        pass
+
+    @abstractmethod
+    def subtract(self, other):
+        pass
+
+    @abstractmethod
+    def multiply(self, other):
+        pass
+
+    @abstractmethod
+    def divide(self, other):
+        pass
+
+    @abstractmethod
     def __str__(self):
         pass
 
     @abstractmethod
-    def __eq__(self, other):
+    def is_nan(self):
         pass
 
     @abstractmethod
-    def __hash__(self):
+    def is_infinite(self):
         pass
+
