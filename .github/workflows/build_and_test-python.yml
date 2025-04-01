@@ -1,6 +1,6 @@
-# Build and test a Java project with Maven, and compute and report test coverage
+# Build and test a Python project and compute and report test coverage
 
-name: Python CI with Unittest
+name: Python CI
 
 on:
   push:
@@ -53,11 +53,7 @@ jobs:
       - id: publish-test-report
         name: Publish Test Report
         if: ${{ always() }}
-        uses: dorny/test-reporter@v1
-        with:
-          name: Unittest Results
-          path: reports/*.xml
-          reporter: jest-junit
+        uses: scacap/action-surefire-report@a2911bd1a4412ec18dde2d93b1758b3e56d2a880 # v1.8.0
 
       - id: log-coverage-percentage
         name: Log coverage percentage
