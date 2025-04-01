@@ -47,8 +47,11 @@ install:
 	$(SOURCE_VENV) && $(PYTHON_EXE) -m pip install --upgrade pip
 	$(SOURCE_VENV) && $(PIP) install -r requirements.txt
 
+# Run all tests (unit and behavior) and serve the report
+test: unit-test behave-test serve-behave-test
+
 # Run all tests (unit and behavior)
-test: unit-test behave-test
+test-action: unit-test behave-test
 
 # Run unit tests
 unit-test:
@@ -60,6 +63,9 @@ behave-test:
 	@echo "Running behavior tests..."
 	$(SOURCE_VENV) && $(RM) allure-results 2> /dev/null || echo "No allure-results directory to delete, skipping..."
 	$(SOURCE_VENV) && $(BEHAVE)
+
+# Run behavior tests (behave)
+serve-behave-test:
 	$(SOURCE_VENV) && $(ALLURE) serve
 
 # Lint the code
