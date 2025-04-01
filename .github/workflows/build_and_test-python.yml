@@ -26,6 +26,14 @@ jobs:
         name: checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      - id: setup-brew
+        name: Setup Homebrew
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - id: install-allure
+        name: Install Allure
+        run: brew install allure
+
       - id: setup-python
         name: Set up Python
         uses: actions/setup-python@v5
