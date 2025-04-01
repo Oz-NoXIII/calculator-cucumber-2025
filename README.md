@@ -1,6 +1,6 @@
-[![](https://img.shields.io/github/v/release/University-of-Mons/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/University-of-Mons/calculator-cucumber/releases/latest)
+<!---[![](https://img.shields.io/github/v/release/Oz-NoXIII/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/Oz-NoXIII/calculator-cucumber/releases/latest)
 
-Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
+Code quality: ![Maven Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
 
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
@@ -63,14 +63,17 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 ## Acknowledgments
 
 * Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
+--->
+
+<!-- Code quality: ![Python Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/build_and_test-python.yml/badge.svg -->
 
 
-# Calculating arithmetic expressions (after migration to python)
+
+# Calculating arithmetic expressions (Python)
 
 ## About
 
 This repository contains Java code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
-It also contains Python code of the same calculator, which will be more developed in the future than the Java code.
 
 ### Unit testing and BDD
 
@@ -94,7 +97,25 @@ The BDD scenarios are specified as .feature files in the src\test\python\feature
 ### Test coverage and Doc reporting (not yet implemented)
 
 
+## Versions
+
+We use [SemVer](http://semver.org/) for semantic versioning. For the versions available, see the [tags on this repository](https://github.com/Oz-NoXIII/calculator-cucumber-2025/tags). 
+
+## Contributors
+
+* Tom Mens
+* Gauvain Devillez @GauvainD
+* Arsène Mujyabwami
+* Ingrid Fondja Tchoumba
+* Nicolas Delplanque
+* Xavier Delabie
+
 ## Licence
 
+
 [This code is available under the GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/) (GPLv3)
+
+## Acknowledgments
+
+* Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
 
