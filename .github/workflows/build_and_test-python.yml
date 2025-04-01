@@ -26,13 +26,18 @@ jobs:
         name: checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - id: setup-brew
-        name: Setup Homebrew
+      - id: install-homebrew
+        name: Install Homebrew
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          echo >> /home/runner/.bashrc
-          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          if ! command -v brew &>/dev/null; then
+            echo "Homebrew not installed. Installation in progress..."
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            # Add Homebrew to PATH
+            echo "export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin" >> ~/.bashrc
+            source ~/.bashrc
+          else
+            echo "Homebrew already installed"
+          fi
 
       - id: install-allure
         name: Install Allure
