@@ -1,7 +1,11 @@
 # Makefile compatible Windows et Linux
 
 # Variables
-PYTHON := $(shell command -v python || command -v python3 || command -v py || echo python)
+ifeq ($(GITHUB_ACTIONS),true)
+    PYTHON := python
+else
+    PYTHON := $(shell command -v python || command -v python3 || command -v py || echo python)
+endif
 PIP = pip
 VENV = venv
 
