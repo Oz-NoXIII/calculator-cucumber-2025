@@ -36,13 +36,13 @@ jobs:
       - id: install-venv
         name: Install virtual environment
         run: |
-          make install
+          make venv-install
           
 
       - id: run-tests
         name: Run tests with unittest and BDD scenarios
         run: |
-          make test-action
+          make venv-test-action
 
 
       - name: Load test report history
