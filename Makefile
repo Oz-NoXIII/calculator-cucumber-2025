@@ -59,9 +59,9 @@ venv-install:
 	$(SOURCE_VENV) && $(PIP) install -r requirements.txt
 
 # Run all tests (unit and behavior) and serve the report
-test: unit-test behave-test test-coverage
+test: unit-test behave-test test-coverage serve-behave-test
 
-venv-test: venv-unit-test venv-behave-test venv-serve-behave-test venv-test-coverage
+venv-test: venv-unit-test venv-behave-test venv-test-coverage venv-serve-behave-test
 
 # Run all tests (unit and behavior)
 test-action: unit-test behave-test test-coverage-xml
