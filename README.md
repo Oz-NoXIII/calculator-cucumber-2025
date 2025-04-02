@@ -65,9 +65,9 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 * Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
 --->
 
-<!-- Code quality: ![Python Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/build_and_test-python.yml/badge.svg -->
+Code quality: ![Python CI](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/build_and_test-python.yml/badge.svg?branch=test_coverall)
 
-
+Test Coverage: [![Coverage Status](https://coveralls.io/repos/github/Oz-NoXIII/calculator-cucumber-2025/badge.svg?branch=test_coverall)](https://coveralls.io/github/Oz-NoXIII/calculator-cucumber-2025?branch=test_coverall)
 
 # Calculating arithmetic expressions (Python)
 
@@ -90,12 +90,22 @@ The BDD scenarios are specified as .feature files in the src\test\python\feature
 
 ### Installation and testing instructions
 
-*  Upon first use of the code in this repository, you will need to run "make clean install" to ensure that all required project dependencies (e.g. for python, unittest, behave, allure, and make) will be downloaded and installed locally.
-*  You can execute the main of the Python code using "make run" 
-*  The tests and BDD scenarios are executable with Maven using "make test"
+#### In a venv
 
-### Test coverage and Doc reporting (not yet implemented)
+* Upon first use of the code in this repository in your virtual environment, you will need to run "mvn clean install" to ensure that all required project dependencies (e.g. for python, unittest, behave, and make) will be downloaded and installed locally. 
+* The tests and BDD scenarios are executable with Maven using "make test"
+* You can execute the main of the Python code using "make run" 
 
+
+#### Without your venv
+
+*  Upon first use of the code in this repository, you will need to run "make venv-clean venv-install" to ensure that all required project dependencies (e.g. for python, unittest, behave, allure, and make) will be downloaded and installed locally.
+*  The tests and BDD scenarios are executable with Maven using "make venv-test"
+*  You can execute the main of the Python code using "make venv-run" 
+
+### Test coverage and Doc reporting (not entirely implemented)
+
+*  In addition to testing the code, "make test" will also generate a test coverage report (in HTML format) using coverage. This test coverage is generated in htmlcov.
 
 ## Versions
 

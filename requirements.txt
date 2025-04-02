@@ -6,3 +6,5 @@ streamerate~=1.1.2
 flake8
 black
 isort
+coverage
+coveralls

@@ -11,3 +11,5 @@
 /src/test/python/calculator/__pycache__
 /allure-results
 /venv
+coverage.xml
+.coverage
