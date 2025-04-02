@@ -66,11 +66,11 @@ venv-test-action: venv-unit-test venv-behave-test venv-test-coverage-xml
 
 # Run unit tests
 unit-test:
-	@echo $(PYTHON)
 	@echo "Running unit tests..."
 	$(UNITTEST) discover -s $(TEST_PYTHON) -v
 
 venv-unit-test:
+	@echo $(PYTHON)
 	@echo "Running unit tests..."
 	$(SOURCE_VENV) && $(UNITTEST) discover -s $(TEST_PYTHON) -v
 
