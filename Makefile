@@ -72,7 +72,8 @@ serve-behave-test:
 test-coverage:
 	@echo "Running unit tests with coverage..."
 	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
-	$(SOURCE_VENV) && $(COVERAGE) report -m
+	$(SOURCE_VENV) && $(COVERAGE) report
+	$(SOURCE_VENV) && $(COVERAGE) xml
 
 # Lint the code
 lint:
