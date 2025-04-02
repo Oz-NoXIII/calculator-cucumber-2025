@@ -1,7 +1,7 @@
 # Makefile compatible Windows et Linux
 
 # Variables
-PYTHON := $(shell command -v python3 || command -v python || command -v py || echo python)
+PYTHON := python
 PIP = pip
 VENV = venv
 
