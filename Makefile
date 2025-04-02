@@ -74,7 +74,6 @@ unit-test:
 	$(UNITTEST) discover -s $(TEST_PYTHON) -v
 
 venv-unit-test:
-	@echo $(PYTHON)
 	@echo "Running unit tests..."
 	$(SOURCE_VENV) && $(UNITTEST) discover -s $(TEST_PYTHON) -v
 
@@ -184,12 +183,21 @@ endif
 # Run the application
 run:
 	@echo "Running the application..."
+ifeq ($(OS),Windows_NT)
 	set PYTHONPATH=. && $(PYTHON) src/main/python/calculator/main.py
+else
+	export PYTHONPATH=$(shell pwd) && $(PYTHON) src/main/python/calculator/main.py
+endif
 
 # Run the application
 venv-run:
 	@echo "Running the application..."
+ifeq ($(OS),Windows_NT)
 	$(SOURCE_VENV) && set PYTHONPATH=. && $(PYTHON) src/main/python/calculator/main.py
+else
+	$(SOURCE_VENV) && export PYTHONPATH=$(shell pwd) && $(PYTHON) src/main/python/calculator/main.py
+endif
+
 
 # Phony targets
 .PHONY: all install venv-install test venv-test test-action venv-test-action unit-test venv-unit-test behave-test venv-behave-test lint venv-lint format venv-format build venv-build clean venv-clean run venv-run serve-behave-test venv-serve-behave-test test-coverage venv-test-coverage test-coverage-xml venv-test-coverage-xml
