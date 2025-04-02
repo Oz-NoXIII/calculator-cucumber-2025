@@ -1,7 +1,7 @@
 # Makefile compatible Windows et Linux
 
 # Variables
-PYTHON := python
+PYTHON := $(shell command -v python || command -v python3 || command -v py || echo python)
 PIP = pip
 VENV = venv
 
@@ -66,6 +66,7 @@ venv-test-action: venv-unit-test venv-behave-test venv-test-coverage-xml
 
 # Run unit tests
 unit-test:
+	@echo $(PYTHON)
 	@echo "Running unit tests..."
 	$(UNITTEST) discover -s $(TEST_PYTHON) -v
 
