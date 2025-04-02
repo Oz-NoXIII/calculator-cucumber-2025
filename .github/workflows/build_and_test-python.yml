@@ -36,7 +36,7 @@ jobs:
       - id: install-venv
         name: Install virtual environment
         run: |
-          make venv-install
+          make venv-clean venv-install
           
 
       - id: run-tests
