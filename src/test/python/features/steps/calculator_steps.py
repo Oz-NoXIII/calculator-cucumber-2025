@@ -1,6 +1,7 @@
 from behave import given, when, then
 
 from src.main.python.calculator import calculator
+from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
@@ -266,3 +267,39 @@ def expected_fraction(context, expected):
     result = evaluator.get_result().get_value()
     expected_frac = Fraction(expected)
     assert result == expected_frac, f"Expected {expected_frac}, got {result}"
+
+def parse_complex(s):
+    s = s.replace('i', 'j')
+    return MyNumber(ComplexNumber.from_complex(complex(s)))
+
+@given('a complex number {value}')
+def step_given_c1(context, value):
+    context.num1 = parse_complex(value)
+
+@given('another complex number {value}')
+def step_given_c2(context, value):
+    context.num2 = parse_complex(value)
+
+@when('I get its modulus')
+def step_modulus(context):
+    context.result = context.num1.get_number_type().modulus()
+
+@when('I get its conjugate')
+def step_conjugate(context):
+    context.result = context.num1.get_number_type().conjugate()
+
+@when('I take its square root')
+def step_sqrt(context):
+    context.result = context.num1.get_number_type().sqrt()
+
+@then('the complex result should be {expected}')
+def step_result_complex(context, expected):
+    expected_c = complex(expected.replace('i', 'j'))
+    actual = context.result.get_value()
+    assert abs(actual.real - expected_c.real) < 1e-9
+    assert abs(actual.imag - expected_c.imag) < 1e-9
+
+@then('the real result should be {expected:g}')
+def step_check_real_result(context, expected):
+    expected = float(expected)
+    assert abs(context.result - expected) < 1e-9

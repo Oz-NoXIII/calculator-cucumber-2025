@@ -1,4 +1,5 @@
 import calculator
+from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
@@ -9,7 +10,7 @@ from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
-
+from src.main.python.visitor.evaluator import Evaluator
 
 try:
 	e = MyNumber(RealNumber(8))
@@ -71,6 +72,35 @@ try:
 	e_div_zero = Divides([r1, MyNumber(RationalNumber(0, 1))])
 	calculator.print_result(e_div_zero)
 	calculator.eval_expression(e_div_zero)
+
+	e = Plus([MyNumber(ComplexNumber(1, 1)), MyNumber(ComplexNumber(2, 3))])
+
+	calculator.print_result(e)
+	calculator.eval_expression(e)
+
+	e = Divides([MyNumber(ComplexNumber(2, 3)), MyNumber(ComplexNumber(1, -1))])
+	calculator.print_result(e)
+	calculator.eval_expression(e)
+
+	z = ComplexNumber(3, 4)  # 3 + 4i
+
+	# modulus: |z| = 5
+	mod_expr = z.modulus()
+	evaluator = Evaluator()
+	mod_result = evaluator.get_result()
+	print(f"Modulus of {z}: {mod_expr} ")
+
+	# conjugate: 3 - 4i
+	conj_expr = z.conjugate()
+	evaluator = Evaluator()
+	conj_result = evaluator.get_result()
+	print(f"Conjugate of {z}: {conj_expr} ")
+
+	# sqrt: sqrt(3+4i)
+	sqrt_expr = z.sqrt()
+	evaluator = Evaluator()
+	sqrt_result = evaluator.get_result()
+	print(f"Sqrt of {z}: {sqrt_expr}")
 
 
 

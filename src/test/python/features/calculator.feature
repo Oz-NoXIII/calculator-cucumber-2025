@@ -234,3 +234,49 @@ Feature: Integer Arithmetic Expressions
       | 1/2 | 1/2 | 1 |
     When I compute their sum
     Then the rational result should be 2/1
+
+  Scenario: Adding complex numbers
+    Given a complex number 2+3i
+    And another complex number 1-1i
+    When I add them
+    Then the complex result should be 3+2i
+
+  Scenario: Subtracting complex numbers
+    Given a complex number 5+2i
+    And another complex number 1+4i
+    When I subtract them
+    Then the complex result should be 4-2i
+
+  Scenario: Multiplying complex numbers
+    Given a complex number 1+2i
+    And another complex number 3+4i
+    When I multiply them
+    Then the complex result should be -5+10i
+
+  Scenario: Dividing complex numbers
+    Given a complex number 1+2i
+    And another complex number 3+4i
+    When I divide them
+    Then the complex result should be 0.44+0.08i
+
+  Scenario: Division of complex by zero
+    Given a complex number 1+2i
+    And another complex number 0+0i
+    When I divide them
+    Then the result should be NaN
+
+  Scenario: Getting the modulus of a complex number
+    Given a complex number 3+4i
+    When I get its modulus
+    Then the real result should be 5.0
+
+  Scenario: Getting the conjugate of a complex number
+    Given a complex number 2-3i
+    When I get its conjugate
+    Then the complex result should be 2+3i
+
+  Scenario: Square root of a complex number
+    Given a complex number -1+0i
+    When I take its square root
+    Then the complex result should be 0+1i
+
