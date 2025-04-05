@@ -1,51 +1,59 @@
+# test_real_number.py
 import unittest
 import math
+from src.main.python.calculator.real_number import RealNumber
 
-from src.main.python.calculator.my_number import MyNumber
-from src.main.python.calculator.plus import Plus
-from src.main.python.calculator.minus import Minus
-from src.main.python.calculator.times import Times
-from src.main.python.calculator.divides import Divides
+class TestRealNumber(unittest.TestCase):
 
-class TestRealNumbers(unittest.TestCase):
+    def test_create_real_number(self):
+        r = RealNumber(3.14)
+        self.assertEqual(r.get_value(), 3.14)
 
-    def test_my_number_accepts_float(self):
-        n = MyNumber(3.14)
-        self.assertIsInstance(n.get_value(), float)
-        self.assertEqual(n.get_value(), 3.14)
+    def test_add(self):
+        r1 = RealNumber(1.5)
+        r2 = RealNumber(2.5)
+        result = r1.add(r2)
+        self.assertAlmostEqual(result.get_value(), 4.0)
 
-    def test_addition_with_floats(self):
-        e = Plus([MyNumber(1.1), MyNumber(2.2)])
-        result = e.op(1.1, 2.2)
-        self.assertTrue(math.isclose(result, 3.3, rel_tol=1e-9))
+    def test_subtract(self):
+        r1 = RealNumber(5.0)
+        r2 = RealNumber(1.5)
+        result = r1.subtract(r2)
+        self.assertAlmostEqual(result.get_value(), 3.5)
 
-    def test_subtraction_with_floats(self):
-        e = Minus([MyNumber(5.5), MyNumber(2.2)])
-        result = e.op(5.5, 2.2)
-        self.assertTrue(math.isclose(result, 3.3, rel_tol=1e-9))
+    def test_multiply(self):
+        r1 = RealNumber(2.0)
+        r2 = RealNumber(3.0)
+        result = r1.multiply(r2)
+        self.assertAlmostEqual(result.get_value(), 6.0)
 
-    def test_multiplication_with_floats(self):
-        e = Times([MyNumber(2.0), MyNumber(3.5)])
-        result = e.op(2.0, 3.5)
-        self.assertEqual(result, 7.0)
+    def test_divide_normal(self):
+        r1 = RealNumber(10.0)
+        r2 = RealNumber(2.0)
+        result = r1.divide(r2)
+        self.assertAlmostEqual(result.get_value(), 5.0)
 
-    def test_division_with_floats(self):
-        e = Divides([MyNumber(7.0), MyNumber(2.0)])
-        result = e.op(7.0, 2.0)
-        self.assertEqual(result, 3.5)
+    def test_divide_by_zero_positive(self):
+        r1 = RealNumber(1.0)
+        r2 = RealNumber(0.0)
+        result = r1.divide(r2)
+        self.assertTrue(math.isinf(result.get_value()))
+        self.assertGreater(result.get_value(), 0)
 
-    def test_division_by_zero_float(self):
-        e = Divides([MyNumber(1.0), MyNumber(0.0)])
-        result = e.op(1.0, 0.0)
-        self.assertTrue(math.isinf(result))
-        self.assertGreater(result, 0)
+    def test_divide_zero_by_zero(self):
+        r1 = RealNumber(0.0)
+        r2 = RealNumber(0.0)
+        result = r1.divide(r2)
+        self.assertFalse(math.isnan(result.get_value()))
 
-        result_neg = e.op(-1.0, 0.0)
-        self.assertTrue(math.isinf(result_neg))
-        self.assertLess(result_neg, 0)
+    def test_is_nan_and_is_infinite(self):
+        r_nan = RealNumber(float("nan"))
+        r_inf = RealNumber(float("inf"))
+        self.assertTrue(r_nan.is_nan())
+        self.assertFalse(r_nan.is_infinite())
+        self.assertTrue(r_inf.is_infinite())
+        self.assertFalse(r_inf.is_nan())
 
-        result_nan = e.op(0.0, 0.0)
-        self.assertTrue(math.isnan(result_nan))
 
 if __name__ == '__main__':
     unittest.main()
