@@ -30,4 +30,4 @@ class Plus(Operation):
 		:return: The integer that is the result of the addition
 		"""
 
-		return l + r
+		return l.add(r)

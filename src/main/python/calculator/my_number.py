@@ -1,4 +1,6 @@
 from src.main.python.calculator.expression import Expression
+from src.main.python.calculator.number_type import NumberType
+
 
 
 class MyNumber(Expression):
@@ -7,7 +9,7 @@ class MyNumber(Expression):
 	which are a special kind of Expressions, just like operations are.
 	"""
 
-	def __init__(self, value):
+	def __init__(self, value:NumberType):
 		"""
 		Constructor for MyNumber
 		:param value: The value of the number
@@ -47,6 +49,13 @@ class MyNumber(Expression):
 		Get the value of the number
 		:return: The value of the number
 		"""
+		return self.value.get_value()
+
+	def get_number_type(self):
+		"""
+		Get the type of the number
+		:return: The type of the number
+		"""
 		return self.value
 
 	def __str__(self):
@@ -64,7 +73,7 @@ class MyNumber(Expression):
 		"""
 		if not isinstance(other, MyNumber):
 			return False
-		return self.value == other.value
+		return  self.value == other.value
 
 	def __hash__(self):
 		"""
