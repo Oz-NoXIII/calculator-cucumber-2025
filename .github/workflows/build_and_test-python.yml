@@ -4,9 +4,7 @@ name: Python CI
 
 on:
   push:
-    branches: [master, test_coverall]
   pull_request:
-    branches: [master]
 
 permissions:
   contents: read
