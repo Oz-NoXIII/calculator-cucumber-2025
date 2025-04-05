@@ -6,6 +6,7 @@ from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 
@@ -55,6 +56,21 @@ try:
 	e = Times([sub1, sub2, sub3])
 	calculator.print_expression_details(e)
 	calculator.eval_expression(e)
+
+	params_rational = [MyNumber(RationalNumber(1, 2)), MyNumber(RationalNumber(1, 3))]
+	e = Plus(params_rational)
+	calculator.print_result(e)
+	calculator.eval_expression(e)
+
+	params_rational2 = [MyNumber(RationalNumber(3, 4)), MyNumber(RationalNumber(1, 4))]
+	e = Divides(params_rational2)
+	calculator.print_result(e)
+	calculator.eval_expression(e)
+
+	r1 = MyNumber(RationalNumber(1, 2))
+	e_div_zero = Divides([r1, MyNumber(RationalNumber(0, 1))])
+	calculator.print_result(e_div_zero)
+	calculator.eval_expression(e_div_zero)
 
 
 

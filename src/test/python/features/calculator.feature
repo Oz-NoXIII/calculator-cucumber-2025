@@ -165,3 +165,72 @@ Feature: Integer Arithmetic Expressions
     And another real number 99.99
     When I multiply them
     Then the result should be 0.0
+
+
+  Scenario: Adding two rational numbers
+    Given a rational number 1/2
+    And another rational number 1/4
+    When I add them
+    Then the rational result should be 3/4
+
+  Scenario: Dividing by zero
+    Given a rational number 1/2
+    And another rational number 0/1
+    When I divide them
+    Then the result should be NaN
+
+  Scenario: Subtracting two rational numbers
+    Given a rational number 3/4
+    And another rational number 1/4
+    When I subtract them
+    Then the rational result should be 1/2
+
+  Scenario: Multiplying two rational numbers
+    Given a rational number 2/3
+    And another rational number 3/5
+    When I multiply them
+    Then the rational result should be 2/5
+
+  Scenario: Dividing two rational numbers
+    Given a rational number 1/2
+    And another rational number 1/4
+    When I divide them
+    Then the rational result should be 2/1
+
+  Scenario: Adding rational and integer
+    Given a rational number 3/4
+    And an integer number 1
+    When I add them
+    Then the rational result should be 7/4
+
+  Scenario: Simplification of rational result
+    Given a rational number 3/6
+    And another rational number 3/6
+    When I add them
+    Then the rational result should be 1/1
+
+  Scenario: Adding a list of rational numbers
+    Given the following list of rational numbers
+      | 1/2 | 1/3 | 1/6 |
+    When I compute their sum
+    Then the rational result should be 1/1
+
+  Scenario: Multiplying a list of rational numbers
+    Given the following list of rational numbers
+      | 2/3 | 3/5 | 5/4 |
+    When I compute their product
+    Then the rational result should be 1/2
+
+  Scenario: Advanced composition
+    Given a rational expression first using + with the list
+      | 1/2 | 1/2 |
+    And a rational expression second using - with the list
+      | 1/1 | 1/2 |
+    When I combine expressions first,second with *
+    Then the rational result should be 1/2
+
+  Scenario: Mixing integers and rationals in a list
+    Given the following mixed list of rational and integer numbers
+      | 1/2 | 1/2 | 1 |
+    When I compute their sum
+    Then the rational result should be 2/1
