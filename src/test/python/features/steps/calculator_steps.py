@@ -3,6 +3,7 @@ from behave import given, when, then
 from src.main.python.calculator import calculator
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
+from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
@@ -39,15 +40,15 @@ def given_an_integer_operation(context, string):
 @given("the following list of integer numbers")
 def given_the_following_list_of_integer_numbers(context):
     for value in context.table.headings:
-        context.params.append(MyNumber(int(value)))
+        context.params.append(MyNumber(IntegerNumber(int(value))))
         print(f"value = {value}")
     context.op = None
 
 @given("the sum of two numbers {n1:d} and {n2:d}")
 def given_the_sum_of_two_numbers(context, n1, n2):
     try:
-        params = [MyNumber(n1), MyNumber(n2)]
-        context.op = Plus([MyNumber(n1), MyNumber(n2)])
+        params = [MyNumber(IntegerNumber(n1)), MyNumber(IntegerNumber(n2))]
+        context.op = Plus([MyNumber(IntegerNumber(n1)), MyNumber(IntegerNumber(n2))])
     except IllegalConstruction as e:
         assert False, str(e)
 
@@ -67,14 +68,14 @@ def then_its_notation_is(context, notation, expected):
 
 @when("I provide a {name} number {value:d}")
 def when_i_provide_a_number(context, name, value):
-    params = [MyNumber(value)]
+    params = [MyNumber(IntegerNumber(value))]
     context.op.add_more_params(params)
 
 @when('I provide an expression containing an integer operation "{operation}" with the following list of integer numbers')
 def when_i_provide_an_expression_containing_an_integer_operation_with_the_following_list_of_integer_numbers(context, operation):
     internal_params = []
     for value in context.table.headings:
-        internal_params.append(MyNumber(int(value)))
+        internal_params.append(MyNumber(IntegerNumber(int(value))))
     try:
         match operation:
             case "+":
@@ -108,16 +109,21 @@ def then_the_operation_is(context, operation, expected):
             case _:
                 assert False, "Invalid operation result type"
         result = calculator.eval_expression(op)
-        assert expected == result, f"Expected {expected}, found {result}"
+        assert expected == result.get_value(), f"Expected {expected}, found {result.get_value()}"
     except IllegalConstruction as e:
         assert False, str(e)
 
 @then("the operation evaluates to {expected}")
 def then_the_operation_evaluates_to(context, expected):
     result = calculator.eval_expression(context.op)
-    if expected != 'NaN':
+    if expected == "NaN":
+        assert result.is_nan(), "Expected NaN, but got a value"
+    else:
         expected = int(expected)
-    assert expected == result, f"Expected {expected}, found {result}"
+        actual = result.get_value() if hasattr(result, "get_value") else result
+        assert expected == actual, f"Expected {expected}, found {actual}"
+
+
 
 
 @given("the following list of rational numbers")

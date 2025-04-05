@@ -27,14 +27,17 @@ class Evaluator(Visitor):
 			temp = o.op(temp, evaluated_args[counter])
 		self.__computed_value = temp"""
 		#-------
+
 		args = o.get_args()
 		# Support only binary for now, extendable to n-ary
-		self.stack = []
+		evaluated_args = []
 		for arg in args:
 			arg.accept(self)
+			evaluated_args.append(self.stack.pop())
 
 		# Start folding from the left
-		result = self.stack.pop(0)
-		for operand in self.stack:
+		result = evaluated_args[0]
+		for operand in evaluated_args[1:]:
 			result = o.op(result, operand)
-		self.stack = [result]
+
+		self.stack.append(result)

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
 from src.main.python.visitor.printer import Printer
-from src.main.python.calculator.number_value import NumberValue
+from src.main.python.calculator.number_type import NumberType
 
 
 class Operation(ABC):
@@ -25,7 +25,7 @@ class Operation(ABC):
 		self._neutral = None
 
 	@abstractmethod
-	def op(self, l: NumberValue, r: NumberValue):
+	def op(self, l: NumberType, r: NumberType):
 		pass
 
 	def add_more_params(self, params):
