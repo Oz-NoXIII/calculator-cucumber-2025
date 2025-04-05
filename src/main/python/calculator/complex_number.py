@@ -1,7 +1,7 @@
 from src.main.python.calculator.expression import Expression
-from src.main.python.calculator.number_value import NumberValue
+from src.main.python.calculator.number_type import NumberType
 
-class ComplexNumber(Expression, NumberValue):
+class ComplexNumber(Expression, NumberType):
     """
     Represents a complex number (a + bi).
     """

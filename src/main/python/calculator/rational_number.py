@@ -1,8 +1,10 @@
+from abc import ABC
+
 from src.main.python.calculator.expression import Expression
-from src.main.python.calculator.number_value import NumberValue
+from src.main.python.calculator.number_type import NumberType
 from fractions import Fraction
 
-class RationalNumber(Expression, NumberValue):
+class RationalNumber(Expression, NumberType, ABC):
     """
     Represent a rational number as an exact fraction.
     """

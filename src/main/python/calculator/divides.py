@@ -1,4 +1,3 @@
-from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.operation import Operation
 
 

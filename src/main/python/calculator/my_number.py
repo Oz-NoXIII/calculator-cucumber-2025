@@ -2,6 +2,7 @@ from src.main.python.calculator.expression import Expression
 from src.main.python.calculator.number_type import NumberType
 
 
+
 class MyNumber(Expression):
 	"""
 	MyNumber is a concrete class that represents arithmetic numbers,

@@ -1,6 +1,6 @@
-[![](https://img.shields.io/github/v/release/University-of-Mons/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/University-of-Mons/calculator-cucumber/releases/latest)
+<!---[![](https://img.shields.io/github/v/release/Oz-NoXIII/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/Oz-NoXIII/calculator-cucumber/releases/latest)
 
-Code quality: ![Maven Build](https://github.com/University-of-Mons/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
+Code quality: ![Maven Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
 
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
@@ -63,14 +63,17 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 ## Acknowledgments
 
 * Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
+--->
 
+Code quality: ![Python CI](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/build_and_test-python.yml/badge.svg?branch=test_coverall)
 
-# Calculating arithmetic expressions (after migration to python)
+Test Coverage: [![Coverage Status](https://coveralls.io/repos/github/Oz-NoXIII/calculator-cucumber-2025/badge.svg?branch=test_coverall)](https://coveralls.io/github/Oz-NoXIII/calculator-cucumber-2025?branch=test_coverall)
+
+# Calculating arithmetic expressions (Python)
 
 ## About
 
 This repository contains Java code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
-It also contains Python code of the same calculator, which will be more developed in the future than the Java code.
 
 ### Unit testing and BDD
 
@@ -87,14 +90,42 @@ The BDD scenarios are specified as .feature files in the src\test\python\feature
 
 ### Installation and testing instructions
 
-*  Upon first use of the code in this repository, you will need to run "make clean install" to ensure that all required project dependencies (e.g. for python, unittest, behave, allure, and make) will be downloaded and installed locally.
-*  You can execute the main of the Python code using "make run" 
-*  The tests and BDD scenarios are executable with Maven using "make test"
+#### In a venv
 
-### Test coverage and Doc reporting (not yet implemented)
+* Upon first use of the code in this repository in your virtual environment, you will need to run "mvn clean install" to ensure that all required project dependencies (e.g. for python, unittest, behave, and make) will be downloaded and installed locally. 
+* The tests and BDD scenarios are executable with Maven using "make test"
+* You can execute the main of the Python code using "make run" 
 
+
+#### Without your venv
+
+*  Upon first use of the code in this repository, you will need to run "make venv-clean venv-install" to ensure that all required project dependencies (e.g. for python, unittest, behave, allure, and make) will be downloaded and installed locally.
+*  The tests and BDD scenarios are executable with Maven using "make venv-test"
+*  You can execute the main of the Python code using "make venv-run" 
+
+### Test coverage and Doc reporting (not entirely implemented)
+
+*  In addition to testing the code, "make test" will also generate a test coverage report (in HTML format) using coverage. This test coverage is generated in htmlcov.
+
+## Versions
+
+We use [SemVer](http://semver.org/) for semantic versioning. For the versions available, see the [tags on this repository](https://github.com/Oz-NoXIII/calculator-cucumber-2025/tags). 
+
+## Contributors
+
+* Tom Mens
+* Gauvain Devillez @GauvainD
+* Arsène Mujyabwami
+* Ingrid Fondja Tchoumba
+* Nicolas Delplanque
+* Xavier Delabie
 
 ## Licence
 
+
 [This code is available under the GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/) (GPLv3)
+
+## Acknowledgments
+
+* Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
 
