@@ -1,4 +1,4 @@
-import math
+
 import unittest
 
 from parameterized import parameterized
@@ -20,7 +20,7 @@ class TestEvaluator(unittest.TestCase):
 
 
 	def test_evaluate_my_number(self):
-		self.assertEqual(self.value1, calculator.eval_expression(MyNumber(self.value1)))
+		self.assertEqual(self.value1.get_number_type(), calculator.eval_expression(self.value1))
 
 	@parameterized.expand([
 		("*",),
