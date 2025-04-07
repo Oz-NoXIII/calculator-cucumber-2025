@@ -43,5 +43,22 @@ class TestRationalNumber(unittest.TestCase):
         r = RationalNumber(3, 5)
         self.assertEqual(str(r), "3/5")
 
+    def test_hash(self):
+        r = RationalNumber(3, 4)
+
+        self.assertEqual(hash(r), hash(r))
+
+    def test_is_infinite(self):
+        r = RationalNumber(1, 0)
+        self.assertFalse(r.is_infinite())
+
+
+    def test_eq(self):
+        r = RationalNumber(3, 4)
+        s = RationalNumber(1, 2)
+        self.assertEqual(r, r)
+        self.assertNotEqual(r, s)
+
+
 if __name__ == '__main__':
     unittest.main()

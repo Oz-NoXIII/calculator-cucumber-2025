@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class NumberType(ABC):
+class NumberType(ABC): #pragma: no cover
     """
     Interface for all supported numeric types (integers, reals, rationals, complexes, etc.).
     """

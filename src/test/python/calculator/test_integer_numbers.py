@@ -32,5 +32,9 @@ class TestIntegerNumber(unittest.TestCase):
         self.assertFalse(n.is_nan())
         self.assertFalse(n.is_infinite())
 
+    def test_get_value(self):
+        n = IntegerNumber(5)
+        self.assertEqual(n.get_value(), 5)
+
 if __name__ == '__main__':
     unittest.main()

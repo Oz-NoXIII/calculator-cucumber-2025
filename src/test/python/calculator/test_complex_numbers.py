@@ -34,3 +34,21 @@ class TestComplexNumber(unittest.TestCase):
         b = ComplexNumber(0, 0)
         result = a.divide(b)
         self.assertTrue(result.is_nan())
+
+    def test_modulo(self):
+        a = ComplexNumber(1, 2)
+        b = ComplexNumber(3, 4)
+        mod1 = a.modulus()
+        mod2 = b.modulus()
+        self.assertEqual(mod1, 2.23606797749979)
+        self.assertEqual(mod2, 5.0)
+
+    def test_conjugate(self):
+        a = ComplexNumber(1, 2)
+        b = ComplexNumber(3, 4)
+        result1 = a.conjugate()
+        result2 = b.conjugate()
+        self.assertEqual(result1.get_value(), ComplexNumber(1, -2).get_value())
+        self.assertEqual(result2.get_value(), ComplexNumber(3, -4).get_value())
+
+
