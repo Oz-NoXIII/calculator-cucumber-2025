@@ -27,7 +27,6 @@ class TestIntegerNumber(unittest.TestCase):
         result = IntegerNumber(1).divide(IntegerNumber(0))
         self.assertTrue(result.is_nan(), "Expected NaN result for division by zero")
 
-
     def test_is_nan_and_infinite(self):
         n = IntegerNumber(7)
         self.assertFalse(n.is_nan())

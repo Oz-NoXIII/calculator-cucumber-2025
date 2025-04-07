@@ -1,3 +1,5 @@
+import math
+
 import calculator
 from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
@@ -41,6 +43,18 @@ try:
 	e = Divides(params4, Notation.POSTFIX)
 	calculator.print_result(e)
 	calculator.eval_expression(e)
+
+	RealNumber.set_precision(8)
+
+	x = RealNumber(3.1415926535)
+	print("Normal:", x)
+	print("\nScientific:", x.to_scientific())
+
+	angle = RealNumber(math.pi)
+	print("\nRadians to degrees:", angle.to_degrees())
+
+	deg = RealNumber(180)
+	print("\nDegrees to radians:", deg.to_radians())
 
 	params5 = [MyNumber(IntegerNumber(10)), MyNumber(IntegerNumber(5))]
 	e = Divides(params5, Notation.INFIX)
@@ -102,7 +116,8 @@ try:
 	sqrt_result = evaluator.get_result()
 	print(f"Sqrt of {z}: {sqrt_expr}")
 
-
+	r = RealNumber(6.022e23)
+	print(r.to_scientific())
 
 except IllegalConstruction as e:
 	print("cannot create operations without parameters")

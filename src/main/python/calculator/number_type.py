@@ -29,11 +29,16 @@ class NumberType(ABC):
     def __str__(self):
         pass
 
-    @abstractmethod
     def is_nan(self):
-        pass
+        return False
 
-    @abstractmethod
     def is_infinite(self):
-        pass
+        return False
+
+    def set_nan(self):
+        raise NotImplementedError("set_nan() must be implemented by subclass")
+
+    def set_infinity(self, positive=True):
+        raise NotImplementedError("set_infinity() must be implemented by subclass")
+
 

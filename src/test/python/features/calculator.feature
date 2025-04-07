@@ -128,18 +128,22 @@ Feature: Integer Arithmetic Expressions
       | op | op2 | op3 |
       | /  |  +  |  - |
 
-
   Scenario: Adding two real numbers
     Given a real number 3.5
     And another real number 1.2
     When I add them
     Then the result should be 4.7
 
-  Scenario: Dividing by zero (positive number)
-    Given a real number 1.0
+  Scenario: Negative divided by 0.0
+    Given a real number -1.0
     And another real number 0.0
     When I divide them
-    Then the result should be positive infinity
+    Then the result should be -Infinity
+
+  Scenario: Square root of negative
+    Given a real number -4.0
+    When I take the square root
+    Then the result should be NaN
 
 
   Scenario: Subtracting two real numbers
@@ -159,6 +163,27 @@ Feature: Integer Arithmetic Expressions
     And another real number 2.0
     When I add them
     Then the result should be 0.5
+
+  Scenario: Formatting with precision
+  Given a real number 3.14159265
+  When I set the precision to 4
+  Then its string representation is "3.1416"
+
+  Scenario: Scientific notation
+    Given a real number 6.022E23
+    When I set the precision to 3
+    Then the scientific notation is "6.022E+23"
+
+  Scenario: Degrees to radians
+    Given a real number 180.0
+    When I convert to radians
+    Then the result is approximately 3.14159265
+
+  Scenario: Radians to degrees
+    Given a real number 3.14159265
+    When I convert to degrees
+    Then the result is approximately 180.0
+
 
   Scenario: Multiplying by zero
     Given a real number 0.0
@@ -268,7 +293,7 @@ Feature: Integer Arithmetic Expressions
   Scenario: Getting the modulus of a complex number
     Given a complex number 3+4i
     When I get its modulus
-    Then the real result should be 5.0
+    Then the result is approximately 5.0
 
   Scenario: Getting the conjugate of a complex number
     Given a complex number 2-3i
@@ -277,6 +302,22 @@ Feature: Integer Arithmetic Expressions
 
   Scenario: Square root of a complex number
     Given a complex number -1+0i
-    When I take its square root
+    When I take the square root
     Then the complex result should be 0+1i
+
+
+  Scenario: Logarithm of positive real number
+    Given a real number 2.718281828
+    When I take the logarithm
+    Then the result is approximately 1.0
+
+  Scenario: Logarithm of zero
+    Given a real number 0.0
+    When I take the logarithm
+    Then the result should be NaN
+
+  Scenario: Logarithm of negative real
+    Given a real number -5.0
+    When I take the logarithm
+    Then the result should be NaN
 

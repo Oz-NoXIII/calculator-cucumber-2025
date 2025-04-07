@@ -1,3 +1,5 @@
+import math
+
 from behave import given, when, then
 
 from src.main.python.calculator import calculator
@@ -138,7 +140,7 @@ def then_operation_evaluates_to_fraction(context, expected):
 
 @given('a real number {value:g}')
 def given_real_number_1(context, value):
-    context.num1 = MyNumber(RealNumber(value))
+    context.num1 = MyNumber(RealNumber(float(value)))
 
 @given('another real number {value:g}')
 def given_real_number_2(context, value):
@@ -153,10 +155,15 @@ def when_divide_them(context):
     context.result = n1.divide(n2)
 
 
-@then('the result should be positive infinity')
-def then_result_inf(context):
-    assert context.result.is_infinite()
-    assert context.result.get_value() > 0
+@then('the result should be Infinity')
+def step_infinity(context):
+    val = context.result.get_value()
+    assert context.result.is_infinite() and val > 0, f"Expected +∞, got {val}"
+
+@then('the result should be -Infinity')
+def step_neg_infinity(context):
+    val = context.result.get_value()
+    assert context.result.is_infinite() and val < 0, f"Expected -∞, got {val}"
 
 @then('the result should be NaN')
 def then_result_nan(context):
@@ -273,33 +280,90 @@ def parse_complex(s):
     return MyNumber(ComplexNumber.from_complex(complex(s)))
 
 @given('a complex number {value}')
-def step_given_c1(context, value):
+def given_c1(context, value):
     context.num1 = parse_complex(value)
 
 @given('another complex number {value}')
-def step_given_c2(context, value):
+def given_c2(context, value):
     context.num2 = parse_complex(value)
 
 @when('I get its modulus')
-def step_modulus(context):
+def modulus(context):
     context.result = context.num1.get_number_type().modulus()
 
 @when('I get its conjugate')
-def step_conjugate(context):
+def conjugate(context):
     context.result = context.num1.get_number_type().conjugate()
 
-@when('I take its square root')
+@when('I take the square root')
 def step_sqrt(context):
     context.result = context.num1.get_number_type().sqrt()
 
 @then('the complex result should be {expected}')
-def step_result_complex(context, expected):
+def result_complex(context, expected):
     expected_c = complex(expected.replace('i', 'j'))
     actual = context.result.get_value()
     assert abs(actual.real - expected_c.real) < 1e-9
     assert abs(actual.imag - expected_c.imag) < 1e-9
 
-@then('the real result should be {expected:g}')
-def step_check_real_result(context, expected):
+@then('the result is approximately {expected:g}')
+def real_result(context, expected):
     expected = float(expected)
-    assert abs(context.result - expected) < 1e-9
+
+    if hasattr(context.result, "get_value"):
+        actual = context.result.get_value()
+    else:
+        actual = context.result
+    assert math.isclose(actual, expected, abs_tol=1e-6), f"Expected {expected}, got {actual}"
+
+@then('the result is close to {expected} within {tolerance:g}')
+def step_result_close(context, expected, tolerance):
+    expected = expected.strip()
+
+    # Complex number: 3+2i
+    if 'i' in expected:
+        expected_val = complex(expected.replace('i', 'j'))
+        actual_val = context.result.get_value()
+        assert isinstance(actual_val, complex), "Expected complex result"
+        assert math.isclose(actual_val.real, expected_val.real, abs_tol=tolerance), \
+            f"Real part mismatch: expected {expected_val.real}, got {actual_val.real}"
+        assert math.isclose(actual_val.imag, expected_val.imag, abs_tol=tolerance), \
+            f"Imag part mismatch: expected {expected_val.imag}, got {actual_val.imag}"
+
+    # Rational number: 3/4
+    elif '/' in expected:
+        expected_val = Fraction(expected)
+        actual_val = context.result.get_value()
+        assert actual_val == expected_val, f"Expected {expected_val}, got {actual_val}"
+
+    # Real/float: 3.1416
+    else:
+        expected_val = float(expected)
+        actual_val = context.result.get_value()
+        assert math.isclose(actual_val, expected_val, abs_tol=tolerance), \
+            f"Expected {expected_val}, got {actual_val}"
+
+@when('I convert to radians')
+def convert_to_radians(context):
+    context.result = context.num1.get_number_type().to_radians()
+
+@when('I convert to degrees')
+def convert_to_degrees(context):
+    context.result = context.num1.get_number_type().to_degrees()
+
+@when('I set the precision to {value}')
+def set_precision(context, value):
+    RealNumber.set_precision(value)
+
+@then('its string representation is "{expected}"')
+def check_string(context, expected):
+    assert str(context.num1) == expected, f"Expected {expected}, got {str(context.num1)}"
+
+@then('the scientific notation is "{expected}"')
+def check_scientific(context, expected):
+    assert context.num1.get_number_type().to_scientific() == expected, f"Expected {expected}, got {context.num1.get_number_type().to_scientific()}"
+
+
+@when('I take the logarithm')
+def step_log(context):
+    context.result = context.num1.get_number_type().log()
