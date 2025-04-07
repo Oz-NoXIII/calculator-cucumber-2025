@@ -67,7 +67,7 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 
 Code quality: ![Python CI](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/build_and_test-python.yml/badge.svg?branch=test_coverall)
 
-Test Coverage: [![Coverage Status](https://coveralls.io/repos/github/Oz-NoXIII/calculator-cucumber-2025/badge.svg?branch=test_coverall)](https://coveralls.io/github/Oz-NoXIII/calculator-cucumber-2025?branch=test_coverall)
+Test Coverage: [![Coverage Status](https://coveralls.io/repos/github/Oz-NoXIII/calculator-cucumber-2025/badge.svg?branch=v1.0.2)](https://coveralls.io/github/Oz-NoXIII/calculator-cucumber-2025?branch=v1.0.2)
 
 # Calculating arithmetic expressions (Python)
 
