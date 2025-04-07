@@ -75,6 +75,11 @@ class TestRealNumber(unittest.TestCase):
         r = RealNumber(math.pi)
         self.assertEqual(str(r), "3.1416")
 
+
+    def test_precision_getting(self):
+        precision = RealNumber.get_precision()
+        self.assertEqual(precision, 6)
+
     def test_scientific_notation(self):
         RealNumber.set_precision(6)
         r = RealNumber(6.022e23)
@@ -94,6 +99,9 @@ class TestRealNumber(unittest.TestCase):
         rad = deg.to_radians()
         self.assertTrue(math.isclose(rad.get_value(), math.pi, rel_tol=1e-9))
 
+    def test_sqrt(self):
+        r = RealNumber(4.0)
+        self.assertEqual(r.sqrt().get_value(), 2.0)
 
     def test_hash_and_eq(self):
         a = RealNumber(1.123456789)

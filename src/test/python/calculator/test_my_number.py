@@ -8,20 +8,20 @@ from src.main.python.calculator.times import Times
 
 class TestMyNumber(unittest.TestCase):
 
-    value = 8
+    value = MyNumber(IntegerNumber(8))
 
     def setUp(self):
-        self.number = MyNumber(self.value)
+        self.number = self.value
         self.n1 = MyNumber(IntegerNumber(5))
         self.n2 = MyNumber(IntegerNumber(5))
         self.n3 = MyNumber(IntegerNumber(7))
 
     def test_eq(self):
-        self.assertEqual(self.number, MyNumber(self.value))
-        other_value = 7
-        self.assertNotEqual(self.number, MyNumber(other_value))
+        self.assertEqual(self.number.get_value(), self.value.get_value())
+        other_value = MyNumber(IntegerNumber(7))
+        self.assertNotEqual(self.number.get_value(), other_value.get_value())
         self.assertEqual(self.number, self.number)
-        self.assertNotEqual(self.number, self.value)
+        self.assertNotEqual(self.number.get_value(), self.value)
         try:
             self.assertNotEqual(Times([]), self.number)
         except IllegalConstruction as e:
