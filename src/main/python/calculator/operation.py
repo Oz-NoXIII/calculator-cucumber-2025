@@ -5,7 +5,7 @@ from src.main.python.calculator.notation import Notation
 from src.main.python.visitor.printer import Printer
 
 
-class Operation(ABC):
+class Operation(ABC): #pragma: no cover
 
 	@abstractmethod
 	def __init__(self, elist, n=None):
