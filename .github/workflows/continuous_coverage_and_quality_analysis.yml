@@ -42,11 +42,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: code-formatting
-        name: Run code formatting
-        run: make venv-format
-
       - id: code-quality
         name: Code quality
         run: make venv-lint
-
