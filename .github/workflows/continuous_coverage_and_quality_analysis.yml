@@ -23,12 +23,11 @@ jobs:
 
       - id: install-venv
         name: Install virtual environment
-        run: |
-          make venv-clean venv-install
+        run: make venv-clean venv-install
 
       - id: run-tests-with-coverage
         name: Run unit tests with coverage
-        run: make test-coverage-xml
+        run: make venv-test-coverage-xml
 
       - id: upload-coverage-report
         name: Upload coverage report
