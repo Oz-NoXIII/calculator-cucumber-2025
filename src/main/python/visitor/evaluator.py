@@ -19,8 +19,6 @@ class Evaluator(Visitor):
 		for arg in o.get_args():
 			arg.accept(self)
 			evaluated_args.append(self.__computed_value)
-		if not evaluated_args:
-			print(o)
 		temp = evaluated_args[0]
 		maximum = len(evaluated_args)
 		for counter in range(1, maximum):

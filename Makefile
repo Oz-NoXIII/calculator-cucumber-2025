@@ -32,6 +32,9 @@ endif
 SRC_PYTHON = src/main/python
 TEST_PYTHON = src/test/python
 
+# Main file
+MAIN_PYTHON = src/main/python/calculator/main.py
+
 # Commands
 BEHAVE = behave
 ALLURE = allure
@@ -97,25 +100,25 @@ venv-serve-behave-test:
 
 test-coverage:
 	@echo "Running unit tests with coverage..."
-	$(COVERAGE) run --source=$(SRC_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(COVERAGE) report
 	$(COVERAGE) html
 
 venv-test-coverage:
 	@echo "Running unit tests with coverage..."
-	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(SOURCE_VENV) && $(COVERAGE) report
 	$(SOURCE_VENV) && $(COVERAGE) html
 
 test-coverage-xml:
 	@echo "Running unit tests with coverage..."
-	$(COVERAGE) run --source=$(SRC_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(COVERAGE) report
 	$(COVERAGE) xml
 
 venv-test-coverage-xml:
 	@echo "Running unit tests with coverage..."
-	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(SOURCE_VENV) && $(COVERAGE) report
 	$(SOURCE_VENV) && $(COVERAGE) xml
 

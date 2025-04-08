@@ -6,7 +6,7 @@ from src.main.python.visitor.printer import Printer
 from src.main.python.calculator.number_type import NumberType
 
 
-class Operation(ABC):
+class Operation(ABC): #pragma: no cover
 
 	@abstractmethod
 	def __init__(self, elist, n=None):
