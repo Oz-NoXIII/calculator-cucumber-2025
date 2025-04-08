@@ -60,8 +60,9 @@ class LinearEquationSolver:
                     result[var] = round(val, 2)
             return result
 
-        except np.linalg.LinAlgError:
-            return "Incompatible system: no unique solution (none or infinite)."
+        except np.linalg.LinAlgError as e:
+            return f"Système incompatible ou indéterminé : {e}"
+
         except Exception as e:
             return f"Syntax or analysis errors: {e}"
 
