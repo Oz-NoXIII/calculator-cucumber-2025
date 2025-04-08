@@ -1,4 +1,4 @@
-# test_rational_number.py
+
 import unittest
 from src.main.python.calculator.rational_number import RationalNumber
 from fractions import Fraction
