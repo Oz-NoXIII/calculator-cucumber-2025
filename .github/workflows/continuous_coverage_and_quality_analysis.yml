@@ -38,11 +38,11 @@ jobs:
 
       - id: code-quality
         name: Code quality
-        run: flake8 . --exit-zero --statistics
+        run: make venv-lint
 
       - id: code-formatting
         name: Run code formatting
-        run: black --check .
+        run: make venv-format
 
       - id: upload-coverage
         name: Upload coverage to Coveralls
