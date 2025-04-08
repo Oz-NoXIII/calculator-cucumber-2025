@@ -53,6 +53,15 @@ class TestDivides(unittest.TestCase):
 		params = None
 		self.assertRaises(IllegalConstruction, lambda: Divides(params))
 
+	def test_zero_division(self):
+		# Test division by zero
+		params = [MyNumber(IntegerNumber(8)), MyNumber(IntegerNumber(0))]
+		try:
+			op = Divides(params)
+			result = op.op(IntegerNumber(8), IntegerNumber(0))
+			self.assertTrue(result.is_nan())
 
+		except IllegalConstruction as e:
+			self.fail(e)
 if __name__ == '__main__':
 	unittest.main()
