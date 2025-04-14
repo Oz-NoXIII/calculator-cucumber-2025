@@ -85,8 +85,6 @@ class LinearEquationSolver:
                 if not match:
                     raise ValueError(f"Invalid term '{term}' in equation '{eq}'")
 
-
-
                 sign, coeff, var = match.groups()
                 coeff = float(coeff) if coeff else 1.0
                 if sign == "-":

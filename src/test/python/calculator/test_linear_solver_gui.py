@@ -1,7 +1,9 @@
+import tkinter as tk
 import unittest
 from unittest.mock import patch
-import tkinter as tk
+
 from src.main.python.gui.linear_solver_gui import LinearSolverGUI
+
 
 class TestLinearSolverGUI(unittest.TestCase):
 
@@ -45,7 +47,10 @@ class TestLinearSolverGUI(unittest.TestCase):
         self.assertIn("Invalid term", result)
 
     @patch("tkinter.messagebox.showerror")
-    @patch("src.main.python.calculator.linear_solver.LinearEquationSolver.solve", side_effect=Exception("mocked failure"))
+    @patch(
+        "src.main.python.calculator.linear_solver.LinearEquationSolver.solve",
+        side_effect=Exception("mocked failure"),
+    )
     def test_solver_exception_shows_error_message(self, mock_solve, mock_showerror):
         self.gui.input_text.insert(tk.END, "x + y = 2")
         self.gui.solve()
@@ -56,6 +61,5 @@ class TestLinearSolverGUI(unittest.TestCase):
         self.assertEqual(content, "")
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

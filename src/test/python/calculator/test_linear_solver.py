@@ -2,7 +2,8 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-from src.main.python.calculator.linear_solver import LinearEquationSolver, run_interactive_solver
+from src.main.python.calculator.linear_solver import (LinearEquationSolver,
+                                                      run_interactive_solver)
 
 
 class TestLinearEquationSolver(unittest.TestCase):
@@ -40,36 +41,23 @@ class TestLinearEquationSolver(unittest.TestCase):
         solution = solver.solve()
         self.assertEqual(solution, {"x": 121, "y": -79, "z": 89})
 
-    @patch('builtins.input', side_effect=[
-        "",
-        "x + y = 2",
-        "ok",
-        "n"
-    ])
-    @patch('sys.stdout', new_callable=StringIO)
+    @patch("builtins.input", side_effect=["", "x + y = 2", "ok", "n"])
+    @patch("sys.stdout", new_callable=StringIO)
     def test_input_empty_and_valid_then_exit(self, mock_stdout, mock_input):
         run_interactive_solver()
         output = mock_stdout.getvalue()
         self.assertIn("Empty input", output)
         self.assertIn("End of program", output)
 
-    @patch('builtins.input', side_effect=[
-        "ok",
-        "n" ])
-
-    @patch('sys.stdout', new_callable=StringIO)
+    @patch("builtins.input", side_effect=["ok", "n"])
+    @patch("sys.stdout", new_callable=StringIO)
     def test_no_equation_provided(self, mock_stdout, mock_input):
         run_interactive_solver()
         output = mock_stdout.getvalue()
         self.assertIn("No system supplied", output)
 
-    @patch('builtins.input', side_effect=[
-        "x + y = 2",
-        "x + y = 3",
-        "ok",
-        "n"
-    ])
-    @patch('sys.stdout', new_callable=StringIO)
+    @patch("builtins.input", side_effect=["x + y = 2", "x + y = 3", "ok", "n"])
+    @patch("sys.stdout", new_callable=StringIO)
     def test_incompatible_system(self, mock_stdout, mock_input):
         run_interactive_solver()
         output = mock_stdout.getvalue()
@@ -88,9 +76,8 @@ class TestLinearEquationSolver(unittest.TestCase):
         result = solver.solve()
         self.assertTrue("invalid term" in result.lower())
 
-
-    @patch('builtins.input', side_effect=["x + y = 6", "x - y = 0", "ok", "n"])
-    @patch('sys.stdout', new_callable=StringIO)
+    @patch("builtins.input", side_effect=["x + y = 6", "x - y = 0", "ok", "n"])
+    @patch("sys.stdout", new_callable=StringIO)
     def test_print_result_from_interactive_solver(self, mock_stdout, mock_input):
         run_interactive_solver()
         output = mock_stdout.getvalue()
@@ -99,9 +86,8 @@ class TestLinearEquationSolver(unittest.TestCase):
         self.assertIn("x = ", output)
         self.assertIn("y = ", output)
 
-
-    @patch('builtins.input', side_effect=["x + y = 2", "ok", "n"])
-    @patch('sys.stdout', new_callable=StringIO)
+    @patch("builtins.input", side_effect=["x + y = 2", "ok", "n"])
+    @patch("sys.stdout", new_callable=StringIO)
     def test_run_interactive_solver_main(self, mock_stdout, mock_input):
 
         run_interactive_solver()
@@ -109,31 +95,22 @@ class TestLinearEquationSolver(unittest.TestCase):
         self.assertIn("Result", output)
 
     def test_solution_arrondi_entier(self):
-        equations = [
-            "x + y = 5.9999999",
-            "x - y = 0.0000001"
-        ]
+        equations = ["x + y = 5.9999999", "x - y = 0.0000001"]
         solver = LinearEquationSolver(equations)
         result = solver.solve()
-        self.assertEqual(result, {'x': 3, 'y': 3})
+        self.assertEqual(result, {"x": 3, "y": 3})
 
     def test_solution_arrondi_decimal(self):
-        equations = [
-            "x + y = 7.12",
-            "x - y = 1.14"
-        ]
+        equations = ["x + y = 7.12", "x - y = 1.14"]
         solver = LinearEquationSolver(equations)
         result = solver.solve()
-        self.assertEqual(result, {'x': 4.13, 'y': 2.99})
+        self.assertEqual(result, {"x": 4.13, "y": 2.99})
 
     def test_zero_solution(self):
-        equations = [
-            "x + y = 0",
-            "x - y = 0"
-        ]
+        equations = ["x + y = 0", "x - y = 0"]
         solver = LinearEquationSolver(equations)
         result = solver.solve()
-        self.assertEqual(result, {'x': 0, 'y': 0})
+        self.assertEqual(result, {"x": 0, "y": 0})
 
     def test_generic_exception(self):
 

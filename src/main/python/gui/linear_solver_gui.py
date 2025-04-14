@@ -56,5 +56,3 @@ class LinearSolverGUI:
         self.output_text.configure(state="normal")
         self.output_text.delete("1.0", tk.END)
         self.output_text.configure(state="disabled")
-
-
