@@ -2,7 +2,7 @@ import calculator
 
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
-from src.main.python.calculator.linear_solver import LinearEquationSolver
+from src.main.python.calculator.linear_solver import LinearEquationSolver, run_interactive_solver
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
@@ -47,6 +47,7 @@ try:
     print("Solution:")
     print(solution)
 
+    run_interactive_solver()
 
 except IllegalConstruction as e:
     print("cannot create operations without parameters")

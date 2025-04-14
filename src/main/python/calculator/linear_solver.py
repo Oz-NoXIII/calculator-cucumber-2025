@@ -17,12 +17,26 @@ def run_interactive_solver():
                 print(
                     " Empty input. Please enter a valid equation or press 'ok' to continue.."
                 )
-                continue
+                again = (
+                    input("\nWould you like to solve a different system? (y/n) : ")
+                    .strip()
+                    .lower()
+                )
+                if again != "y":
+                    print("End of program.")
+                    break
             equations.append(line.strip())
 
         if not equations:
-            print("No system supplied. Back to main menu.")
-            continue
+            print("No system supplied.")
+            again = (
+                input("\nWould you like to solve a different system? (y/n) : ")
+                .strip()
+                .lower()
+            )
+            if again != "y":
+                print("End of program.")
+                break
 
         solver = LinearEquationSolver(equations)
         result = solver.solve()
@@ -61,18 +75,20 @@ class LinearEquationSolver:
                 raise ValueError(f"Equation '{eq}' is invalid (missing '=' sign).")
 
             lhs, rhs = eq.split("=")
-            lhs_terms = re.findall(r"[+-]?\s*\d*\s*[a-zA-Z]", lhs.replace(" ", ""))
-            const = int(rhs.strip())
+            lhs_terms = re.findall(r"[+-]?[^+-]+", lhs.replace(" ", ""))
+            const = float(rhs.strip())
             eq_dict = {}
 
             for term in lhs_terms:
                 term = term.replace(" ", "")
-                match = re.fullmatch(r"([+-]?)(\d*)([a-zA-Z])", term)
+                match = re.fullmatch(r"([+-]?)(\d+(?:\.\d+)?|\d+/\d+)?([a-zA-Z])", term)
                 if not match:
                     raise ValueError(f"Invalid term '{term}' in equation '{eq}'")
 
+
+
                 sign, coeff, var = match.groups()
-                coeff = int(coeff) if coeff else 1.0
+                coeff = float(coeff) if coeff else 1.0
                 if sign == "-":
                     coeff = -coeff
                 eq_dict[var] = eq_dict.get(var, 0.0) + coeff
@@ -90,8 +106,8 @@ class LinearEquationSolver:
     def solve(self):
         try:
             self.parse_equations()
-            A = np.array(self.coeff_matrix, dtype=int)
-            b = np.array(self.constants, dtype=int)
+            A = np.array(self.coeff_matrix)
+            b = np.array(self.constants)
             solution = np.linalg.solve(A, b)
 
             result = {}
@@ -107,7 +123,3 @@ class LinearEquationSolver:
 
         except Exception as e:
             return f"Syntax or analysis errors: {e}"
-
-
-if __name__ == "__main__":
-    run_interactive_solver()
