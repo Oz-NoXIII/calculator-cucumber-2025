@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Visitor(ABC):
+class Visitor(ABC): #pragma: no cover
 	"""
 	The Visitor Interface of the Visitor Design Pattern
 	"""

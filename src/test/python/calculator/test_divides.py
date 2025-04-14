@@ -1,4 +1,5 @@
 import unittest
+from math import isnan
 
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
@@ -51,6 +52,16 @@ class TestDivides(unittest.TestCase):
 	def test_none_param_list(self):
 		params = None
 		self.assertRaises(IllegalConstruction, lambda: Divides(params))
+
+	def test_zero_division(self):
+		# Test division by zero
+		params = [MyNumber(8), MyNumber(0)]
+		try:
+			op = Divides(params)
+			result = op.op(8, 0)
+			self.assertTrue(isnan(result))
+		except IllegalConstruction as e:
+			self.fail(e)
 
 
 if __name__ == '__main__':
