@@ -2,7 +2,6 @@ import re
 
 import numpy as np
 
-
 def run_interactive_solver():
 
     while True:
