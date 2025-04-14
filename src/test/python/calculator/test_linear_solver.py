@@ -81,8 +81,6 @@ class TestLinearEquationSolver(unittest.TestCase):
     def test_print_result_from_interactive_solver(self, mock_stdout, mock_input):
         run_interactive_solver()
         output = mock_stdout.getvalue()
-
-        # Vérifie que le bloc de print a bien été exécuté
         self.assertIn("x = ", output)
         self.assertIn("y = ", output)
 
