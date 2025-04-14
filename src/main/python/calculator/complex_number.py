@@ -2,6 +2,7 @@ import cmath
 
 from src.main.python.calculator.number_type import NumberType
 
+
 class ComplexNumber(NumberType):
     def __init__(self, real: float, imag: float = 0.0):
         self.value = complex(real, imag)
@@ -36,8 +37,11 @@ class ComplexNumber(NumberType):
         return self.value != self.value
 
     def is_infinite(self):
-        return (self.value.real == float("inf") or self.value.imag == float("inf") or
-                self.value.imag == float("-inf")) or self.value.real == float("-inf")
+        return (
+            self.value.real == float("inf")
+            or self.value.imag == float("inf")
+            or self.value.imag == float("-inf")
+        ) or self.value.real == float("-inf")
 
     def __str__(self):
         return str(self.value)

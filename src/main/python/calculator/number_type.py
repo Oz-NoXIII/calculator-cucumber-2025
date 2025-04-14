@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 
-class NumberType(ABC): #pragma: no cover
+
+class NumberType(ABC):  # pragma: no cover
     """
     Interface for all supported numeric types (integers, reals, rationals, complexes, etc.).
     """
+
     @abstractmethod
     def get_value(self):
         """Returns the native value (int, float, fraction, complex, etc.)."""
@@ -40,5 +42,3 @@ class NumberType(ABC): #pragma: no cover
 
     def set_infinity(self, positive=True):
         raise NotImplementedError("set_infinity() must be implemented by subclass")
-
-

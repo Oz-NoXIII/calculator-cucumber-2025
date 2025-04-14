@@ -1,6 +1,8 @@
 import cmath
 import unittest
+
 from src.main.python.calculator.complex_number import ComplexNumber
+
 
 class TestComplexNumber(unittest.TestCase):
 
@@ -52,7 +54,6 @@ class TestComplexNumber(unittest.TestCase):
         self.assertEqual(result1.get_value(), ComplexNumber(1, -2).get_value())
         self.assertEqual(result2.get_value(), ComplexNumber(3, -4).get_value())
 
-
     def test_str_(self):
         self.assertEqual(ComplexNumber(3, 0).__str__(), "(3+0j)")
         self.assertEqual(ComplexNumber(0, 4).__str__(), "4j")
@@ -76,8 +77,8 @@ class TestComplexNumber(unittest.TestCase):
         self.assertNotEqual(hash(z1), hash(z3))
 
     def test_is_infinite(self):
-        z_inf = ComplexNumber(float('inf'), 2)
-        z_inf2 = ComplexNumber(2, float('-inf'))
+        z_inf = ComplexNumber(float("inf"), 2)
+        z_inf2 = ComplexNumber(2, float("-inf"))
         z_norm = ComplexNumber(3, 4)
         self.assertTrue(z_inf.is_infinite())
         self.assertTrue(z_inf2.is_infinite())
@@ -93,8 +94,3 @@ class TestComplexNumber(unittest.TestCase):
         self.assertAlmostEqual(root.imag, expected.imag, places=6)
         self.assertAlmostEqual(root1.real, 0.0, places=6)
         self.assertAlmostEqual(root1.imag, 2.0, places=6)
-
-
-
-
-

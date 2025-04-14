@@ -1,7 +1,8 @@
-
 import unittest
-from src.main.python.calculator.rational_number import RationalNumber
 from fractions import Fraction
+
+from src.main.python.calculator.rational_number import RationalNumber
+
 
 class TestRationalNumber(unittest.TestCase):
 
@@ -52,7 +53,6 @@ class TestRationalNumber(unittest.TestCase):
         r = RationalNumber(1, 0)
         self.assertFalse(r.is_infinite())
 
-
     def test_eq(self):
         r = RationalNumber(3, 4)
         s = RationalNumber(1, 2)
@@ -60,5 +60,5 @@ class TestRationalNumber(unittest.TestCase):
         self.assertNotEqual(r, s)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

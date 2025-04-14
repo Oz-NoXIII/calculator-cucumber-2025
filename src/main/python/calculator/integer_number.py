@@ -1,5 +1,5 @@
-
 from src.main.python.calculator.number_type import NumberType
+
 
 class IntegerNumber(NumberType):
     def __init__(self, value: int):
@@ -31,12 +31,13 @@ class IntegerNumber(NumberType):
     def is_infinite(self):
         return False
 
+
 class Integernan(IntegerNumber):
     def __init__(self):
-            super().__init__(0)
+        super().__init__(0)
 
     def get_value(self):
-        return float('nan')
+        return float("nan")
 
     def is_nan(self):
         return True

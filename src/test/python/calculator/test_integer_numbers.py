@@ -1,4 +1,5 @@
 import unittest
+
 from src.main.python.calculator.integer_number import IntegerNumber
 
 
@@ -42,12 +43,8 @@ class TestIntegerNumber(unittest.TestCase):
     def test_get_value_nan(self):
         n = IntegerNumber(5)
         re = n.divide(IntegerNumber(0))
-        self.assertEqual(re.get_value().__str__(), 'nan')
+        self.assertEqual(re.get_value().__str__(), "nan")
 
 
-
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

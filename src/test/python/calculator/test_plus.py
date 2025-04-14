@@ -33,13 +33,19 @@ class TestPlus(unittest.TestCase):
             e = Plus(p, Notation.INFIX)
             self.assertEqual(self.op, e)
             self.assertEqual(e, e)
-            self.assertNotEqual(e, Plus([MyNumber(IntegerNumber(5)), MyNumber(IntegerNumber(4))], Notation.INFIX))
+            self.assertNotEqual(
+                e,
+                Plus(
+                    [MyNumber(IntegerNumber(5)), MyNumber(IntegerNumber(4))],
+                    Notation.INFIX,
+                ),
+            )
         except IllegalConstruction as e:
             self.fail(e)
 
     def test_None(self):
         try:
-            result = (self.op is None)
+            result = self.op is None
         except Exception as e:
             self.fail(f"An exception was thrown: {e}")
 
@@ -55,5 +61,6 @@ class TestPlus(unittest.TestCase):
         params = None
         self.assertRaises(IllegalConstruction, lambda: Plus(params))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

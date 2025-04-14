@@ -1,7 +1,9 @@
 # test_real_number.py
-import unittest
 import math
+import unittest
+
 from src.main.python.calculator.real_number import RealNumber
+
 
 class TestRealNumber(unittest.TestCase):
 
@@ -63,7 +65,6 @@ class TestRealNumber(unittest.TestCase):
         self.assertTrue(r_inf.is_infinite())
         self.assertFalse(r_inf.is_nan())
 
-
     def test_divide_by_zero(self):
         a = RealNumber(1.0)
         b = RealNumber(0.0)
@@ -74,7 +75,6 @@ class TestRealNumber(unittest.TestCase):
         RealNumber.set_precision(4)
         r = RealNumber(math.pi)
         self.assertEqual(str(r), "3.1416")
-
 
     def test_precision_getting(self):
         precision = RealNumber.get_precision()
@@ -109,7 +109,6 @@ class TestRealNumber(unittest.TestCase):
         self.assertEqual(hash(a), hash(b))
         self.assertEqual(a, b)
 
-
     def test_log_positive(self):
         r = RealNumber(math.e)
         result = r.log()
@@ -123,5 +122,6 @@ class TestRealNumber(unittest.TestCase):
         r = RealNumber(-1.0)
         self.assertTrue(r.log().is_nan())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

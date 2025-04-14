@@ -1,5 +1,7 @@
 import math
+
 from src.main.python.calculator.number_type import NumberType
+
 
 class RealNumber(NumberType):
 
@@ -26,15 +28,21 @@ class RealNumber(NumberType):
         divisor = other.get_value()
         if divisor == 0.0:
             if self.value == 0.0:
-                return RealNumber(float('nan'))
-            return RealNumber(float('inf')) if self.value > 0 else RealNumber(float('-inf'))
+                return RealNumber(float("nan"))
+            return (
+                RealNumber(float("inf"))
+                if self.value > 0
+                else RealNumber(float("-inf"))
+            )
         return RealNumber(self.value / divisor)
 
     def __str__(self):
         return f"{self.value:.{self._precision}f}"
 
     def __eq__(self, other):
-        return isinstance(other, RealNumber) and math.isclose(self.value, other.value, rel_tol=1e-9)
+        return isinstance(other, RealNumber) and math.isclose(
+            self.value, other.value, rel_tol=1e-9
+        )
 
     def is_nan(self):
         return math.isnan(self.value)
@@ -64,10 +72,10 @@ class RealNumber(NumberType):
 
     def sqrt(self):
         if self.value < 0.0:
-            return RealNumber(float('nan'))
+            return RealNumber(float("nan"))
         return RealNumber(math.sqrt(self.value))
 
     def log(self):
         if self.value <= 0:
-            return RealNumber(float('nan'))
+            return RealNumber(float("nan"))
         return RealNumber(math.log(self.value))

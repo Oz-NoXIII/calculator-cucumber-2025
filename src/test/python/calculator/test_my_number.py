@@ -37,5 +37,6 @@ class TestMyNumber(unittest.TestCase):
         self.assertEqual(self.n1.get_value(), 5)
         self.assertEqual(type(self.n1.get_number_type()), IntegerNumber)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

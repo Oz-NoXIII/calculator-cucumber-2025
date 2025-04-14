@@ -1,8 +1,11 @@
-from unittest import TestCase
-from io import StringIO
-from unittest.mock import patch, Mock
 import sys
-from src.main.python.calculator.calculator import print_result, print_expression_details
+from io import StringIO
+from unittest import TestCase
+from unittest.mock import Mock, patch
+
+from src.main.python.calculator.calculator import (print_expression_details,
+                                                   print_result)
+
 
 class TestCalculator(TestCase):
 
@@ -24,7 +27,7 @@ class TestCalculator(TestCase):
         # Restore normal stdout
         sys.stdout = self.original_stdout
 
-    @patch('src.main.python.calculator.calculator.eval_expression')
+    @patch("src.main.python.calculator.calculator.eval_expression")
     def test_print_result_normal(self, mock_eval_expression):
         mock_eval_expression.return_value = 42
         print_result(self.mock_expr)
@@ -32,14 +35,14 @@ class TestCalculator(TestCase):
         self.assertIn("The result of evaluating expression", output)
         self.assertIn("is: 42", output)
 
-    @patch('src.main.python.calculator.calculator.eval_expression')
+    @patch("src.main.python.calculator.calculator.eval_expression")
     def test_print_result_nan(self, mock_eval_expression):
-        mock_eval_expression.return_value = float('nan')
+        mock_eval_expression.return_value = float("nan")
         print_result(self.mock_expr)
         output = self.captured_output.getvalue()
         self.assertIn("is: NaN", output)
 
-    @patch('src.main.python.calculator.calculator.eval_expression')
+    @patch("src.main.python.calculator.calculator.eval_expression")
     def test_print_expression_details(self, mock_eval_expression):
         mock_eval_expression.return_value = 10
         print_expression_details(self.mock_expr)
@@ -47,6 +50,3 @@ class TestCalculator(TestCase):
         self.assertIn("It contains 2 levels of nested expressions", output)
         self.assertIn("3 operations", output)
         self.assertIn("4 numbers", output)
-
-
-
