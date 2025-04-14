@@ -51,8 +51,10 @@ class LinearSolverGUI:
             result_str = f"Error : {result}"
         self.output_text.configure(state="disabled")
 
+    def reset_fields(self):
+        self.input_text.delete("1.0", tk.END)
+        self.output_text.configure(state="normal")
+        self.output_text.delete("1.0", tk.END)
+        self.output_text.configure(state="disabled")
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = LinearSolverGUI(root)
-    root.mainloop()
+

@@ -1,3 +1,4 @@
+import tkinter as tk
 import calculator
 
 from src.main.python.calculator.divides import Divides
@@ -8,6 +9,7 @@ from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.times import Times
+from src.main.python.gui.linear_solver_gui import LinearSolverGUI
 
 try:
     e = MyNumber(8)
@@ -48,6 +50,10 @@ try:
     print(solution)
 
     run_interactive_solver()
+
+    root = tk.Tk()
+    app = LinearSolverGUI(root)
+    root.mainloop()
 
 except IllegalConstruction as e:
     print("cannot create operations without parameters")
