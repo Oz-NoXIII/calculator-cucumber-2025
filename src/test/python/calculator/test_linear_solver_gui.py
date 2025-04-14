@@ -1,5 +1,7 @@
+import os
 import tkinter as tk
 import unittest
+from unittest import SkipTest
 from unittest.mock import patch
 
 from src.main.python.gui.linear_solver_gui import LinearSolverGUI
@@ -8,6 +10,9 @@ from src.main.python.gui.linear_solver_gui import LinearSolverGUI
 class TestLinearSolverGUI(unittest.TestCase):
 
     def setUp(self):
+        # Skip if no display environment (e.g. GitHub Actions)
+        if not os.environ.get("DISPLAY"):
+            raise SkipTest("No display available for GUI tests")
         self.root = tk.Tk()
         self.root.withdraw()
         self.gui = LinearSolverGUI(self.root)
