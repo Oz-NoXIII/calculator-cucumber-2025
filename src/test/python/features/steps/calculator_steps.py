@@ -1,4 +1,4 @@
-from behave import given, when, then
+from behave import given, then, when
 
 from src.main.python.calculator import calculator
 from src.main.python.calculator.divides import Divides
@@ -9,10 +9,12 @@ from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.times import Times
 
-@given('I initialise a calculator')
+
+@given("I initialise a calculator")
 def step_initialize_calculator(context):
     context.params = []
     context.op = None
+
 
 @given("an integer operation '{string}'")
 def given_an_integer_operation(context, string):
@@ -31,12 +33,14 @@ def given_an_integer_operation(context, string):
     except IllegalConstruction as e:
         assert False, str(e)
 
+
 @given("the following list of integer numbers")
 def given_the_following_list_of_integer_numbers(context):
     for value in context.table.headings:
         context.params.append(MyNumber(int(value)))
         print(f"value = {value}")
     context.op = None
+
 
 @given("the sum of two numbers {n1:d} and {n2:d}")
 def given_the_sum_of_two_numbers(context, n1, n2):
@@ -45,6 +49,7 @@ def given_the_sum_of_two_numbers(context, n1, n2):
         context.op = Plus([MyNumber(n1), MyNumber(n2)])
     except IllegalConstruction as e:
         assert False, str(e)
+
 
 @then("its {notation} notation is {expected}")
 def then_its_notation_is(context, notation, expected):
@@ -60,13 +65,19 @@ def then_its_notation_is(context, notation, expected):
 
     assert str(context.op) == expected, f"Expected {expected}, found {str(context.op)}"
 
+
 @when("I provide a {name} number {value:d}")
 def when_i_provide_a_number(context, name, value):
     params = [MyNumber(value)]
     context.op.add_more_params(params)
 
-@when('I provide an expression containing an integer operation "{operation}" with the following list of integer numbers')
-def when_i_provide_an_expression_containing_an_integer_operation_with_the_following_list_of_integer_numbers(context, operation):
+
+@when(
+    'I provide an expression containing an integer operation "{operation}" with the following list of integer numbers'
+)
+def when_i_provide_an_expression_containing_an_integer_operation_with_the_following_list_of_integer_numbers(
+    context, operation
+):
     internal_params = []
     for value in context.table.headings:
         internal_params.append(MyNumber(int(value)))
@@ -88,6 +99,7 @@ def when_i_provide_an_expression_containing_an_integer_operation_with_the_follow
     params = [internal_op]
     context.op.add_more_params(params)
 
+
 @then("the {operation} is {expected:d}")
 def then_the_operation_is(context, operation, expected):
     try:
@@ -107,9 +119,10 @@ def then_the_operation_is(context, operation, expected):
     except IllegalConstruction as e:
         assert False, str(e)
 
+
 @then("the operation evaluates to {expected}")
 def then_the_operation_evaluates_to(context, expected):
     result = calculator.eval_expression(context.op)
-    if expected != 'NaN':
+    if expected != "NaN":
         expected = int(expected)
     assert expected == result, f"Expected {expected}, found {result}"

@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+
 from src.main.python.calculator.linear_solver import LinearEquationSolver
 
 
@@ -9,9 +10,7 @@ class LinearSolverGUI:
         self.root.title("Linear Equation Solver")
 
         self.instructions = tk.Label(
-            root,
-            text="Enter one equation per line (ex: 2x+3y=5):",
-            anchor="w"
+            root, text="Enter one equation per line (ex: 2x+3y=5):", anchor="w"
         )
         self.instructions.pack(fill="x", padx=10, pady=(10, 0))
 
