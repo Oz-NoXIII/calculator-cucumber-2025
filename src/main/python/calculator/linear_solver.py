@@ -1,5 +1,48 @@
-import numpy as np
 import re
+
+import numpy as np
+
+
+def run_interactive_solver():
+
+    while True:
+        print("\nEnter your equations one by one. Type 'ok' to solve.\n")
+
+        equations = []
+        while True:
+            line = input(f"Équation {len(equations)+1} > ")
+            if line.strip().lower() == "ok":
+                break
+            if line.strip() == "":
+                print(
+                    " Empty input. Please enter a valid equation or press 'ok' to continue.."
+                )
+                continue
+            equations.append(line.strip())
+
+        if not equations:
+            print("No system supplied. Back to main menu.")
+            continue
+
+        solver = LinearEquationSolver(equations)
+        result = solver.solve()
+
+        print("Results :")
+        if isinstance(result, dict):
+            for var, val in result.items():
+                print(f"  {var} = {val}")
+        else:
+            print(f"{result}")
+
+        again = (
+            input("\nWould you like to solve a different system? (y/n) : ")
+            .strip()
+            .lower()
+        )
+        if again != "y":
+            print("End of program.")
+            break
+
 
 class LinearEquationSolver:
 
@@ -14,23 +57,23 @@ class LinearEquationSolver:
         parsed_equations = []
 
         for eq in self.equations:
-            if '=' not in eq:
+            if "=" not in eq:
                 raise ValueError(f"Equation '{eq}' is invalid (missing '=' sign).")
 
-            lhs, rhs = eq.split('=')
-            lhs_terms = re.findall(r'[+-]?\s*\d*\s*[a-zA-Z]', lhs.replace(' ', ''))
+            lhs, rhs = eq.split("=")
+            lhs_terms = re.findall(r"[+-]?\s*\d*\s*[a-zA-Z]", lhs.replace(" ", ""))
             const = int(rhs.strip())
             eq_dict = {}
 
             for term in lhs_terms:
-                term = term.replace(' ', '')
-                match = re.fullmatch(r'([+-]?)(\d*)([a-zA-Z])', term)
+                term = term.replace(" ", "")
+                match = re.fullmatch(r"([+-]?)(\d*)([a-zA-Z])", term)
                 if not match:
                     raise ValueError(f"Invalid term '{term}' in equation '{eq}'")
 
                 sign, coeff, var = match.groups()
                 coeff = int(coeff) if coeff else 1.0
-                if sign == '-':
+                if sign == "-":
                     coeff = -coeff
                 eq_dict[var] = eq_dict.get(var, 0.0) + coeff
                 var_set.add(var)
@@ -43,7 +86,6 @@ class LinearEquationSolver:
             row = [eq_dict.get(var, 0.0) for var in self.variables]
             self.coeff_matrix.append(row)
             self.constants.append(const)
-
 
     def solve(self):
         try:
@@ -61,19 +103,11 @@ class LinearEquationSolver:
             return result
 
         except np.linalg.LinAlgError as e:
-            return f"Système incompatible ou indéterminé : {e}"
+            return f"Incompatible or undetermined system : {e}"
 
         except Exception as e:
             return f"Syntax or analysis errors: {e}"
 
 
 if __name__ == "__main__":
-    equations = [
-        "2x+3y=5",
-        "3x-4z=7",
-        "y+z=10"
-    ]
-    solver = LinearEquationSolver(equations)
-    solution = solver.solve()
-    print("Solution:")
-    print(solution)
+    run_interactive_solver()
