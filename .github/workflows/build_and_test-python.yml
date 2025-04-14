@@ -42,6 +42,12 @@ jobs:
         run: |
           make venv-test-action
 
+      - name: Pull latest changes from gh-pages
+        if: always()
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages
+          git pull origin gh-pages
 
       - name: Load test report history
         uses: actions/checkout@v3
