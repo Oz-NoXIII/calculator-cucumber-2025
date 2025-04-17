@@ -9,14 +9,16 @@ on:
     types: [published]
 
 jobs:
-  permissions:
-    contents: write       # for gh-pages
-    packages: read        # for pip
-    checks: write         # for test status publish
 
   generate-report:
     name: Building & Testing
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write       # for gh-pages
+      packages: read        # for pip
+      checks: write         # for test status publish
+
     if: |
       (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
       (github.event_name == 'release' && github.event.release.tag_name != '')

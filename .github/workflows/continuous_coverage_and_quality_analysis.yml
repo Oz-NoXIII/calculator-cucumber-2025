@@ -9,13 +9,15 @@ on:
   pull_request:
 
 jobs:
-  permissions:
-    contents: read
-    checks: write
 
   test-and-quality:
     name: Coverage & Quality analysis
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      checks: write
+
     if: (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
 
     steps:
