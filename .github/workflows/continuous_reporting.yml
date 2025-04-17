@@ -13,15 +13,12 @@ jobs:
   generate-report:
     name: Building & Testing
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     permissions:
       contents: write       # for gh-pages
       packages: read        # for pip
       checks: write         # for test status publish
-
-    if: |
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success') ||
-      (github.event_name == 'release' && github.event.release.tag_name != '')
 
     steps:
       - id: checkout
