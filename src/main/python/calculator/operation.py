@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
+from src.main.python.calculator.number_type import NumberType
 from src.main.python.visitor.printer import Printer
 
 
@@ -24,7 +25,7 @@ class Operation(ABC):  # pragma: no cover
         self._neutral = None
 
     @abstractmethod
-    def op(self, left, right):
+    def op(self, l: NumberType, r: NumberType):
         pass
 
     def add_more_params(self, params):

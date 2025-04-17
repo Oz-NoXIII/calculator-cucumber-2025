@@ -21,12 +21,12 @@ class Plus(Operation):
         self._symbol = "+"
         self._neutral = 0
 
-    def op(self, left, right):
+    def op(self, l, r):
         """
         The actual computation of the (binary) arithmetic addition of two integers
-        :param left: The first integer
-        :param right: The second integer that should be added to the first
+        :param l: The first integer
+        :param r: The second integer that should be added to the first
         :return: The integer that is the result of the addition
         """
 
-        return left + right
+        return l.add(r)

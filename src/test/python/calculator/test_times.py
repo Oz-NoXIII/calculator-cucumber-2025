@@ -1,6 +1,7 @@
 import unittest
 
 from src.main.python.calculator.illegal_construction import IllegalConstruction
+from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
@@ -9,11 +10,11 @@ from src.main.python.calculator.times import Times
 
 class TestTimes(unittest.TestCase):
 
-    value1 = 8
-    value2 = 6
+    value1 = MyNumber(IntegerNumber(8))
+    value2 = MyNumber(IntegerNumber(6))
 
     def setUp(self):
-        params = [MyNumber(self.value1), MyNumber(self.value2)]
+        params = [self.value1, self.value2]
         try:
             self.op = Times(params)
         except IllegalConstruction as e:
@@ -27,7 +28,7 @@ class TestTimes(unittest.TestCase):
             self.fail(e)
 
     def test_equals(self):
-        p = [MyNumber(self.value1), MyNumber(self.value2)]
+        p = [self.value1, self.value2]
         try:
             e = Times(p, Notation.INFIX)
             self.assertEqual(self.op, e)
@@ -35,7 +36,7 @@ class TestTimes(unittest.TestCase):
             self.fail(e)
 
     def test_hash_code(self):
-        p = [MyNumber(self.value1), MyNumber(self.value2)]
+        p = [self.value1, self.value2]
         try:
             e = Times(p, Notation.INFIX)
             self.assertEqual(hash(self.op), hash(e))
