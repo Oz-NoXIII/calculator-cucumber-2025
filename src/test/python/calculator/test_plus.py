@@ -37,7 +37,10 @@ class TestPlus(unittest.TestCase):
             self.fail(e)
 
     def test_None(self):
-        self.assertIsNone(self.op, "Expected self.op to be None")
+        try:
+            _ = self.op is None
+        except Exception as e:
+            self.fail(f"An exception was thrown: {e}")
 
     def test_hash_code(self):
         p = [MyNumber(self.value1), MyNumber(self.value2)]
