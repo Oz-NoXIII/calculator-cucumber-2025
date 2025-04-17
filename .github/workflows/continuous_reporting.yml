@@ -3,8 +3,7 @@ name: Continuous reporting
 on:
   workflow_run:
     workflows: [ "Continuous building and testing" ]
-    types:
-      - completed
+    types: [ completed ]
   release:
     types: [published]
 
