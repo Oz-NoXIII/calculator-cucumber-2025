@@ -24,7 +24,7 @@ class Operation(ABC):  # pragma: no cover
         self._neutral = None
 
     @abstractmethod
-    def op(self, l, r):
+    def op(self, left, right):
         pass
 
     def add_more_params(self, params):

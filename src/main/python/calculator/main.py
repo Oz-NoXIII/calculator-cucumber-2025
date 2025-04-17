@@ -38,5 +38,5 @@ try:
     calculator.print_result(e)
     calculator.eval_expression(e)
 
-except IllegalConstruction as e:
+except IllegalConstruction:
     print("cannot create operations without parameters")

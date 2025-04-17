@@ -21,12 +21,12 @@ class Times(Operation):
         self._symbol = "*"
         self._neutral = 1
 
-    def op(self, l, r):
+    def op(self, left, right):
         """
         The actual computation of the (binary) arithmetic multiplication of two integers
-        :param l:
-        :param r:
+        :param left:
+        :param right:
         :return: The integer that is the result of the multiplication
         """
 
-        return l * r
+        return left * right

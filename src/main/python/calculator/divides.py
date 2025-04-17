@@ -20,14 +20,14 @@ class Divides(Operation):
         self._symbol = "/"
         self._neutral = 1
 
-    def op(self, l, r):
+    def op(self, left, right):
         """
         The actual computation of the (binary) arithmetic division of two integers
-        :param l: The first integer
-        :param r: The second integer that should divide the first
+        :param left: The first integer
+        :param right: The second integer that should divide the first
         :return: The integer that is the result of the division, or NaN if the second integer is 0
         """
         try:
-            return l // r
+            return left // right
         except ZeroDivisionError:
             return float("nan")
