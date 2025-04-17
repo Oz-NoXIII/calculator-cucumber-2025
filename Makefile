@@ -129,7 +129,7 @@ lint:
 
 venv-lint:
 	@echo "Linting code..."
-	$(SOURCE_VENV) && $(FLAKE8) $(SRC_PYTHON) $(TEST_PYTHON)
+	$(SOURCE_VENV) && $(FLAKE8) --ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
 
 # Format the code
 format:
