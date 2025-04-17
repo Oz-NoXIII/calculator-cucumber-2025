@@ -1,6 +1,6 @@
 <!---[![](https://img.shields.io/github/v/release/Oz-NoXIII/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/Oz-NoXIII/calculator-cucumber/releases/latest)
 
-Code quality: ![Maven Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/maven.yml/badge.svg)
+Code quality: ![Maven Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/codeql-python.yml/badge.svg)
 
 Test coverage: ![Coverage](.github/badges/jacoco.svg)
 ![Branches](.github/badges/branches.svg)
@@ -65,11 +65,7 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 * Software Engineering Lab, Faculty of Sciences, University of Mons, Belgium.
 --->
 
-[![](https://img.shields.io/github/v/release/Oz-NoXIII/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/Oz-NoXIII/calculator-cucumber/releases/latest)
-
-Build & Test: ![Python CI](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/build_and_test-python.yml/badge.svg?branch=master)
-
-Test Coverage: [![Coverage Status](https://coveralls.io/repos/github/Oz-NoXIII/calculator-cucumber-2025/badge.svg?branch=v1.0.2)](https://coveralls.io/github/Oz-NoXIII/calculator-cucumber-2025?branch=v1.0.2)
+[![](https://img.shields.io/github/v/release/Oz-NoXIII/calculator-cucumber-2025?label=Latest%20Release)](https://github.com/Oz-NoXIII/calculator-cucumber/releases/latest) ![Python Build](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/codeql-python.yml/badge.svg) ![Python CI](https://github.com/Oz-NoXIII/calculator-cucumber-2025/actions/workflows/continuous_building_and_testing.yml/badge.svg?branch=master) [![Coverage Status](https://coveralls.io/repos/github/Oz-NoXIII/calculator-cucumber-2025/badge.svg?branch=v1.0.2)](https://coveralls.io/github/Oz-NoXIII/calculator-cucumber-2025?branch=v1.0.2) ![Branches](.github/badges/branches.svg)
 
 
 

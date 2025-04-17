@@ -1,0 +1,79 @@
+name: Continuous reporting
+
+on:
+  workflow_run:
+    workflows: [ "Continuous building and testing" ]
+    types: [ completed ]
+  release:
+    types: [published]
+
+jobs:
+
+  generate-report:
+    name: Building & Testing
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    permissions:
+      contents: write       # for gh-pages
+      packages: read        # for pip
+      checks: write         # for test status publish
+
+    steps:
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - id: setup-python
+        name: Set up Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - id: install-venv
+        name: Install virtual environment
+        run: | 
+          make venv-clean venv-install 
+          pip install sphinx pytest coverage pylint
+
+      - id: generate-doc
+        name: Generate Documentation
+        run: |
+          sphinx-apidoc -o docs/source .  # Generate .rst files from your Python code
+          sphinx-build -b html docs/source docs/build/html # Build HTML documentation
+
+      - id: run-tests
+        name: Run unit tests with unittest and BDD scenarios
+        run: make venv-test-action
+
+      - id: load-test-report-history
+        name: Load test report history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - id: build-test-report
+        name: Build test report
+        uses: simple-elf/allure-report-action@f841fec0e421b5d7d8e807dedfb03efb8cf30303 # v1.12
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: allure-results
+
+      - id: publish-test-report
+        name: Publish test report
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+
+      - id: coveralls
+        name: Coveralls
+        uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
