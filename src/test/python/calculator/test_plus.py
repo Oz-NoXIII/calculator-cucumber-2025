@@ -38,7 +38,7 @@ class TestPlus(unittest.TestCase):
 
     def test_None(self):
         try:
-            result = (self.op is None)
+            result = self.op is None
         except Exception as e:
             self.fail(f"An exception was thrown: {e}")
 
@@ -54,5 +54,6 @@ class TestPlus(unittest.TestCase):
         params = None
         self.assertRaises(IllegalConstruction, lambda: Plus(params))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

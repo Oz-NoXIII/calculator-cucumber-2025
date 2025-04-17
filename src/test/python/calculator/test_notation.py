@@ -13,53 +13,55 @@ from src.main.python.calculator.times import Times
 
 class TestNotation(unittest.TestCase):
 
-	# Helper method (not a test)
-	def help_notation(self, s, o, n):
-		"""Auxiliary method to test notation."""
-		o.accept_notation(n)
-		self.assertEqual(s, str(o))
+    # Helper method (not a test)
+    def help_notation(self, s, o, n):
+        """Auxiliary method to test notation."""
+        o.accept_notation(n)
+        self.assertEqual(s, str(o))
 
-	# Helper method (not a test)
-	def help_notations(self, symbol, value1, value2, op):
-		"""Auxiliary method to test all notations."""
-		# Prefix notation
-		self.help_notation(f"{symbol} ({value1}, {value2})", op, Notation.PREFIX)
-		# Infix notation
-		self.help_notation(f"( {value1} {symbol} {value2} )", op, Notation.INFIX)
-		# Postfix notation
-		self.help_notation(f"({value1}, {value2}) {symbol}", op, Notation.POSTFIX)
+    # Helper method (not a test)
+    def help_notations(self, symbol, value1, value2, op):
+        """Auxiliary method to test all notations."""
+        # Prefix notation
+        self.help_notation(f"{symbol} ({value1}, {value2})", op, Notation.PREFIX)
+        # Infix notation
+        self.help_notation(f"( {value1} {symbol} {value2} )", op, Notation.INFIX)
+        # Postfix notation
+        self.help_notation(f"({value1}, {value2}) {symbol}", op, Notation.POSTFIX)
 
-	@parameterized.expand([
-		("*",),
-		("+",),
-		("/",),
-		("-",),
-	])
-	def testOutput(self, symbol):
-		"""Parameterized test to check output for different operations."""
-		value1 = 8
-		value2 = 6
-		op = None
-		params = [MyNumber(value1), MyNumber(value2)]
+    @parameterized.expand(
+        [
+            ("*",),
+            ("+",),
+            ("/",),
+            ("-",),
+        ]
+    )
+    def testOutput(self, symbol):
+        """Parameterized test to check output for different operations."""
+        value1 = 8
+        value2 = 6
+        op = None
+        params = [MyNumber(value1), MyNumber(value2)]
 
-		try:
-			match symbol:
-				case "+":
-					op = Plus(params)
-				case "-":
-					op = Minus(params)
-				case "*":
-					op = Times(params)
-				case "/":
-					op = Divides(params)
-				case _:
-					self.fail("Invalid symbol")
-		except IllegalConstruction as e:
-			self.fail(f"IllegalConstruction exception: {e}")
+        try:
+            match symbol:
+                case "+":
+                    op = Plus(params)
+                case "-":
+                    op = Minus(params)
+                case "*":
+                    op = Times(params)
+                case "/":
+                    op = Divides(params)
+                case _:
+                    self.fail("Invalid symbol")
+        except IllegalConstruction as e:
+            self.fail(f"IllegalConstruction exception: {e}")
 
-		# Test all notations
-		self.help_notations(symbol, value1, value2, op)  # add assertion here
+        # Test all notations
+        self.help_notations(symbol, value1, value2, op)  # add assertion here
 
 
-if __name__ == '__main__':
-	unittest.main()
+if __name__ == "__main__":
+    unittest.main()
