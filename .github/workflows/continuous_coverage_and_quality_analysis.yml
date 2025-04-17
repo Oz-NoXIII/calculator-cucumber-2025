@@ -1,13 +1,22 @@
 name: Continuous coverage and quality analysis
 
 on:
+  workflow_run:
+    workflows: [ "Continuous building and testing" ]
+    types: [ completed ]
   push:
   pull_request:
 
 jobs:
+
   test-and-quality:
     name: Coverage & Quality analysis
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    permissions:
+      contents: read
+      checks: write
 
     steps:
       - id: checkout

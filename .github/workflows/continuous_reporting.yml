@@ -1,13 +1,23 @@
 name: Continuous reporting
 
 on:
+  workflow_run:
+    workflows: [ "Continuous building and testing" ]
+    types: [ completed ]
   release:
     types: [published]
 
 jobs:
+
   generate-report:
     name: Building & Testing
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    permissions:
+      contents: write       # for gh-pages
+      packages: read        # for pip
+      checks: write         # for test status publish
 
     steps:
       - id: checkout
