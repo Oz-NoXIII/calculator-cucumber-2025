@@ -50,6 +50,7 @@ class TestRationalNumber(unittest.TestCase):
         self.assertEqual(hash(r), hash(r))
 
     def test_is_infinite(self):
+
         r = RationalNumber(1, 0)
         self.assertFalse(r.is_infinite())
 
