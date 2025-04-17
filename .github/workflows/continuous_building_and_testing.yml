@@ -14,8 +14,8 @@ jobs:
 
     permissions:
       # For publishing the test report
-      checks: write
-      contents: write
+      contents: write       # for gh-pages
+      checks: write         # for test status publish
 
     steps:
       - id: checkout
