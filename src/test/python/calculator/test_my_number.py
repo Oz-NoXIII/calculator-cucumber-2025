@@ -26,5 +26,6 @@ class TestMyNumber(unittest.TestCase):
     def test_str(self):
         self.assertEqual(str(self.number), str(self.value))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
