@@ -1,4 +1,4 @@
-Feature: Integer Arithmetic Expressions
+Feature:  Arithmetic Expressions
   This feature provides a range of scenarios corresponding to the
   intended external behaviour of arithmetic expressions on integers.
 
@@ -170,9 +170,14 @@ Feature: Integer Arithmetic Expressions
   Then its string representation is "3.1416"
 
   Scenario: Scientific notation
-    Given a real number 6.022E23
+    Given a real number 6.022574E23
     When I set the precision to 3
-    Then the scientific notation is "6.022E+23"
+    Then the scientific notation is "6.023E+23"
+
+  Scenario: Scientific notation
+    Given a real number 6.022574E-23
+    When I set the precision to 3
+    Then the scientific notation is "6.023E-23"
 
   Scenario: Degrees to radians
     Given a real number 180.0

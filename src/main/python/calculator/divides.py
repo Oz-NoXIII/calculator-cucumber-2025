@@ -20,11 +20,11 @@ class Divides(Operation):
         self._symbol = "/"
         self._neutral = 1
 
-    def op(self, l, r):
+    def op(self, left, right):
         """
         Delegates the division to the internal NumberType logic of MyNumber.
-        :param l: Left operand
-        :param r: Right operand
+        :param left: Left operand
+        :param right: Right operand
         :return: MyNumber wrapping the result of l / r using NumberType division
         """
-        return l.divide(r)
+        return left.divide(right)

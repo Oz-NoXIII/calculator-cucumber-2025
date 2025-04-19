@@ -53,7 +53,6 @@ def given_the_following_list_of_integer_numbers(context):
 @given("the sum of two numbers {n1:d} and {n2:d}")
 def given_the_sum_of_two_numbers(context, n1, n2):
     try:
-        params = [MyNumber(IntegerNumber(n1)), MyNumber(IntegerNumber(n2))]
         context.op = Plus([MyNumber(IntegerNumber(n1)), MyNumber(IntegerNumber(n2))])
     except IllegalConstruction as e:
         assert False, str(e)
