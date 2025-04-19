@@ -21,12 +21,12 @@ class Minus(Operation):
         self._symbol = "-"
         self._neutral = 0
 
-    def op(self, l, r):
+    def op(self, left, right):
         """
         The actual computation of the (binary) arithmetic subtraction of two integers
-        :param l: The first integer
-        :param r: The second integer that should be subtracted from the first
-        :return: The integer that is the result of the subtraction
+        :param left: Left operand
+        :param right: Right operand
+        :return: The number that is the result of the subtraction
         """
 
-        return l.subtract(r)
+        return left.subtract(right)

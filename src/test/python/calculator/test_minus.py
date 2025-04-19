@@ -38,8 +38,11 @@ class TestMinus(unittest.TestCase):
     def test_None(self):
         try:
             result = self.op is None
+            self.assertFalse(result)
         except Exception as e:
             self.fail(f"An exception was thrown: {e}")
+        self.op = None
+        self.assertIsNone(self.op)
 
     def test_hash_code(self):
         p = [self.value1, self.value2]
