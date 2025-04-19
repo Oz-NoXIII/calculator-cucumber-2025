@@ -128,5 +128,5 @@ try:
     r = RealNumber(6.022e23)
     print(r.to_scientific())
 
-except IllegalConstruction as e:
+except IllegalConstruction:
     print("cannot create operations without parameters")
