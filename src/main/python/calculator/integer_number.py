@@ -1,6 +1,5 @@
 from src.main.python.calculator.number_type import NumberType
 
-
 class IntegerNumber(NumberType):
     def __init__(self, value: int):
         self.value = value
@@ -21,6 +20,9 @@ class IntegerNumber(NumberType):
         if other.get_value() == 0:
             return Integernan()
         return IntegerNumber(self.value // other.get_value())
+
+    def pow(self, other):
+        return IntegerNumber(self.value ** other.get_value())
 
     def __str__(self):
         return str(self.value)

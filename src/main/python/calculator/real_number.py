@@ -36,6 +36,9 @@ class RealNumber(NumberType):
             )
         return RealNumber(self.value / divisor)
 
+    def pow(self, other):
+        return RealNumber(self.value ** other.get_value())
+
     def __str__(self):
         return f"{self.value:.{self._precision}f}"
 

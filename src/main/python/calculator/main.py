@@ -4,6 +4,7 @@ import calculator
 
 from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
+from src.main.python.calculator.power import Power
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.minus import Minus
@@ -125,6 +126,12 @@ try:
 
     r = RealNumber(6.022e23)
     print(r.to_scientific())
+
+    # pow : pow(5^3) (using params2)
+    rPow = MyNumber(RationalNumber(1, 4))
+    e = Power([rPow, rPow], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
 
 except IllegalConstruction as e:
     print("cannot create operations without parameters")
