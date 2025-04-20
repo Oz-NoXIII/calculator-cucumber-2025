@@ -127,7 +127,7 @@ try:
     r = RealNumber(6.022e23)
     print(r.to_scientific())
 
-    # pow : pow(5^3) (using params2)
+    # pow : pow(1/4 ^ (1/4))
     rPow = MyNumber(RationalNumber(1, 4))
     e = Power([rPow, rPow], Notation.INFIX)
     calculator.print_expression_details(e)
