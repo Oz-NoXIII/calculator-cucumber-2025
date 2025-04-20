@@ -251,6 +251,28 @@ Feature:  Arithmetic Expressions
     When I compute their product
     Then the rational result should be 1/2
 
+  Scenario: Show simplified rational in fraction form
+    Given a rational number 18/12
+    Then its fraction form is "3/2"
+
+  Scenario: Show simplified rational in mixed form
+    Given a rational number 18/12
+    Then its mixed form is "1 1/2"
+
+  Scenario: Negative rational in mixed form
+    Given a rational number -7/3
+    Then its mixed form is "-2 1/3"
+
+  Scenario: Rational with whole result
+    Given a rational number 3/1
+    Then its mixed form is "3"
+
+  Scenario: NaN rational
+    Given a rational number 1/0
+    Then its mixed form is "NaN"
+    And its fraction form is "NaN"
+
+
   Scenario: Advanced composition
     Given a rational expression first using + with the list
       | 1/2 | 1/2 |

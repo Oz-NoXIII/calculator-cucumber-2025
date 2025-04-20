@@ -29,6 +29,20 @@ class RationalNumber(NumberType):
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(self.value / other.get_value())
 
+    def to_mixed_str(self):
+
+        if self._is_nan:
+            return "NaN"
+        num, den = self.value.numerator, self.value.denominator
+        whole = int(num / den)
+        remainder = abs(num) % den
+        if remainder == 0:
+            return str(whole)
+        elif abs(num) < den:
+            return f"{num}/{den}"
+        else:
+            return f"{whole} {remainder}/{den}"
+
     def is_nan(self):
         return self._is_nan
 
@@ -36,6 +50,8 @@ class RationalNumber(NumberType):
         return False  # Rationals never yield infinity in Fraction
 
     def __str__(self):
+        if self._is_nan:
+            return "NaN"
         return str(self.value)
 
     def __eq__(self, other):

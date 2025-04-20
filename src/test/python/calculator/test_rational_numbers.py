@@ -41,8 +41,24 @@ class TestRationalNumber(unittest.TestCase):
         self.assertTrue(result.is_nan())
 
     def test_str(self):
-        r = RationalNumber(3, 5)
-        self.assertEqual(str(r), "3/5")
+        self.assertEqual(str(RationalNumber(6, 12)), "1/2")
+        self.assertEqual(str(RationalNumber(18, 12)), "3/2")
+        self.assertEqual(str(RationalNumber(4, 3)), "4/3")
+        self.assertEqual(str(RationalNumber(-7, 3)), "-7/3")
+        self.assertEqual(str(RationalNumber(3, 1)), "3")
+        self.assertEqual(str(RationalNumber(1, 0)), "NaN")
+
+    def test_mix_str(self):
+        self.assertEqual(RationalNumber(6, 12).to_mixed_str(), "1/2")
+        self.assertEqual(RationalNumber(18, 12).to_mixed_str(), "1 1/2")
+        self.assertEqual(RationalNumber(4, 3).to_mixed_str(), "1 1/3")
+        self.assertEqual(RationalNumber(-7, 3).to_mixed_str(), "-2 1/3")
+        self.assertEqual(RationalNumber(3, 1).to_mixed_str(), "3")
+        self.assertEqual(RationalNumber(-9, 4).to_mixed_str(), "-2 1/4")
+        self.assertEqual(RationalNumber(-11, 5).to_mixed_str(), "-2 1/5")
+        self.assertEqual(RationalNumber(0, 5).to_mixed_str(), "0")
+        self.assertEqual(RationalNumber(0, -7).to_mixed_str(), "0")
+        self.assertEqual(RationalNumber(1, 0).to_mixed_str(), "NaN")
 
     def test_hash(self):
         r = RationalNumber(3, 4)
