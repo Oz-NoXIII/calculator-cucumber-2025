@@ -234,6 +234,20 @@ def given_integer(context, value):
     context.num2 = MyNumber(IntegerNumber(value))
 
 
+@then('its fraction form is "{expected}"')
+def step_fraction(context, expected):
+    assert str(
+        context.num1.get_number_type() == expected
+    ), f"Expected {expected}, got {context.num1.get_number_type()}"
+
+
+@then('its mixed form is "{expected}"')
+def step_mixed(context, expected):
+    assert (
+        context.num1.get_number_type().to_mixed_str() == expected
+    ), f"Expected {expected}, got {context.num1.get_number_type().to_mixed_str()}"
+
+
 def parse_number(val: str):
     if "/" in val:
         n, d = map(int, val.split("/"))
