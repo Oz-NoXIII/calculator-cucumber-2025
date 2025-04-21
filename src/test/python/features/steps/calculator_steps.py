@@ -217,6 +217,7 @@ def when_multiply(context):
     n2 = context.num2.get_number_type()
     context.result = n1.multiply(n2)
 
+
 @when("I power the first to the second them")
 def when_power(context):
     context.expr = Power([context.num1, context.num2], Notation.INFIX)

@@ -21,7 +21,7 @@ class Power(Operation):
         self._symbol = "^"
         self._neutral = 1
 
-    def op(self, l, r):
+    def op(self, base, exponent):
         """
         The actual computation of the power of two integers
         :param l: The first integer
@@ -29,4 +29,4 @@ class Power(Operation):
         :return: The integer that is the result of the power
         """
 
-        return l.pow(r)
+        return base.pow(exponent)

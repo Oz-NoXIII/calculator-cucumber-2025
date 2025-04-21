@@ -2,6 +2,7 @@ from fractions import Fraction
 
 from src.main.python.calculator.number_type import NumberType
 
+
 class RationalNumber(NumberType):
     def __init__(self, numerator: int, denominator: int = 1):
         if denominator == 0:
