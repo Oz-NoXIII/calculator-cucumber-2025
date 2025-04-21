@@ -44,7 +44,7 @@ jobs:
       - id: generate-doc
         name: Generate Documentation
         run: |
-          sphinx-apidoc -o docs/source .  # Generate .rst files from your Python code
+          sphinx-apidoc -o docs/source src/main/python  # Generate .rst files from your Python code
           sphinx-build -b html docs/source docs/build/html # Build HTML documentation
 
       - id: upload-docs
