@@ -37,6 +37,10 @@ jobs:
           make venv-clean venv-install 
           pip install sphinx pytest coverage pylint
 
+      - id: check-conf-file-presence
+        name: Check Sphinx conf.py presence
+        run: ls -al docs/source
+
       - id: generate-doc
         name: Generate Documentation
         run: |
