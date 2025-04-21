@@ -8,7 +8,7 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.power import Power
-from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.times import Times
 
 class TestPower(unittest.TestCase):
 
@@ -40,7 +40,7 @@ class TestPower(unittest.TestCase):
     def test_constructor(self):
         self.assertRaises(IllegalConstruction, lambda: Power(None))
         try:
-            self.assertIsNot(self.op, Plus([]))
+            self.assertIsNot(self.op, Times([]))
         except IllegalConstruction as e:
             self.fail(e)
 
@@ -123,6 +123,16 @@ class TestPower(unittest.TestCase):
         pn = RationalNumber(-2, 1)
         pn2 = RationalNumber(-4, 1)
         self.assertEqual(pn.pow(pn2).get_value(), 1/16)
+
+    def test_None(self):
+        try:
+            result = self.op is None
+        except Exception as e:
+            self.fail(f"An exception was thrown: {e}")
+
+    def test_none_param_list(self):
+        params = None
+        self.assertRaises(IllegalConstruction, lambda: Power(params))
 
 if __name__ == "__main__":
     unittest.main()
