@@ -37,11 +37,22 @@ jobs:
           make venv-clean venv-install 
           pip install sphinx pytest coverage pylint
 
+      - id: check-conf-file-presence
+        name: Check Sphinx conf.py presence
+        run: ls -al docs/source
+
       - id: generate-doc
         name: Generate Documentation
         run: |
-          sphinx-apidoc -o docs/source .  # Generate .rst files from your Python code
+          sphinx-apidoc -o docs/source src/main/python  # Generate .rst files from your Python code
           sphinx-build -b html docs/source docs/build/html # Build HTML documentation
+
+      - id: upload-docs
+        name: Upload generated documentation as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sphinx-html-docs
+          path: docs/build/html
 
       - id: run-tests
         name: Run unit tests with unittest and BDD scenarios

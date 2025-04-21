@@ -125,11 +125,11 @@ venv-test-coverage-xml:
 # Lint the code
 lint:
 	@echo "Linting code..."
-	$(FLAKE8) $(SRC_PYTHON) $(TEST_PYTHON)
+	$(FLAKE8) --extend-ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
 
 venv-lint:
 	@echo "Linting code..."
-	$(SOURCE_VENV) && $(FLAKE8) --ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
+	$(SOURCE_VENV) && $(FLAKE8) --extend-ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
 
 # Format the code
 format:

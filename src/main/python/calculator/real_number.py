@@ -40,7 +40,8 @@ class RealNumber(NumberType):
         return RealNumber(self.value ** other.get_value())
 
     def __str__(self):
-        return f"{self.value:.{self._precision}f}"
+        raw = f"{self.value:.{self._precision}f}"
+        return raw.rstrip("0").rstrip(".")
 
     def __eq__(self, other):
         return isinstance(other, RealNumber) and math.isclose(

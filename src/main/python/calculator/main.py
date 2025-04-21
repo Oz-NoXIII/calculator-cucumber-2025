@@ -49,8 +49,11 @@ try:
     RealNumber.set_precision(8)
 
     x = RealNumber(3.1415926535)
+    y = RealNumber(1.8e2)
     print("Normal:", x)
+    print("Normal:", y)
     print("\nScientific:", x.to_scientific())
+    print("\nScientific:", y.to_scientific())
 
     angle = RealNumber(math.pi)
     print("\nRadians to degrees:", angle.to_degrees())
@@ -96,7 +99,6 @@ try:
     calculator.eval_expression(e_div_zero)
 
     e = Plus([MyNumber(ComplexNumber(1, 1)), MyNumber(ComplexNumber(2, 3))])
-
     calculator.print_result(e)
     calculator.eval_expression(e)
 
@@ -140,5 +142,5 @@ try:
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 
-except IllegalConstruction as e:
+except IllegalConstruction:
     print("cannot create operations without parameters")

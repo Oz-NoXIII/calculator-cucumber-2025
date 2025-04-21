@@ -1,4 +1,4 @@
-Feature: Integer Arithmetic Expressions
+Feature:  Arithmetic Expressions
   This feature provides a range of scenarios corresponding to the
   intended external behaviour of arithmetic expressions on integers.
 
@@ -182,9 +182,14 @@ Feature: Integer Arithmetic Expressions
   Then its string representation is "3.1416"
 
   Scenario: Scientific notation
-    Given a real number 6.022E23
+    Given a real number 6.022574E23
     When I set the precision to 3
-    Then the scientific notation is "6.022E+23"
+    Then the scientific notation is "6.023E+23"
+
+  Scenario: Scientific notation
+    Given a real number 6.022574E-23
+    When I set the precision to 3
+    Then the scientific notation is "6.023E-23"
 
   Scenario: Degrees to radians
     Given a real number 180.0
@@ -263,6 +268,28 @@ Feature: Integer Arithmetic Expressions
       | 2/3 | 3/5 | 5/4 |
     When I compute their product
     Then the rational result should be 1/2
+
+  Scenario: Show simplified rational in fraction form
+    Given a rational number 18/12
+    Then its fraction form is "3/2"
+
+  Scenario: Show simplified rational in mixed form
+    Given a rational number 18/12
+    Then its mixed form is "1 1/2"
+
+  Scenario: Negative rational in mixed form
+    Given a rational number -7/3
+    Then its mixed form is "-2 1/3"
+
+  Scenario: Rational with whole result
+    Given a rational number 3/1
+    Then its mixed form is "3"
+
+  Scenario: NaN rational
+    Given a rational number 1/0
+    Then its mixed form is "NaN"
+    And its fraction form is "NaN"
+
 
   Scenario: Advanced composition
     Given a rational expression first using + with the list
