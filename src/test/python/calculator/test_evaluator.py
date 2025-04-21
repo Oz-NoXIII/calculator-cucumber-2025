@@ -12,6 +12,7 @@ from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.times import Times
 from src.main.python.calculator.power import Power
 
+
 class TestEvaluator(unittest.TestCase):
 
     def setUp(self):

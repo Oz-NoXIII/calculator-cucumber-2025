@@ -11,6 +11,7 @@ from src.main.python.calculator.times import Times
 from src.main.python.visitor.counter import Counter
 from src.main.python.calculator.power import Power
 
+
 class TestCounting(unittest.TestCase):
 
     def setUp(self):

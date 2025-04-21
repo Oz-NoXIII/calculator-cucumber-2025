@@ -1,5 +1,6 @@
 from src.main.python.calculator.number_type import NumberType
 
+
 class IntegerNumber(NumberType):
     def __init__(self, value: int):
         self.value = value

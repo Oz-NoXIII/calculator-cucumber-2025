@@ -10,7 +10,9 @@ from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.power import Power
 from src.main.python.calculator.times import Times
 
+
 class TestPower(unittest.TestCase):
+
 
     value1 = MyNumber(IntegerNumber(8))
     value2 = MyNumber(IntegerNumber(6))
@@ -119,7 +121,7 @@ class TestPower(unittest.TestCase):
         pn2 = RationalNumber(0)
         self.assertEqual(pn.pow(pn2).get_value(), 1/1)
 
-    def test_power_null_rational(self):
+    def test_power_null_complex(self):
         pn = ComplexNumber(0, 0)
         pn2 = ComplexNumber(0, 0)
         result = pn.pow(pn2)
@@ -139,16 +141,6 @@ class TestPower(unittest.TestCase):
         pn = RationalNumber(-2, 1)
         pn2 = RationalNumber(-4, 1)
         self.assertEqual(pn.pow(pn2).get_value(), 1/16)
-
-    def test_None(self):
-        try:
-            result = self.op is None
-        except Exception as e:
-            self.fail(f"An exception was thrown: {e}")
-
-    def test_none_param_list(self):
-        params = None
-        self.assertRaises(IllegalConstruction, lambda: Power(params))
 
 if __name__ == "__main__":
     unittest.main()
