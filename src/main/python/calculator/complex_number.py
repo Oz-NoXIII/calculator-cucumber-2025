@@ -24,6 +24,11 @@ class ComplexNumber(NumberType):
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(self.value / other.get_value())
 
+    def pow(self, other):
+        if other.get_value() == 0:
+            return ComplexNumber(0, 0).set_nan()
+        return ComplexNumber.from_complex(cmath.exp(other.get_value() * cmath.log(self.value)))
+
     def modulus(self):
         return abs(self.value)
 

@@ -133,5 +133,11 @@ try:
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 
+    # pow : pow(1 +2i ^ (1 + 2i))
+    rPowC = MyNumber(ComplexNumber(1, 2))
+    e = Power([rPowC, rPowC], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
 except IllegalConstruction as e:
     print("cannot create operations without parameters")

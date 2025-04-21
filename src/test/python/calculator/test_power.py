@@ -3,6 +3,7 @@ import unittest
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.real_number import RealNumber
+from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
@@ -20,14 +21,19 @@ class TestPower(unittest.TestCase):
     value5 = MyNumber(RationalNumber(8, 1))
     value6 = MyNumber(RationalNumber(6, 1))
 
+    value7 = MyNumber(ComplexNumber(1, 2))
+    value8 = MyNumber(ComplexNumber(1, 2))
+
     def setUp(self):
         params = [self.value1, self.value2]
         params2 = [self.value3, self.value4]
         params3 = [self.value5, self.value6]
+        params4 = [self.value7, self.value8]
         try:
             self.op = Power(params)
             self.op2 = Power(params2)
             self.op3 = Power(params3)
+            self.op4 = Power(params4)
         except IllegalConstruction as e:
             self.fail(e)
 
@@ -62,6 +68,14 @@ class TestPower(unittest.TestCase):
         except IllegalConstruction as e:
             self.fail(e)
 
+    def test_equals_complex(self):
+        p = [self.value7, self.value8]
+        try:
+            e = Power(p, Notation.INFIX)
+            self.assertEqual(self.op4, e)
+        except IllegalConstruction as e:
+            self.fail(e)
+
     def test_hash_code(self):
         p = [self.value1, self.value2]
         try:
@@ -88,6 +102,12 @@ class TestPower(unittest.TestCase):
         pn = RationalNumber(0)
         pn2 = RationalNumber(0)
         self.assertEqual(pn.pow(pn2).get_value(), 1/1)
+
+    def test_power_null_rational(self):
+        pn = ComplexNumber(0, 0)
+        pn2 = ComplexNumber(0, 0)
+        result = pn.pow(pn2)
+        self.assertTrue(result.is_nan())
 
     def test_power_negative_integer(self):
         pn = IntegerNumber(-2)
