@@ -1,7 +1,8 @@
-calculator-cucumber-2025
-========================
+python
+======
 
 .. toctree::
    :maxdepth: 4
 
-   setup
+   calculator
+   visitor
