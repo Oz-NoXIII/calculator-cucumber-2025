@@ -2,7 +2,6 @@ from fractions import Fraction
 
 from src.main.python.calculator.number_type import NumberType
 
-
 class RationalNumber(NumberType):
     def __init__(self, numerator: int, denominator: int = 1):
         if denominator == 0:
@@ -28,6 +27,10 @@ class RationalNumber(NumberType):
         if other.get_value() == 0:
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(self.value / other.get_value())
+
+    def pow(self, other):
+        frac = Fraction(self.value ** other.get_value())
+        return RationalNumber(frac.numerator, frac.denominator)
 
     def to_mixed_str(self):
 

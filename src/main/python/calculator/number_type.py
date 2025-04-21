@@ -28,6 +28,10 @@ class NumberType(ABC):  # pragma: no cover
         pass
 
     @abstractmethod
+    def pow(self, other):
+        pass
+
+    @abstractmethod
     def __str__(self):
         pass
 
