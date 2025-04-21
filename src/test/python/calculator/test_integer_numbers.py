@@ -25,6 +25,10 @@ class TestIntegerNumber(unittest.TestCase):
         result = IntegerNumber(10).divide(IntegerNumber(2))
         self.assertEqual(result.get_value(), 5)
 
+    def test_power(self):
+        result = IntegerNumber(10).pow(IntegerNumber(2))
+        self.assertEqual(result.get_value(), 100)
+
     def test_divide_by_zero_returns_nan(self):
         result = IntegerNumber(1).divide(IntegerNumber(0))
         self.assertTrue(result.is_nan(), "Expected NaN result for division by zero")

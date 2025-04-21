@@ -34,6 +34,12 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.divide(r2)
         self.assertEqual(result.get_value(), Fraction(2))
 
+    def test_power(self):
+        r1 = RationalNumber(2, 1)
+        r2 = RationalNumber(1, 1)
+        result = r1.pow(r2)
+        self.assertEqual(result.get_value(), Fraction(2))
+
     def test_divide_by_zero(self):
         r1 = RationalNumber(1, 2)
         r2 = RationalNumber(0, 1)

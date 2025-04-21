@@ -29,6 +29,12 @@ class TestRealNumber(unittest.TestCase):
         result = r1.multiply(r2)
         self.assertAlmostEqual(result.get_value(), 6.0)
 
+    def test_power(self):
+        r1 = RealNumber(2.0)
+        r2 = RealNumber(3.0)
+        result = r1.pow(r2)
+        self.assertAlmostEqual(result.get_value(), 8.0)
+
     def test_divide_normal(self):
         r1 = RealNumber(10.0)
         r2 = RealNumber(2.0)
