@@ -4,8 +4,6 @@ on:
   workflow_run:
     workflows: [ "Continuous building and testing" ]
     types: [ completed ]
-  push:
-  pull_request:
 
 jobs:
 
