@@ -18,6 +18,12 @@ Feature: Integer Arithmetic Expressions
     And I provide a second number 5
     Then the operation evaluates to 9
 
+  Scenario: Powering two integer numbers
+    Given an integer operation '^'
+    When I provide a first number 7
+    And I provide a second number 2
+    Then the operation evaluates to 49
+
   Scenario: Subtracting two integer numbers
     Given an integer operation '-'
     When I provide a first number 7
@@ -152,6 +158,12 @@ Feature: Integer Arithmetic Expressions
     When I subtract them
     Then the result should be 2.5
 
+  Scenario: Powering two real numbers
+    Given a real number 5.0
+    And another real number 2.0
+    When I power the first to the second them
+    Then the result should be 25.0
+
   Scenario: Multiplying two real numbers
     Given a real number 3.0
     And another real number 2.0
@@ -197,6 +209,12 @@ Feature: Integer Arithmetic Expressions
     And another rational number 1/4
     When I add them
     Then the rational result should be 3/4
+
+  Scenario: Powering two rational numbers
+    Given a rational number 1/4
+    And another rational number 1/4
+    When I power the first to the second them
+    Then the rational result should be 6369051672525773/9007199254740992
 
   Scenario: Dividing by zero
     Given a rational number 1/2
@@ -265,6 +283,12 @@ Feature: Integer Arithmetic Expressions
     And another complex number 1-1i
     When I add them
     Then the complex result should be 3+2i
+
+  Scenario: Powering complex number
+    Given a complex number 1+2i
+    And another real number 2.0
+    When I power the first to the second them
+    Then the complex result should be -3+4i
 
   Scenario: Subtracting complex numbers
     Given a complex number 5+2i

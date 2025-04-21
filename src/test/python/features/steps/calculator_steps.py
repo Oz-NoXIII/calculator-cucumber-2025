@@ -12,6 +12,7 @@ from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.power import Power
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
@@ -36,6 +37,8 @@ def given_an_integer_operation(context, string):
                 context.op = Times([])
             case "/":
                 context.op = Divides([])
+            case "^":
+                context.op = Power([])
             case _:
                 assert False, f"{string} is an invalid operation"
     except IllegalConstruction as e:
@@ -99,6 +102,8 @@ def when_i_provide_an_expression_containing_an_integer_operation_with_the_follow
                 internal_op = Times(internal_params)
             case "/":
                 internal_op = Divides(internal_params)
+            case "^":
+                internal_op = Power(internal_params)
             case _:
                 assert False, "Invalid operation"
     except IllegalConstruction as e:
@@ -120,6 +125,8 @@ def then_the_operation_is(context, operation, expected):
                 op = Times(context.params)
             case "quotient":
                 op = Divides(context.params)
+            case "power":
+                op = Power(context.params)
             case _:
                 assert False, "Invalid operation result type"
         result = calculator.eval_expression(op)
@@ -211,6 +218,13 @@ def when_multiply(context):
     n2 = context.num2.get_number_type()
     context.result = n1.multiply(n2)
 
+@when("I power the first to the second them")
+def when_power(context):
+    context.expr = Power([context.num1, context.num2], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    n2 = context.num2.get_number_type()
+    context.result = n1.pow(n2)
+
 
 @then("the result should be {expected:g}")
 def then_result(context, expected):
@@ -279,6 +293,8 @@ def given_define_expression(context, name, op):
             context.expr = Times(params)
         case "/":
             context.expr = Divides(params)
+        case "^":
+            context.expr = Power(params)
         case _:
             raise AssertionError(f"Unsupported op: {op}")
 
@@ -301,6 +317,8 @@ def when_combine_named_expressions(context, expr_names, op):
             context.expr = Times(params)
         case "/":
             context.expr = Divides(params)
+        case "^":
+            context.expr = Power(params)
         case _:
             raise AssertionError(f"Unsupported combination op: {op}")
 

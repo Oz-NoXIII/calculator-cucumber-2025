@@ -135,7 +135,8 @@ try:
 
     # pow : pow(1 +2i ^ (1 + 2i))
     rPowC = MyNumber(ComplexNumber(1, 2))
-    e = Power([rPowC, rPowC], Notation.INFIX)
+    rPowC2 = MyNumber(RealNumber(2))
+    e = Power([rPowC, rPowC2], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 
