@@ -44,6 +44,22 @@ class TestPower(unittest.TestCase):
         except IllegalConstruction as e:
             self.fail(e)
 
+    def test_equals(self):
+        p = [self.value1, self.value2]
+        try:
+            e = Power(p, Notation.INFIX)
+            self.assertEqual(self.op, e)
+            self.assertEqual(e, e)
+            self.assertNotEqual(
+                e,
+                Power(
+                    [MyNumber(IntegerNumber(5)), MyNumber(IntegerNumber(4))],
+                    Notation.INFIX,
+                ),
+            )
+        except IllegalConstruction as e:
+            self.fail(e)
+
     def test_equals_integer(self):
         p = [self.value1, self.value2]
         try:
