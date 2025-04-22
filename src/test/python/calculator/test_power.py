@@ -13,7 +13,6 @@ from src.main.python.calculator.times import Times
 
 class TestPower(unittest.TestCase):
 
-
     value1 = MyNumber(IntegerNumber(8))
     value2 = MyNumber(IntegerNumber(6))
 
@@ -141,6 +140,7 @@ class TestPower(unittest.TestCase):
         pn = RationalNumber(-2, 1)
         pn2 = RationalNumber(-4, 1)
         self.assertEqual(pn.pow(pn2).get_value(), 1/16)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -39,6 +39,11 @@ class RealNumber(NumberType):
     def pow(self, other):
         return RealNumber(self.value ** other.get_value())
 
+    def inverse(self):
+        if self.value == 0.0:
+            return RealNumber(float("inf"))
+        return RealNumber(1 / self.value)
+
     def __str__(self):
         raw = f"{self.value:.{self._precision}f}"
         return raw.rstrip("0").rstrip(".")

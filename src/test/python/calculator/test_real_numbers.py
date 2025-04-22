@@ -29,6 +29,11 @@ class TestRealNumber(unittest.TestCase):
         result = r1.multiply(r2)
         self.assertAlmostEqual(result.get_value(), 6.0)
 
+    def test_inverse(self):
+        r1 = RealNumber(5.0)
+        result = r1.inverse()
+        self.assertAlmostEqual(result.get_value(), 0.2)
+
     def test_power(self):
         r1 = RealNumber(2.0)
         r2 = RealNumber(3.0)
@@ -45,6 +50,11 @@ class TestRealNumber(unittest.TestCase):
         a = RealNumber(0.0)
         result = a.divide(RealNumber(0.0))
         self.assertTrue(result.is_nan(), "Expected NaN from 0.0 / 0.0")
+
+    def test_inverse_by_zero(self):
+        a = RealNumber(0.0)
+        result = a.inverse()
+        self.assertTrue(result.is_infinite())
 
     def test_positive_divided_by_zero(self):
         a = RealNumber(1.0)

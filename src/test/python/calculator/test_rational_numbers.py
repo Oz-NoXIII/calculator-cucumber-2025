@@ -28,6 +28,11 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.multiply(r2)
         self.assertEqual(result.get_value(), Fraction(2, 5))
 
+    def test_inverse(self):
+        r1 = RationalNumber(2, 3)
+        result = r1.inverse()
+        self.assertEqual(result.get_value(), Fraction(3, 2))
+
     def test_divide(self):
         r1 = RationalNumber(1, 2)
         r2 = RationalNumber(1, 4)
@@ -44,6 +49,11 @@ class TestRationalNumber(unittest.TestCase):
         r1 = RationalNumber(1, 2)
         r2 = RationalNumber(0, 1)
         result = r1.divide(r2)
+        self.assertTrue(result.is_nan())
+
+    def test_inverse_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.inverse()
         self.assertTrue(result.is_nan())
 
     def test_str(self):
