@@ -11,6 +11,7 @@ from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.inverse import Inverse
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
@@ -139,6 +140,12 @@ try:
     rPowC = MyNumber(ComplexNumber(1, 2))
     rPowC2 = MyNumber(RealNumber(2))
     e = Power([rPowC, rPowC2], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # inverse : inverse(5)
+    rInv = MyNumber(RealNumber(0))
+    e = Inverse([rInv], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 

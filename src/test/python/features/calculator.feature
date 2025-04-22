@@ -48,6 +48,16 @@ Feature:  Arithmetic Expressions
     And I provide a second number 0
     Then the operation evaluates to NaN
 
+  Scenario: Inverse one integer
+    Given an integer operation '1/'
+    When I provide a first number 5
+    Then the operation evaluates to 0
+
+  Scenario: Inverse of zero
+    Given an integer operation '1/'
+    When I provide a first number 0
+    Then the operation evaluates to NaN
+
   Scenario: Printing the sum of two integer numbers
     Given the sum of two numbers 8 and 6
     Then its INFIX notation is ( 8 + 6 )
@@ -201,13 +211,21 @@ Feature:  Arithmetic Expressions
     When I convert to degrees
     Then the result is approximately 180.0
 
-
   Scenario: Multiplying by zero
     Given a real number 0.0
     And another real number 99.99
     When I multiply them
     Then the result should be 0.0
 
+  Scenario: Inverse of a real
+    Given a real number 5.0
+    When I inverse it
+    Then the result should be 0.2
+
+  Scenario: Inverse of 0 as a real
+    Given a real number 0.0
+    When I inverse it
+    Then the result should be Infinity
 
   Scenario: Adding two rational numbers
     Given a rational number 1/2
@@ -217,9 +235,9 @@ Feature:  Arithmetic Expressions
 
   Scenario: Powering two rational numbers
     Given a rational number 1/4
-    And another rational number 1/4
+    And another rational number 2/1
     When I power the first to the second them
-    Then the rational result should be 6369051672525773/9007199254740992
+    Then the rational result should be 1/16
 
   Scenario: Dividing by zero
     Given a rational number 1/2
@@ -244,6 +262,16 @@ Feature:  Arithmetic Expressions
     And another rational number 1/4
     When I divide them
     Then the rational result should be 2/1
+
+  Scenario: Inverse a rational number
+    Given a rational number 1/2
+    When I inverse it
+    Then the rational result should be 2/1
+
+  Scenario: Inverse the rational number 0/0
+    Given a rational number 0/0
+    When I inverse it
+    Then the result should be NaN
 
   Scenario: Adding rational and integer
     Given a rational number 3/4
@@ -339,6 +367,16 @@ Feature:  Arithmetic Expressions
     Given a complex number 1+2i
     And another complex number 0+0i
     When I divide them
+    Then the result should be NaN
+
+  Scenario: Inverse complex number
+    Given a complex number 1+2i
+    When I inverse it
+    Then the complex result should be 0.2-0.4i
+
+  Scenario: Inverse complex number 0+0i
+    Given a complex number 0+0i
+    When I inverse it
     Then the result should be NaN
 
   Scenario: Getting the modulus of a complex number

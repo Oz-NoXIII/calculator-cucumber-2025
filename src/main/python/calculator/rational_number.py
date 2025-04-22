@@ -29,6 +29,11 @@ class RationalNumber(NumberType):
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(self.value / other.get_value())
 
+    def inverse(self):
+        if self.value == 0:
+            return RationalNumber(0, 1).set_nan()
+        return RationalNumber.from_fraction(1 / self.value)
+
     def pow(self, other):
         frac = Fraction(self.value ** other.get_value())
         return RationalNumber(frac.numerator, frac.denominator)
