@@ -22,6 +22,9 @@ class IntegerNumber(NumberType):
             return Integernan()
         return IntegerNumber(self.value // other.get_value())
 
+    def pow(self, other):
+        return IntegerNumber(self.value ** other.get_value())
+
     def __str__(self):
         return str(self.value)
 

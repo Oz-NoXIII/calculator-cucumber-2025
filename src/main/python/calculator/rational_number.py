@@ -29,6 +29,10 @@ class RationalNumber(NumberType):
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(self.value / other.get_value())
 
+    def pow(self, other):
+        frac = Fraction(self.value ** other.get_value())
+        return RationalNumber(frac.numerator, frac.denominator)
+
     def to_mixed_str(self):
 
         if self._is_nan:
