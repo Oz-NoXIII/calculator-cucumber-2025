@@ -74,10 +74,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: allure-history
+          path: allure-results
 
       - name: Zip test report
-        run: zip -r test-report.zip allure-history
+        run: zip -r test-report.zip allure-results
 
       - name: Upload zipped test report to release
         if: github.event_name == 'release'
