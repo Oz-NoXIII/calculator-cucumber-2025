@@ -32,6 +32,11 @@ class TestComplexNumber(unittest.TestCase):
         self.assertAlmostEqual(result.get_value().real, expected.real, places=2)
         self.assertAlmostEqual(result.get_value().imag, expected.imag, places=2)
 
+    def test_inverse(self):
+        a = ComplexNumber(1, 2)
+        result = a.inverse()
+        self.assertEqual(result.get_value(), complex(0.2, -0.4))
+
     def test_power(self):
         a = ComplexNumber(1, 2)
         b = ComplexNumber(3, 4)
