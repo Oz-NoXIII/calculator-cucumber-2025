@@ -41,7 +41,7 @@ class RealNumber(NumberType):
 
     def inverse(self):
         if self.value == 0.0:
-            return RealNumber(float("-inf"))
+            return RealNumber(float("inf"))
         return RealNumber(1 / self.value)
 
     def __str__(self):

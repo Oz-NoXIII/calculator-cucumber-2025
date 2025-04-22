@@ -17,6 +17,7 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 from src.main.python.visitor.evaluator import Evaluator
+from src.main.python.calculator.inverse import Inverse
 
 
 @given("I initialise a calculator")
@@ -39,6 +40,8 @@ def given_an_integer_operation(context, string):
                 context.op = Divides([])
             case "^":
                 context.op = Power([])
+            case "1/":
+                context.op = Inverse([])
             case _:
                 assert False, f"{string} is an invalid operation"
     except IllegalConstruction as e:
@@ -103,6 +106,8 @@ def when_i_provide_an_expression_containing_an_integer_operation_with_the_follow
                 internal_op = Divides(internal_params)
             case "^":
                 internal_op = Power(internal_params)
+            case "1/":
+                internal_op = Inverse(internal_params)
             case _:
                 assert False, "Invalid operation"
     except IllegalConstruction as e:
@@ -126,6 +131,8 @@ def then_the_operation_is(context, operation, expected):
                 op = Divides(context.params)
             case "power":
                 op = Power(context.params)
+            case "inverse":
+                op = Inverse(context.params)
             case _:
                 assert False, "Invalid operation result type"
         result = calculator.eval_expression(op)
@@ -226,6 +233,12 @@ def when_power(context):
     context.result = n1.pow(n2)
 
 
+@when("I inverse it")
+def when_inverse(context):
+    context.expr = Inverse([context.num1], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    context.result = n1.inverse()
+
 @then("the result should be {expected:g}")
 def then_result(context, expected):
     actual = context.result.get_value()
@@ -309,6 +322,8 @@ def given_define_expression(context, name, op):
             context.expr = Divides(params)
         case "^":
             context.expr = Power(params)
+        case "1/":
+            context.expr = Inverse(params)
         case _:
             raise AssertionError(f"Unsupported op: {op}")
 
@@ -333,6 +348,8 @@ def when_combine_named_expressions(context, expr_names, op):
             context.expr = Divides(params)
         case "^":
             context.expr = Power(params)
+        case "1/":
+            context.expr = Inverse(params)
         case _:
             raise AssertionError(f"Unsupported combination op: {op}")
 

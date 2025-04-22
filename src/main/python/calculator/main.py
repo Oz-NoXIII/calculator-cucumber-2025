@@ -144,7 +144,7 @@ try:
     calculator.eval_expression(e)
 
     # inverse : inverse(5)
-    rInv = MyNumber(RealNumber(5))
+    rInv = MyNumber(RealNumber(0))
     e = Inverse([rInv], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
