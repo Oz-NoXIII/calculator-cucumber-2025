@@ -69,6 +69,12 @@ jobs:
           publish_dir: allure-history
           force_orphan: true
 
+      - name: Upload test report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: allure-history
+
       - id: coveralls
         name: Coveralls
         uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b # v2.3.6
