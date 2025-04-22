@@ -51,6 +51,11 @@ class TestRealNumber(unittest.TestCase):
         result = a.divide(RealNumber(0.0))
         self.assertTrue(result.is_nan(), "Expected NaN from 0.0 / 0.0")
 
+    def test_inverse_by_zero(self):
+        a = RealNumber(0.0)
+        result = a.inverse()
+        self.assertTrue(result.is_infinite())
+
     def test_positive_divided_by_zero(self):
         a = RealNumber(1.0)
         result = a.divide(RealNumber(0.0))

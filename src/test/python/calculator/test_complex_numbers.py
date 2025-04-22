@@ -51,6 +51,11 @@ class TestComplexNumber(unittest.TestCase):
         result = a.divide(b)
         self.assertTrue(result.is_nan())
 
+    def test_nan_on_inverse_by_zero(self):
+        a = ComplexNumber(0, 0)
+        result = a.inverse()
+        self.assertTrue(result.is_nan())
+
     def test_modulo(self):
         a = ComplexNumber(1, 2)
         b = ComplexNumber(3, 4)

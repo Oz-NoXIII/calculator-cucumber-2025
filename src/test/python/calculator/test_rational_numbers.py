@@ -51,6 +51,11 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.divide(r2)
         self.assertTrue(result.is_nan())
 
+    def test_divide_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.inverse()
+        self.assertTrue(result.is_nan())
+
     def test_str(self):
         self.assertEqual(str(RationalNumber(6, 12)), "1/2")
         self.assertEqual(str(RationalNumber(18, 12)), "3/2")
