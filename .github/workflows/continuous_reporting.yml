@@ -42,7 +42,7 @@ jobs:
       - name: Upload generated documentation as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sphinx-html-docs
+          name: html-docs
           path: docs/build/html
 
       - name: Zip HTML documentation
@@ -55,7 +55,7 @@ jobs:
         uses: softprops/action-gh-release@v2.2.2
         with:
           tag_name: ${{ github.event.release.tag_name }}
-          name: Docstring documentation
+          name: html-docs
           files: docs/build/html-docs.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,28 +63,46 @@ jobs:
       - name: Run unit tests and BDD scenarios
         run: make venv-test-action
 
+      - name: Load test report history
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Build test report
         uses: simple-elf/allure-report-action@f841fec0e421b5d7d8e807dedfb03efb8cf30303 # v1.12
         if: always()
         with:
+          gh_pages: gh-pages
           allure_history: allure-history
           allure_results: allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+          force_orphan: true
 
       - name: Upload test report as artifact
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: allure-results
+          path: allure-history
 
       - name: Zip test report
-        run: zip -r test-report.zip allure-results
+        run: zip -r test-report.zip allure-history
 
       - name: Upload zipped test report to release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2.2.2
         with:
           tag_name: ${{ github.event.release.tag_name }}
-          name: Test report
+          name: test-report
           files: test-report.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -106,7 +124,7 @@ jobs:
         uses: softprops/action-gh-release@v2.2.2
         with:
           tag_name: ${{ github.event.release.tag_name }}
-          name: Coverage report
+          name: coverage-report
           files: coverage-report.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
