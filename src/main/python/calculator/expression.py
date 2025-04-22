@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class Expression(ABC):  # pragma: no cover
     """
     Expression is an abstract class that represents arithmetic expressions.
-    It has two concrete subclasses Operation and MyNumber.
+    It has one concrete subclass (MyNumber) and one type of subclasses (Operation).
     """
 
     @abstractmethod
