@@ -23,7 +23,7 @@ class TestIntegerNumber(unittest.TestCase):
 
     def test_inverse(self):
         result = IntegerNumber(5).inverse()
-        self.assertEqual(result.get_value(), 0) # 0.2 but 1 // 5 == 0
+        self.assertEqual(result.get_value(), 0)
 
     def test_divide(self):
         result = IntegerNumber(10).divide(IntegerNumber(2))

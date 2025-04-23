@@ -34,6 +34,21 @@ class ComplexNumber(NumberType):
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(self.value ** other.get_value())
 
+    def log(self):
+        return ComplexNumber.from_complex(cmath.log10(self.value))
+
+    def ln(self):
+        return ComplexNumber.from_complex(cmath.log(self.value))
+
+    def exp(self):
+        return ComplexNumber.from_complex(cmath.exp(self.value))
+
+    def sin(self):
+        return ComplexNumber.from_complex(cmath.sin(self.value))
+
+    def cos(self):
+        return ComplexNumber.from_complex(cmath.cos(self.value))
+
     def modulus(self):
         return abs(self.value)
 

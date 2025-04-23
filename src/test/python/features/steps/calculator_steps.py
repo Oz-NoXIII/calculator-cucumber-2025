@@ -239,6 +239,7 @@ def when_inverse(context):
     n1 = context.num1.get_number_type()
     context.result = n1.inverse()
 
+
 @then("the result should be {expected:g}")
 def then_result(context, expected):
     actual = context.result.get_value()

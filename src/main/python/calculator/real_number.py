@@ -39,6 +39,25 @@ class RealNumber(NumberType):
     def pow(self, other):
         return RealNumber(self.value ** other.get_value())
 
+    def log(self):
+        if self.value <= 0:
+            return RealNumber(float("nan"))
+        return RealNumber(math.log(self.value, 10))
+
+    def ln(self):
+        if self.value <= 0:
+            return RealNumber(float("nan"))
+        return RealNumber(math.log(self.value))
+
+    def exp(self):
+        return RealNumber(math.exp(self.value))
+
+    def sin(self):
+        return RealNumber(math.sin(self.value))
+
+    def cos(self):
+        return RealNumber(math.cos(self.value))
+
     def inverse(self):
         if self.value == 0.0:
             return RealNumber(float("inf"))
@@ -83,8 +102,3 @@ class RealNumber(NumberType):
         if self.value < 0.0:
             return RealNumber(float("nan"))
         return RealNumber(math.sqrt(self.value))
-
-    def log(self):
-        if self.value <= 0:
-            return RealNumber(float("nan"))
-        return RealNumber(math.log(self.value))

@@ -1,7 +1,7 @@
 from src.main.python.calculator.function import Function
 
 
-class Inverse(Function):
+class Cosinus(Function):
     """
     This class represents the arithmetic sum operation "^".
     The class extends an abstract superclass Operation.
@@ -18,8 +18,8 @@ class Inverse(Function):
         """
 
         super().__init__(elist, n)
-        self._symbol = "1/"
-        self._neutral = 1
+        self._symbol = "cos"
+        self._neutral = 0
 
     def op(self, base):
         """
@@ -28,5 +28,4 @@ class Inverse(Function):
         :param r: The second integer that should be powered to the first
         :return: The integer that is the result of the power
         """
-        return base.inverse()
-        
+        return base.cos()
