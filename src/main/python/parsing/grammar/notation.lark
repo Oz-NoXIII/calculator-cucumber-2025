@@ -1,0 +1,55 @@
+?start: expr
+
+?expr: infix_expr
+     | prefix_expr
+     | postfix_expr
+
+//INFIX notation
+?infix_expr: infix_expr "+" infix_term   -> add
+           | infix_expr "-" infix_term   -> sub
+           | infix_term
+           | "inv" "(" infix_expr ")" -> inverse
+
+?infix_term: infix_term "*" infix_factor -> mul
+           | infix_term "/" infix_factor -> div
+           | infix_factor
+
+?infix_factor: factor
+             | infix_factor "^" infix_factor -> pow
+             | "(" infix_expr ")"
+
+//PREFIX notation
+?prefix_expr: "+" "(" prefix_factor prefix_factor+ ")"   -> add
+            | "-" "(" prefix_factor prefix_factor+ ")"   -> sub
+            | "*" "(" prefix_factor prefix_factor+ ")"   -> mul
+            | "/" "(" prefix_factor prefix_factor+ ")"   -> div
+            | "^" "(" prefix_factor prefix_factor+ ")"   -> pow
+            | "inv" "(" prefix_expr ")" -> inverse
+
+?prefix_factor: prefix_expr
+              | factor
+
+
+//POSTFIX notation
+?postfix_expr: "(" postfix_term postfix_term+ ")" "+"   -> add
+             | "(" postfix_term postfix_term+ ")" "-"   -> sub
+             | "(" postfix_term postfix_term+ ")" "*"   -> mul
+             | "(" postfix_term postfix_term+ ")" "/"   -> div
+             | "(" postfix_term postfix_term+ ")" "^"   -> pow
+             | "(" INT "-"+ ")"            -> neg
+             | "inv" "(" postfix_expr ")" -> inverse
+
+?postfix_term: postfix_expr
+             | postfix_factor
+
+?postfix_factor: INT                        -> integer_number
+
+
+
+//FACTOR
+?factor: INT           -> integer_number
+       | "-" factor    -> neg
+
+%import common.INT
+%import common.WS_INLINE
+%ignore WS_INLINE
