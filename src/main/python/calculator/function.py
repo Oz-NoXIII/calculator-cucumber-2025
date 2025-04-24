@@ -70,7 +70,7 @@ class Function(ABC):  # pragma: no cover
     def __str__(self):
         args_str = [str(arg) for arg in self.__args]
         match self.__notation:
-            case Notation.INFIX: # infix = prefix because only one param
+            case Notation.INFIX:  # infix = prefix because only one param
                 if not args_str:
                     return f"{self._symbol} ("
                 combined = ", ".join(args_str)
