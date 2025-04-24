@@ -50,6 +50,7 @@ class ExprTransformer(Transformer):
     def inverse(self, token):
         return Inverse([token])
 
+
 def parse_expression(expr_str: str):
     tree = parser.parse(expr_str)
     return ExprTransformer().transform(tree)

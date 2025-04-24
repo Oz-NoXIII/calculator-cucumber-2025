@@ -18,8 +18,9 @@ def step_then_result_type(context, expected):
            str(context.result) == expected
            ), f"Expected {expected}, got {str(context.result)}"
 
+
 @then('the result is between {expected1} or {expected2}')
-def step_then_result_type(context, expected1, expected2):
+def step_then_results_type(context, expected1, expected2):
     assert (
            str(context.result) == expected1 or str(context.result) == expected2
            ), f"Expected {expected1} or {expected2}, got {str(context.result)}"
