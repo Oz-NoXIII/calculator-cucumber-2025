@@ -41,10 +41,14 @@ class RationalNumber(NumberType):
         return RationalNumber(frac.numerator, frac.denominator)
 
     def log(self):
+        if(self.value <= 0):
+            return RationalNumber(0, 1).set_nan()
         frac = Fraction(math.log(self.value, 10))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def ln(self):
+        if(self.value <= 0):
+            return RationalNumber(0, 1).set_nan()
         frac = Fraction(math.log(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 

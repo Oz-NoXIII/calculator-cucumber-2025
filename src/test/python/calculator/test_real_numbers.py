@@ -127,7 +127,7 @@ class TestRealNumber(unittest.TestCase):
 
     def test_log_positive(self):
         r = RealNumber(math.e)
-        result = r.log()
+        result = r.ln()
         self.assertAlmostEqual(result.get_value(), 1.0, places=6)
 
     def test_log_zero(self):
