@@ -45,6 +45,31 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.pow(r2)
         self.assertEqual(result.get_value(), Fraction(2))
 
+    def test_sinus(self):
+        a = RationalNumber(0, 1)
+        result = a.sin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinus(self):
+        a = RationalNumber(0, 1)
+        result = a.cos()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_logarithm(self):
+        a = RationalNumber(1, 1)
+        result = a.log()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_logarithm_neperien(self):
+        a = RationalNumber(1, 1)
+        result = a.ln()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_exponent(self):
+        a = RationalNumber(0, 1)
+        result = a.exp()
+        self.assertEqual(result.get_value(), 1)
+
     def test_divide_by_zero(self):
         r1 = RationalNumber(1, 2)
         r2 = RationalNumber(0, 1)
@@ -54,6 +79,16 @@ class TestRationalNumber(unittest.TestCase):
     def test_inverse_by_zero(self):
         r1 = RationalNumber(0, 1)
         result = r1.inverse()
+        self.assertTrue(result.is_nan())
+
+    def test_logarithm_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.log()
+        self.assertTrue(result.is_nan())
+
+    def test_logarithm_neperien_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.ln()
         self.assertTrue(result.is_nan())
 
     def test_str(self):

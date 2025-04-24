@@ -37,6 +37,31 @@ class TestComplexNumber(unittest.TestCase):
         result = a.inverse()
         self.assertEqual(result.get_value(), complex(0.2, -0.4))
 
+    def test_sinus(self):
+        a = ComplexNumber(0, 0)
+        result = a.sin()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_cosinus(self):
+        a = ComplexNumber(0, 0)
+        result = a.cos()
+        self.assertEqual(result.get_value(), complex(1, 0))
+
+    def test_logarithm(self):
+        a = ComplexNumber(1, 0)
+        result = a.log()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_logarithm_neperien(self):
+        a = ComplexNumber(cmath.e, 0)
+        result = a.ln()
+        self.assertEqual(result.get_value(), complex(1, 0))
+
+    def test_exponent(self):
+        a = ComplexNumber(0, 0)
+        result = a.exp()
+        self.assertEqual(result.get_value(), complex(1, 0))
+
     def test_power(self):
         a = ComplexNumber(1, 2)
         b = ComplexNumber(3, 4)
@@ -54,6 +79,16 @@ class TestComplexNumber(unittest.TestCase):
     def test_nan_on_inverse_by_zero(self):
         a = ComplexNumber(0, 0)
         result = a.inverse()
+        self.assertTrue(result.is_nan())
+
+    def test_nan_on_logarithm_by_zero(self):
+        a = ComplexNumber(0, 0)
+        result = a.log()
+        self.assertTrue(result.is_nan())
+
+    def test_nan_on_logarithm_neperien_by_zero(self):
+        a = ComplexNumber(0, 0)
+        result = a.ln()
         self.assertTrue(result.is_nan())
 
     def test_modulo(self):

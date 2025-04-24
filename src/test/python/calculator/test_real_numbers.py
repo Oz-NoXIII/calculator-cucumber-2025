@@ -40,6 +40,31 @@ class TestRealNumber(unittest.TestCase):
         result = r1.pow(r2)
         self.assertAlmostEqual(result.get_value(), 8.0)
 
+    def test_sinus(self):
+        a = RealNumber(0)
+        result = a.sin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinus(self):
+        a = RealNumber(0)
+        result = a.cos()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_logarithm(self):
+        a = RealNumber(1)
+        result = a.log()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_logarithm_neperien(self):
+        a = RealNumber(1)
+        result = a.ln()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_exponent(self):
+        a = RealNumber(0)
+        result = a.exp()
+        self.assertEqual(result.get_value(), 1)
+
     def test_divide_normal(self):
         r1 = RealNumber(10.0)
         r2 = RealNumber(2.0)
@@ -55,6 +80,16 @@ class TestRealNumber(unittest.TestCase):
         a = RealNumber(0.0)
         result = a.inverse()
         self.assertTrue(result.is_infinite())
+
+    def test_logarithm_by_zero(self):
+        a = RealNumber(0.0)
+        result = a.log()
+        self.assertTrue(result.is_nan(), "Expected NaN from log(0)")
+
+    def test_logarithm_neperien_by_zero(self):
+        a = RealNumber(0.0)
+        result = a.ln()
+        self.assertTrue(result.is_nan(), "Expected NaN from ln(0)")
 
     def test_positive_divided_by_zero(self):
         a = RealNumber(1.0)

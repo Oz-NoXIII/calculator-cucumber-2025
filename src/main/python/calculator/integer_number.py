@@ -35,21 +35,21 @@ class IntegerNumber(NumberType):
     def log(self):
         if(self.value <= 0):
             return Integernan()
-        return IntegerNumber(math.log(self.value, 10))
+        return IntegerNumber(int(math.log(self.value, 10)))
 
     def ln(self):
         if(self.value <= 0):
             return Integernan()
-        return IntegerNumber(math.log(self.value))
+        return IntegerNumber(int(math.log(self.value)))
 
     def exp(self):
-        return IntegerNumber(math.exp(self.value))
+        return IntegerNumber(int(math.exp(self.value)))
 
     def sin(self):
-        return IntegerNumber(math.sin(self.value))
+        return IntegerNumber(int(math.sin(self.value)))
 
     def cos(self):
-        return IntegerNumber(math.cos(self.value))
+        return IntegerNumber(int(math.cos(self.value)))
 
     def __str__(self):
         return str(self.value)

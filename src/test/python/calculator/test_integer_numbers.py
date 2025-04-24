@@ -33,12 +33,45 @@ class TestIntegerNumber(unittest.TestCase):
         result = IntegerNumber(10).pow(IntegerNumber(2))
         self.assertEqual(result.get_value(), 100)
 
+    def test_sinus(self):
+        a = IntegerNumber(0)
+        result = a.sin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinus(self):
+        a = IntegerNumber(0)
+        result = a.cos()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_logarithm(self):
+        a = IntegerNumber(1)
+        result = a.log()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_logarithm_neperien(self):
+        a = IntegerNumber(1)
+        result = a.ln()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_exponent(self):
+        a = IntegerNumber(1)
+        result = a.exp()
+        self.assertEqual(result.get_value(), 2)
+
     def test_divide_by_zero_returns_nan(self):
         result = IntegerNumber(1).divide(IntegerNumber(0))
         self.assertTrue(result.is_nan(), "Expected NaN result for division by zero")
 
     def test_inverse_by_zero_returns_nan(self):
         result = IntegerNumber(0).inverse()
+        self.assertTrue(result.is_nan(), "Expected NaN result for division by zero")
+
+    def test_logarithm_by_zero_returns_nan(self):
+        result = IntegerNumber(0).log()
+        self.assertTrue(result.is_nan(), "Expected NaN result for division by zero")
+
+    def test_logarithm_neperien_by_zero_returns_nan(self):
+        result = IntegerNumber(0).ln()
         self.assertTrue(result.is_nan(), "Expected NaN result for division by zero")
 
     def test_is_nan_and_infinite(self):
