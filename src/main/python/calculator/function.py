@@ -71,8 +71,10 @@ class Function(Expression):  # pragma: no cover
     def __str__(self):
         args_str = [str(arg) for arg in self.__args]
         match self.__notation:
+
             # infix = prefix because only one param
             case Notation.INFIX:
+
                 if not args_str:
                     return f"{self._symbol} ("
                 combined = ", ".join(args_str)
