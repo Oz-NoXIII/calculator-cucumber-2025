@@ -13,11 +13,11 @@ from src.main.python.calculator.times import Times
 
 class TestExponent(unittest.TestCase):
 
-    value1 = MyNumber(IntegerNumber(0))
+    value1 = MyNumber(IntegerNumber(8))
 
-    value2 = MyNumber(RealNumber(0.0))
+    value2 = MyNumber(RealNumber(8.0))
 
-    value3 = MyNumber(RationalNumber(0, 1))
+    value3 = MyNumber(RationalNumber(8, 1))
 
     value4 = MyNumber(ComplexNumber(1, 2))
 

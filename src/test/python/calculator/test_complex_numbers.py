@@ -38,11 +38,21 @@ class TestComplexNumber(unittest.TestCase):
         self.assertEqual(result.get_value(), complex(0.2, -0.4))
 
     def test_sinus(self):
+        a = ComplexNumber(cmath.pi / 2, 0)
+        result = a.sin()
+        self.assertEqual(result.get_value(), complex(1, 0))
+
+    def test_cosinus(self):
+        a = ComplexNumber(cmath.pi, 0)
+        result = a.cos()
+        self.assertEqual(result.get_value(), complex(-1, 0))
+
+    def test_sinus_by_zero(self):
         a = ComplexNumber(0, 0)
         result = a.sin()
         self.assertEqual(result.get_value(), complex(0, 0))
 
-    def test_cosinus(self):
+    def test_cosinus_by_zero(self):
         a = ComplexNumber(0, 0)
         result = a.cos()
         self.assertEqual(result.get_value(), complex(1, 0))
@@ -58,6 +68,11 @@ class TestComplexNumber(unittest.TestCase):
         self.assertEqual(result.get_value(), complex(1, 0))
 
     def test_exponent(self):
+        a = ComplexNumber(1, 0)
+        result = a.exp()
+        self.assertEqual(result.get_value(), complex(cmath.e, 0))
+
+    def test_exponent_by_zero(self):
         a = ComplexNumber(0, 0)
         result = a.exp()
         self.assertEqual(result.get_value(), complex(1, 0))
