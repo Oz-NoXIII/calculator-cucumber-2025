@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation

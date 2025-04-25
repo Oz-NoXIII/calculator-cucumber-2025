@@ -35,12 +35,12 @@ class ComplexNumber(NumberType):
         return ComplexNumber.from_complex(self.value ** other.get_value())
 
     def log(self):
-        if(self.value == 0):
+        if (self.value == 0):
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(cmath.log10(self.value))
 
     def ln(self):
-        if(self.value == 0):
+        if (self.value == 0):
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(cmath.log(self.value))
 

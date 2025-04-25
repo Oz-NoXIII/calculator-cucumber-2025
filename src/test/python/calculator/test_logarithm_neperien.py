@@ -174,5 +174,6 @@ class TestLogarithm(unittest.TestCase):
     def test_logarithm_neperien_negative_complex(self):
         pass
 
+
 if __name__ == "__main__":
     unittest.main()
