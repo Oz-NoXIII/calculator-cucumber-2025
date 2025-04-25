@@ -33,12 +33,12 @@ class IntegerNumber(NumberType):
         return IntegerNumber(self.value ** other.get_value())
 
     def log(self):
-        if(self.value <= 0):
+        if (self.value <= 0):
             return Integernan()
         return IntegerNumber(int(math.log(self.value, 10)))
 
     def ln(self):
-        if(self.value <= 0):
+        if (self.value <= 0):
             return Integernan()
         return IntegerNumber(int(math.log(self.value)))
 
