@@ -240,6 +240,41 @@ def when_inverse(context):
     context.result = n1.inverse()
 
 
+@when("I use the sinus to it")
+def when_sinus(context):
+    context.expr = Inverse([context.num1], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    context.result = n1.sin()
+
+
+@when("I use the cosinus to it")
+def when_cosinus(context):
+    context.expr = Inverse([context.num1], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    context.result = n1.cos()
+
+
+@when("I use the exponent to it")
+def when_exponent(context):
+    context.expr = Inverse([context.num1], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    context.result = n1.exp()
+
+
+@when("I use the log to it")
+def when_logarithm(context):
+    context.expr = Inverse([context.num1], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    context.result = n1.log()
+
+
+@when("I use the ln to it")
+def when_logarithm_neperien(context):
+    context.expr = Inverse([context.num1], Notation.INFIX)
+    n1 = context.num1.get_number_type()
+    context.result = n1.ln()
+
+
 @then("the result should be {expected:g}")
 def then_result(context, expected):
     actual = context.result.get_value()
@@ -477,4 +512,4 @@ def check_scientific(context, expected):
 
 @when("I take the logarithm")
 def step_log(context):
-    context.result = context.num1.get_number_type().log()
+    context.result = context.num1.get_number_type().ln()

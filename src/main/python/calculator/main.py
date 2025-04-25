@@ -16,6 +16,11 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 from src.main.python.visitor.evaluator import Evaluator
+from src.main.python.calculator.logarithm import Logarithm
+from src.main.python.calculator.logarithmNeperien import LogarithmNeperien
+from src.main.python.calculator.exponent import Exponent
+from src.main.python.calculator.sinus import Sinus
+from src.main.python.calculator.cosinus import Cosinus
 
 try:
     e = MyNumber(RealNumber(8))
@@ -146,6 +151,36 @@ try:
     # inverse : inverse(5)
     rInv = MyNumber(RealNumber(0))
     e = Inverse([rInv], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # logarithm : log(1)
+    rLog = MyNumber(ComplexNumber(1, 0))
+    e = Logarithm([rLog], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # logarithm neperien : ln(1)
+    rLogN = MyNumber(RealNumber(1))
+    e = LogarithmNeperien([rLogN], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # exponent : exp(1)
+    rExp = MyNumber(RealNumber(1))
+    e = Exponent([rExp], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # sinus : sin(0)
+    rSin = MyNumber(RealNumber(0))
+    e = Sinus([rSin], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # cosinus : cos(0)
+    rCos = MyNumber(RealNumber(0))
+    e = Cosinus([rCos], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 

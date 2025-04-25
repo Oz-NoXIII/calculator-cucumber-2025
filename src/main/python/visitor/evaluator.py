@@ -36,6 +36,7 @@ class Evaluator(Visitor):
         if len(evaluated_args) == 1:
             # Cas unaire : appliquer l'opération directement sur l’unique argument
             result = o.op(evaluated_args[0])
+
         else:
             # Start folding from the left
             result = evaluated_args[0]

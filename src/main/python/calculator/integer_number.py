@@ -1,3 +1,5 @@
+import math
+
 from src.main.python.calculator.number_type import NumberType
 
 
@@ -29,6 +31,25 @@ class IntegerNumber(NumberType):
 
     def pow(self, other):
         return IntegerNumber(self.value ** other.get_value())
+
+    def log(self):
+        if(self.value <= 0):
+            return Integernan()
+        return IntegerNumber(int(math.log(self.value, 10)))
+
+    def ln(self):
+        if(self.value <= 0):
+            return Integernan()
+        return IntegerNumber(int(math.log(self.value)))
+
+    def exp(self):
+        return IntegerNumber(int(math.exp(self.value)))
+
+    def sin(self):
+        return IntegerNumber(int(math.sin(self.value)))
+
+    def cos(self):
+        return IntegerNumber(int(math.cos(self.value)))
 
     def __str__(self):
         return str(self.value)

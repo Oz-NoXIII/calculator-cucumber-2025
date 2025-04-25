@@ -4,9 +4,10 @@ from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.number_type import NumberType
 from src.main.python.visitor.printer import Printer
+from src.main.python.calculator.expression import Expression
 
 
-class Function(ABC):  # pragma: no cover
+class Function(Expression):  # pragma: no cover
 
     @abstractmethod
     def __init__(self, elist, n=None):
@@ -70,7 +71,10 @@ class Function(ABC):  # pragma: no cover
     def __str__(self):
         args_str = [str(arg) for arg in self.__args]
         match self.__notation:
-            case Notation.INFIX:  # infix = prefix because only one param
+
+            # infix = prefix because only one param
+            case Notation.INFIX:
+
                 if not args_str:
                     return f"{self._symbol} ("
                 combined = ", ".join(args_str)
