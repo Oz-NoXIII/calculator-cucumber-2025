@@ -41,11 +41,21 @@ class TestRealNumber(unittest.TestCase):
         self.assertAlmostEqual(result.get_value(), 8.0)
 
     def test_sinus(self):
+        a = RealNumber(math.pi/2)
+        result = a.sin()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_cosinus(self):
+        a = RealNumber(math.pi)
+        result = a.cos()
+        self.assertEqual(result.get_value(), -1)
+
+    def test_sinus_by_zero(self):
         a = RealNumber(0)
         result = a.sin()
         self.assertEqual(result.get_value(), 0)
 
-    def test_cosinus(self):
+    def test_cosinus_by_zero(self):
         a = RealNumber(0)
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
@@ -61,6 +71,11 @@ class TestRealNumber(unittest.TestCase):
         self.assertEqual(result.get_value(), 0)
 
     def test_exponent(self):
+        a = RealNumber(1)
+        result = a.exp()
+        self.assertEqual(result.get_value(), 2.718281828459045)
+
+    def test_exponent_by_zero(self):
         a = RealNumber(0)
         result = a.exp()
         self.assertEqual(result.get_value(), 1)

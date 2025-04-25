@@ -13,11 +13,11 @@ from src.main.python.calculator.times import Times
 
 class TestSinus(unittest.TestCase):
 
-    value1 = MyNumber(IntegerNumber(0))
+    value1 = MyNumber(IntegerNumber(8))
 
-    value2 = MyNumber(RealNumber(0.0))
+    value2 = MyNumber(RealNumber(8.0))
 
-    value3 = MyNumber(RationalNumber(0, 1))
+    value3 = MyNumber(RationalNumber(8, 1))
 
     value4 = MyNumber(ComplexNumber(1, 2))
 
@@ -100,6 +100,15 @@ class TestSinus(unittest.TestCase):
     def test_none_param_list(self):
         params = None
         self.assertRaises(IllegalConstruction, lambda: Sinus(params))
+
+    def test_None(self):
+        try:
+            result = self.op is None
+            self.assertFalse(result)
+        except Exception as e:
+            self.fail(f"An exception was thrown: {e}")
+        self.op = None
+        self.assertIsNone(self.op)
 
 
 if __name__ == "__main__":

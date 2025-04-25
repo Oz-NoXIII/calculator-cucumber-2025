@@ -171,8 +171,6 @@ class TestLogarithm(unittest.TestCase):
         except IllegalConstruction as e:
             self.fail(e)
 
-    def test_logarithm_negative_complex(self):
-        pass
 
 if __name__ == "__main__":
     unittest.main()

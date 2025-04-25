@@ -34,11 +34,21 @@ class TestIntegerNumber(unittest.TestCase):
         self.assertEqual(result.get_value(), 100)
 
     def test_sinus(self):
-        a = IntegerNumber(0)
+        a = IntegerNumber(3)
         result = a.sin()
         self.assertEqual(result.get_value(), 0)
 
     def test_cosinus(self):
+        a = IntegerNumber(3)
+        result = a.cos()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_sinus_by_zero(self):
+        a = IntegerNumber(0)
+        result = a.sin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinus_by_zero(self):
         a = IntegerNumber(0)
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
@@ -57,6 +67,11 @@ class TestIntegerNumber(unittest.TestCase):
         a = IntegerNumber(1)
         result = a.exp()
         self.assertEqual(result.get_value(), 2)
+
+    def test_exponent_by_zero(self):
+        a = IntegerNumber(0)
+        result = a.exp()
+        self.assertEqual(result.get_value(), 1)
 
     def test_divide_by_zero_returns_nan(self):
         result = IntegerNumber(1).divide(IntegerNumber(0))
