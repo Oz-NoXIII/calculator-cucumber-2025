@@ -36,97 +36,79 @@ jobs:
           make venv-clean venv-install 
           pip install sphinx pytest coverage pylint
 
+     # Documentation generation
       - name: Generate Documentation
         run: |
+          mkdir -p docs/build
           sphinx-apidoc -o docs/source src/main/python
           sphinx-build -b html docs/source docs/build/html
-
-      - name: Upload generated documentation as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: html-docs
-          path: docs/build/html
 
       - name: Zip HTML documentation
         run: |
           cd docs/build
           zip -r html-docs.zip html
 
-      - name: Upload zipped documentation to release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2.2.2
-        with:
-          tag_name: ${{ github.event.release.tag_name }}
-          name: html-docs
-          files: docs/build/html-docs.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      # Test execution and reporting
       - name: Run unit tests and BDD scenarios
         run: make venv-test-action
 
+      - name: Run unit tests with coverage
+        run: make venv-test-coverage-xml
+
+      # Allure report handling
       - name: Load test report history
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         if: always()
+        uses: actions/checkout@v4
         continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
 
       - name: Build test report
-        uses: simple-elf/allure-report-action@f841fec0e421b5d7d8e807dedfb03efb8cf30303 # v1.12
         if: always()
+        uses: simple-elf/allure-report-action@v1.12
         with:
           gh_pages: gh-pages
           allure_history: allure-history
           allure_results: allure-results
 
       - name: Publish test report
-        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
         if: always()
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
 
-      - name: Upload test report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report
-          path: allure-history
-
       - name: Zip test report
+        if: always()
         run: zip -r test-report.zip allure-history
 
-      - name: Upload zipped test report to release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2.2.2
-        with:
-          tag_name: ${{ github.event.release.tag_name }}
-          name: test-report
-          files: test-report.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run unit tests with coverage
-        run: make venv-test-coverage-xml
-
-      - name: Upload test coverage as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage.xml
-
+      # Coverage report handling
       - name: Zip coverage report
         run: zip -r coverage-report.zip coverage.xml
 
-      - name: Upload zipped coverage report to release
+      # Combined release asset upload (with original names)
+      - name: Upload release assets
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2.2.2
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.release.tag_name }}
-          name: coverage-report
-          files: coverage-report.zip
+          files: |
+            docs/build/html-docs.zip
+            test-report.zip
+            coverage-report.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Artifact uploads for debugging
+      - name: Upload artifacts
+        if: always() && github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            docs/build/html-docs.zip
+            test-report.zip
+            coverage-report.zip
