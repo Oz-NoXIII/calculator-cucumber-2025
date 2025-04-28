@@ -1,5 +1,6 @@
 from lark import Lark, Transformer, v_args
 
+from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.inverse import Inverse
@@ -7,6 +8,7 @@ from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
+from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 import os
 
@@ -25,7 +27,15 @@ class ExprTransformer(Transformer):
 
     @v_args(inline=True)
     def integer_number(self, token):
-        return MyNumber(IntegerNumber(token))
+        return MyNumber(IntegerNumber(int(token)))
+
+    @v_args(inline=True)
+    def real_number(self, token):
+        return MyNumber(RealNumber(float(token)))
+
+    @v_args(inline=True)
+    def complex_number(self, token):
+        return MyNumber(ComplexNumber(0, token.get_value()))
 
     def add(self, args):
         return Plus(args)
@@ -41,7 +51,7 @@ class ExprTransformer(Transformer):
 
     @v_args(inline=True)
     def neg(self, token):
-        return MyNumber(IntegerNumber(int(token.get_value()) * -1))
+        return Times([token, MyNumber(IntegerNumber(-1))])
 
     def pow(self, args):
         return Power(args)

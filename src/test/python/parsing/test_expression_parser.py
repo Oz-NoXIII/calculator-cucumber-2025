@@ -14,7 +14,7 @@ class TestExpressionParser(unittest.TestCase):
 
     def test_parse_expression_infix(self):
         # Infix notation
-        expr_str = '1 + 2 * 3 - 4 / 5'
+        expr_str = '1 + 2 * 3 - 4 / 5.0'
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Minus)
         self.assertEqual(len(result.get_args()), 2)
@@ -58,11 +58,12 @@ class TestExpressionParser(unittest.TestCase):
         self.assertIsInstance(result.get_args()[1].get_args()[1], MyNumber)
 
     def test_parse_expression_with_negation(self):
-        expr_str = '- 1 + 2 * 3'
+        expr_str = '(- 1) + 2 * 3j'
         result = parse_expression(expr_str)
+        print(result)
         self.assertIsInstance(result, Plus)
         self.assertEqual(len(result.get_args()), 2)
-        self.assertIsInstance(result.get_args()[0], MyNumber)
+        self.assertIsInstance(result.get_args()[0], Times)
         self.assertIsInstance(result.get_args()[1], Times)
         self.assertEqual(len(result.get_args()[1].get_args()), 2)
         self.assertIsInstance(result.get_args()[1].get_args()[0], MyNumber)
