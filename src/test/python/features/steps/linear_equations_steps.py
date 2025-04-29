@@ -10,8 +10,8 @@ def preprocess_input(equations_str):
     equations = []
     for eq in equations_str.split(";"):
         eq = eq.strip().replace('"', "").replace("'", "")
-        eq = re.sub(r"(\d)([a-zA-z])", r"\1*\2", eq)  # 2x → 2*x
-        eq = re.sub(r"([a-zA-z])(\d)", r"\1*\2", eq)  # x2 → x*2
+        eq = re.sub(r"(\d)([a-zA-Z])", r"\1*\2", eq, flags=re.ASCII)  # 2x → 2*x
+        eq = re.sub(r"([a-zA-Z])(\d)", r"\1*\2", eq, flags=re.ASCII) # x2 → x*2
         equations.append(eq)
     return equations
 
@@ -19,8 +19,6 @@ def preprocess_input(equations_str):
 @given("the system of equations {equations}")
 def step_impl(context, equations):
     context.equations = preprocess_input(equations)
-    print(f"DEBUG - Cleaned equations: {context.equations}")
-
 
 @when("I solve the system")
 def step_impl(context):
