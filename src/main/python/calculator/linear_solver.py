@@ -18,8 +18,8 @@ class LinearEquationSolver:
         # Remove spaces
         eq = eq.replace(" ", "")
         # Insert * between coefficient and variable if missing
-        eq = re.sub(r"(\d+)([a-zA-Z])", r"\1*\2", eq)
-        eq = re.sub(r"([a-zA-Z])(\d)", r"\1*\2", eq)
+        eq = re.sub(r"(\d+)([a-zA-Z])", r"\1*\2", eq, flags=re.ASCII)
+        eq = re.sub(r"([a-zA-Z])(\d)", r"\1*\2", eq, flags=re.ASCII)
 
         return eq
 
