@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from src.main.python.calculator.linear_solver import LinearEquationSolver
 
@@ -20,11 +21,19 @@ class TestLinearEquationSolver(unittest.TestCase):
         self.assertAlmostEqual(solution["x"], 1.33, places=2)
         self.assertAlmostEqual(solution["y"], 1.33, places=2)
 
-    def test_infinite_solutions(self):
-        equations = ["x - y = 0", "2x - 2y = 0"]
+    def test_multiple_solutions_case(self):
+        equations = ["x**2 = 1"]
         solver = LinearEquationSolver(equations)
         result = solver.solve()
-        self.assertTrue(result, "Infinite solutions.")
+        assert result == "Infinite solutions."
+
+    def test_unexpected_solution_format(self):
+        equations = ["x + abs(y) = 1"]  # Fonction non linéaire
+
+        with patch("sympy.solve", return_value="unexpected_format"):
+            solver = LinearEquationSolver(equations)
+            result = solver.solve()
+            assert result == "Unexpected solution format."
 
     def test_no_solution(self):
         equations = ["x + y = 2", "x + y = 3"]
@@ -43,15 +52,6 @@ class TestLinearEquationSolver(unittest.TestCase):
         solver = LinearEquationSolver(equations)
         result = solver.solve()
         self.assertTrue("Error solving equations" in result)
-
-    def test_unexpected_solution_format(self):
-        equations = [
-            "x + y = 5",
-            "x + y = 5 + z",  # Cette équation peut entraîner un format inattendu
-        ]
-        solver = LinearEquationSolver(equations)
-        result = solver.solve()
-        self.assertTrue(result, "Unexpected solution format.")
 
     def test_invalid_syntax(self):
         equations = [""]
@@ -88,6 +88,36 @@ class TestLinearEquationSolver(unittest.TestCase):
         solver = LinearEquationSolver(equations)
         result = solver.solve()
         self.assertTrue(isinstance(result, str) and "error" in result.lower())
+
+    def test_empty_equations_list(self):
+        with self.assertRaises(ValueError) as context:
+            LinearEquationSolver([])
+        self.assertEqual(
+            str(context.exception),
+            "Equations must be provided as a non-empty list of strings.",
+        )
+
+    def test_non_list_input(self):
+        with self.assertRaises(ValueError) as context:
+            LinearEquationSolver("not a list")
+        self.assertEqual(
+            str(context.exception),
+            "Equations must be provided as a non-empty list of strings.",
+        )
+
+    def test_float_conversion_error(self):
+        equations = ["x + y = 'abc'"]  # Équation non convertible en float
+        solver = LinearEquationSolver(equations)
+        result = solver.solve()
+        self.assertEqual(
+            "Error solving equations: Cannot convert expression to float", result
+        )
+
+    def test_undefined_variable_raises_exception(self):
+        equations = ["x + y = z"]  # z n'est pas dans les variables
+        solver = LinearEquationSolver(equations)
+        result = solver.solve()
+        self.assertTrue("Error solving equations" in result)
 
 
 if __name__ == "__main__":
