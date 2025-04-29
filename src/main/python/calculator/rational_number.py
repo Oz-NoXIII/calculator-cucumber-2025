@@ -1,3 +1,5 @@
+import math
+
 from fractions import Fraction
 
 from src.main.python.calculator.number_type import NumberType
@@ -28,6 +30,39 @@ class RationalNumber(NumberType):
         if other.get_value() == 0:
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(self.value / other.get_value())
+
+    def inverse(self):
+        if self.value == 0:
+            return RationalNumber(0, 1).set_nan()
+        return RationalNumber.from_fraction(1 / self.value)
+
+    def pow(self, other):
+        frac = Fraction(self.value ** other.get_value())
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def log(self):
+        if (self.value <= 0):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.log(self.value, 10))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def ln(self):
+        if (self.value <= 0):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.log(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def exp(self):
+        frac = Fraction(math.exp(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def sin(self):
+        frac = Fraction(math.sin(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def cos(self):
+        frac = Fraction(math.cos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
 
     def to_mixed_str(self):
 

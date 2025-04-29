@@ -1,0 +1,64 @@
+?start: expr
+
+?expr: infix_expr
+     | prefix_expr
+     | postfix_expr
+
+//INFIX notation
+?infix_expr: infix_expr "+" infix_term   -> add
+           | infix_expr "-" infix_term   -> sub
+           | infix_term
+           | "inv" "(" infix_expr ")"    -> inverse
+           | "(" "-" infix_expr ")"      -> neg
+
+?infix_term: infix_term "*" infix_factor -> mul
+           | infix_term "/" infix_factor -> div
+           | infix_factor
+
+?infix_factor: factor
+             | infix_factor "^" infix_factor -> pow
+             | "(" "-" factor ")"                    -> neg
+             | "(" infix_expr ")"
+
+//PREFIX notation
+?prefix_expr: "+" "(" prefix_term (","? prefix_term)+ ")"   -> add
+            | "-" "(" prefix_term (","? prefix_term)+ ")"   -> sub
+            | "*" "(" prefix_term (","? prefix_term)+ ")"   -> mul
+            | "/" "(" prefix_term (","? prefix_term)+ ")"   -> div
+            | "^" "(" prefix_term (","? prefix_term)+ ")"   -> pow
+            | "inv" "(" prefix_expr ")"                     -> inverse
+            | "(" "-" prefix_expr ")"                      -> neg
+
+?prefix_term: prefix_expr
+            | prefix_factor
+
+?prefix_factor: factor
+              | "(" "-" factor ")"    -> neg
+
+
+
+//POSTFIX notation
+?postfix_expr: "(" postfix_term (","? postfix_term)+ ")" "+"   -> add
+             | "(" postfix_term (","? postfix_term)+ ")" "-"   -> sub
+             | "(" postfix_term (","? postfix_term)+ ")" "*"   -> mul
+             | "(" postfix_term (","? postfix_term)+ ")" "/"   -> div
+             | "(" postfix_term (","? postfix_term)+ ")" "^"   -> pow
+             | "inv" "(" postfix_expr ")"                      -> inverse
+             | "(" postfix_expr "-" ")"                       -> neg
+
+?postfix_term: postfix_expr
+             | postfix_factor
+
+?postfix_factor: factor
+               | "(" factor "-" ")" -> neg
+
+
+//FACTOR
+?factor: INT           -> integer_number
+       | DECIMAL       -> real_number
+       | factor "j"    -> complex_number
+
+%import common.INT
+%import common.DECIMAL
+%import common.WS_INLINE
+%ignore WS_INLINE
