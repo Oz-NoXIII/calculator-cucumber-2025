@@ -7,9 +7,9 @@ from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.power import Power
 from src.main.python.calculator.times import Times
 from src.main.python.visitor.counter import Counter
-from src.main.python.calculator.power import Power
 
 
 class TestCounting(unittest.TestCase):

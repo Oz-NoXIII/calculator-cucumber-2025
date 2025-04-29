@@ -3,24 +3,24 @@ import math
 import calculator
 
 from src.main.python.calculator.complex_number import ComplexNumber
+from src.main.python.calculator.cosinus import Cosinus
 from src.main.python.calculator.divides import Divides
-from src.main.python.calculator.power import Power
+from src.main.python.calculator.exponent import Exponent
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
+from src.main.python.calculator.inverse import Inverse
+from src.main.python.calculator.logarithm import Logarithm
+from src.main.python.calculator.logarithmNeperien import LogarithmNeperien
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
-from src.main.python.calculator.inverse import Inverse
+from src.main.python.calculator.power import Power
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
+from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.times import Times
 from src.main.python.visitor.evaluator import Evaluator
-from src.main.python.calculator.logarithm import Logarithm
-from src.main.python.calculator.logarithmNeperien import LogarithmNeperien
-from src.main.python.calculator.exponent import Exponent
-from src.main.python.calculator.sinus import Sinus
-from src.main.python.calculator.cosinus import Cosinus
 
 try:
     e = MyNumber(RealNumber(8))

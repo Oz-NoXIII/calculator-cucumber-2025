@@ -1,13 +1,13 @@
 import unittest
 
+from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
-from src.main.python.calculator.real_number import RealNumber
-from src.main.python.calculator.complex_number import ComplexNumber
-from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.power import Power
+from src.main.python.calculator.rational_number import RationalNumber
+from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 
 
@@ -118,7 +118,7 @@ class TestPower(unittest.TestCase):
     def test_power_null_rational(self):
         pn = RationalNumber(0)
         pn2 = RationalNumber(0)
-        self.assertEqual(pn.pow(pn2).get_value(), 1/1)
+        self.assertEqual(pn.pow(pn2).get_value(), 1 / 1)
 
     def test_power_null_complex(self):
         pn = ComplexNumber(0, 0)
@@ -139,7 +139,7 @@ class TestPower(unittest.TestCase):
     def test_power_negative_rational(self):
         pn = RationalNumber(-2, 1)
         pn2 = RationalNumber(-4, 1)
-        self.assertEqual(pn.pow(pn2).get_value(), 1/16)
+        self.assertEqual(pn.pow(pn2).get_value(), 1 / 16)
 
 
 if __name__ == "__main__":

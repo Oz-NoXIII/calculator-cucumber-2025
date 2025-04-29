@@ -1,8 +1,8 @@
 import unittest
 
-from src.main.python.calculator.inverse import Inverse
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
+from src.main.python.calculator.inverse import Inverse
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.times import Times

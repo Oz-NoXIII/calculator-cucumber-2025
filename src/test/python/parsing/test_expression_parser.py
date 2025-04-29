@@ -14,7 +14,7 @@ class TestExpressionParser(unittest.TestCase):
 
     def test_parse_expression_infix(self):
         # Infix notation
-        expr_str = '1 + 2 * 3 - 4 / 5.0'
+        expr_str = "1 + 2 * 3 - 4 / 5.0"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Minus)
         self.assertEqual(len(result.get_args()), 2)
@@ -29,7 +29,7 @@ class TestExpressionParser(unittest.TestCase):
 
     def test_parse_expression_prefix(self):
         # Prefix notation
-        expr_str = '-(+(1 *(2 3)) /(4 5))'
+        expr_str = "-(+(1 *(2 3)) /(4 5))"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Minus)
         self.assertEqual(len(result.get_args()), 2)
@@ -44,7 +44,7 @@ class TestExpressionParser(unittest.TestCase):
 
     def test_parse_expression_postfix(self):
         # Prefix notation
-        expr_str = '((1 (2 3)*)+ (4 5)/)-'
+        expr_str = "((1 (2 3)*)+ (4 5)/)-"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Minus)
         self.assertEqual(len(result.get_args()), 2)
@@ -58,7 +58,7 @@ class TestExpressionParser(unittest.TestCase):
         self.assertIsInstance(result.get_args()[1].get_args()[1], MyNumber)
 
     def test_parse_expression_with_negation(self):
-        expr_str = '(- 1) + 2 * 3j'
+        expr_str = "(- 1) + 2 * 3j"
         result = parse_expression(expr_str)
         print(result)
         self.assertIsInstance(result, Plus)
@@ -70,14 +70,14 @@ class TestExpressionParser(unittest.TestCase):
         self.assertIsInstance(result.get_args()[1].get_args()[1], MyNumber)
 
     def test_parse_expression_pow_inv(self):
-        expr_str = '1 ^ 2'
+        expr_str = "1 ^ 2"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Power)
         self.assertEqual(len(result.get_args()), 2)
         self.assertIsInstance(result.get_args()[0], MyNumber)
         self.assertIsInstance(result.get_args()[1], MyNumber)
 
-        expr_str = '1 ^ (inv(2))'
+        expr_str = "1 ^ (inv(2))"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Power)
         self.assertEqual(len(result.get_args()), 2)
@@ -85,5 +85,5 @@ class TestExpressionParser(unittest.TestCase):
         self.assertIsInstance(result.get_args()[1], Inverse)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

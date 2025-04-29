@@ -6,12 +6,12 @@ from src.main.python.calculator import calculator
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
+from src.main.python.calculator.inverse import Inverse
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
-from src.main.python.calculator.times import Times
 from src.main.python.calculator.power import Power
-from src.main.python.calculator.inverse import Inverse
+from src.main.python.calculator.times import Times
 
 
 class TestEvaluator(unittest.TestCase):
@@ -66,8 +66,7 @@ class TestEvaluator(unittest.TestCase):
                     )
                     result = calculator.eval_expression(Power(params))
                 case "1/":
-                    expected = self.value1.get_number_type().inverse(
-                    )
+                    expected = self.value1.get_number_type().inverse()
                     result = calculator.eval_expression(Inverse(paramsUnit))
                 case _:
                     self.fail("Invalid symbol")
