@@ -33,9 +33,14 @@ class Evaluator(Visitor):
             arg.accept(self)
             evaluated_args.append(self.stack.pop())
 
-        # Start folding from the left
-        result = evaluated_args[0]
-        for operand in evaluated_args[1:]:
-            result = o.op(result, operand)
+        if len(evaluated_args) == 1:
+            # Cas unaire : appliquer l'opération directement sur l’unique argument
+            result = o.op(evaluated_args[0])
+
+        else:
+            # Start folding from the left
+            result = evaluated_args[0]
+            for operand in evaluated_args[1:]:
+                result = o.op(result, operand)
 
         self.stack.append(result)

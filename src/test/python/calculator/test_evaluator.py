@@ -10,6 +10,8 @@ from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.times import Times
+from src.main.python.calculator.power import Power
+from src.main.python.calculator.inverse import Inverse
 
 
 class TestEvaluator(unittest.TestCase):
@@ -29,10 +31,13 @@ class TestEvaluator(unittest.TestCase):
             ("+",),
             ("/",),
             ("-",),
+            ("^",),
+            ("1/",),
         ]
     )
     def test_evaluate_operations(self, symbol):
         params = [self.value1, self.value2]
+        paramsUnit = [self.value1]
         try:
             match symbol:
                 case "+":
@@ -55,6 +60,15 @@ class TestEvaluator(unittest.TestCase):
                         self.value2.get_number_type()
                     )
                     result = calculator.eval_expression(Divides(params))
+                case "^":
+                    expected = self.value1.get_number_type().pow(
+                        self.value2.get_number_type()
+                    )
+                    result = calculator.eval_expression(Power(params))
+                case "1/":
+                    expected = self.value1.get_number_type().inverse(
+                    )
+                    result = calculator.eval_expression(Inverse(paramsUnit))
                 case _:
                     self.fail("Invalid symbol")
 

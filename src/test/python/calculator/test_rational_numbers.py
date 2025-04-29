@@ -28,16 +28,82 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.multiply(r2)
         self.assertEqual(result.get_value(), Fraction(2, 5))
 
+    def test_inverse(self):
+        r1 = RationalNumber(2, 3)
+        result = r1.inverse()
+        self.assertEqual(result.get_value(), Fraction(3, 2))
+
     def test_divide(self):
         r1 = RationalNumber(1, 2)
         r2 = RationalNumber(1, 4)
         result = r1.divide(r2)
         self.assertEqual(result.get_value(), Fraction(2))
 
+    def test_power(self):
+        r1 = RationalNumber(2, 1)
+        r2 = RationalNumber(1, 1)
+        result = r1.pow(r2)
+        self.assertEqual(result.get_value(), Fraction(2))
+
+    def test_sinus(self):
+        a = RationalNumber(3, 1)
+        result = a.sin()
+        self.assertEqual(result.get_value(), Fraction(5084384125703515, 36028797018963968))
+
+    def test_cosinus(self):
+        a = RationalNumber(3, 1)
+        result = a.cos()
+        self.assertEqual(result.get_value(), Fraction(-4458529838789353, 4503599627370496))
+
+    def test_sinus_by_zero(self):
+        a = RationalNumber(0, 1)
+        result = a.sin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinus_by_zero(self):
+        a = RationalNumber(0, 1)
+        result = a.cos()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_logarithm(self):
+        a = RationalNumber(1, 1)
+        result = a.log()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_logarithm_neperien(self):
+        a = RationalNumber(1, 1)
+        result = a.ln()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_exponent_by_zero(self):
+        a = RationalNumber(0, 1)
+        result = a.exp()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_exponent(self):
+        a = RationalNumber(1, 1)
+        result = a.exp()
+        self.assertEqual(result.get_value(), Fraction(6121026514868073, 2251799813685248))
+
     def test_divide_by_zero(self):
         r1 = RationalNumber(1, 2)
         r2 = RationalNumber(0, 1)
         result = r1.divide(r2)
+        self.assertTrue(result.is_nan())
+
+    def test_inverse_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.inverse()
+        self.assertTrue(result.is_nan())
+
+    def test_logarithm_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.log()
+        self.assertTrue(result.is_nan())
+
+    def test_logarithm_neperien_by_zero(self):
+        r1 = RationalNumber(0, 1)
+        result = r1.ln()
         self.assertTrue(result.is_nan())
 
     def test_str(self):

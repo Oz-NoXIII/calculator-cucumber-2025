@@ -6,6 +6,7 @@ from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.minus import Minus
+from src.main.python.calculator.power import Power
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.plus import Plus
@@ -39,6 +40,7 @@ class TestNotation(unittest.TestCase):
             ("+",),
             ("/",),
             ("-",),
+            ("^",),
         ]
     )
     def testOutput(self, symbol):
@@ -58,6 +60,8 @@ class TestNotation(unittest.TestCase):
                     op = Times(params)
                 case "/":
                     op = Divides(params)
+                case "^":
+                    op = Power(params)
                 case _:
                     self.fail("Invalid symbol")
         except IllegalConstruction as e:
