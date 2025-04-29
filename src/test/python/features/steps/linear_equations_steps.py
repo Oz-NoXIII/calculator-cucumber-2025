@@ -1,6 +1,6 @@
 import re
 
-from behave import *
+from behave import given, then, when
 
 from src.main.python.calculator.linear_solver import LinearEquationSolver
 
@@ -11,17 +11,18 @@ def preprocess_input(equations_str):
     for eq in equations_str.split(";"):
         eq = eq.strip().replace('"', "").replace("'", "")
         eq = re.sub(r"(\d)([a-zA-Z])", r"\1*\2", eq, flags=re.ASCII)  # 2x → 2*x
-        eq = re.sub(r"([a-zA-Z])(\d)", r"\1*\2", eq, flags=re.ASCII) # x2 → x*2
+        eq = re.sub(r"([a-zA-Z])(\d)", r"\1*\2", eq, flags=re.ASCII)  # x2 → x*2
         equations.append(eq)
     return equations
 
 
 @given("the system of equations {equations}")
-def step_impl(context, equations):
+def given_system_of_equations(context, equations):
     context.equations = preprocess_input(equations)
 
+
 @when("I solve the system")
-def step_impl(context):
+def when_i_solve_the_system(context):
     try:
         context.solver = LinearEquationSolver(context.equations)
         context.result = context.solver.solve()
@@ -30,7 +31,7 @@ def step_impl(context):
 
 
 @when("I try to create the solver")
-def step_impl(context):
+def when_i_create_the_solver(context):
     try:
         context.solver = LinearEquationSolver(context.equations)
     except Exception as e:
@@ -38,7 +39,7 @@ def step_impl(context):
 
 
 @then('I should get the solution "{solution}"')
-def step_impl(context, solution):
+def then_solution_should_be(context, solution):
     if hasattr(context, "error"):
         assert False, f"Solving failed with error: {context.error}"
 
@@ -52,14 +53,14 @@ def step_impl(context, solution):
 
 
 @then('I should get "{message}"')
-def step_impl(context, message):
+def then_result_should_be(context, message):
     assert (
         str(context.result) == message
     ), f"Expected '{message}' but got '{context.result}'"
 
 
 @then('I should get an error containing "{error}"')
-def step_impl(context, error):
+def then_result_should_contain(context, error):
     assert error in context.result
 
 

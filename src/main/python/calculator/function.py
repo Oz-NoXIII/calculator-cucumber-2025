@@ -1,10 +1,10 @@
 from abc import abstractmethod
 
+from src.main.python.calculator.expression import Expression
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.number_type import NumberType
 from src.main.python.visitor.printer import Printer
-from src.main.python.calculator.expression import Expression
 
 
 class Function(Expression):  # pragma: no cover

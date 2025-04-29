@@ -1,3 +1,5 @@
+import os
+
 from lark import Lark, Transformer, v_args
 
 from src.main.python.calculator.complex_number import ComplexNumber
@@ -10,17 +12,16 @@ from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
-import os
 
 # Get the directory where the current script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # Construct the path to the grammar file
-grammar_path = os.path.join(script_dir, 'grammar', 'notation.lark')
+grammar_path = os.path.join(script_dir, "grammar", "notation.lark")
 # Load grammar from file or string
-with open(grammar_path, 'r') as f:
+with open(grammar_path, "r") as f:
     grammar = f.read()
 
-parser = Lark(grammar, parser='lalr', start='start')
+parser = Lark(grammar, parser="lalr", start="start")
 
 
 class ExprTransformer(Transformer):

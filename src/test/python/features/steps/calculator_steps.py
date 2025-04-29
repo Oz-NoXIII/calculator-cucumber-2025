@@ -8,6 +8,7 @@ from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
+from src.main.python.calculator.inverse import Inverse
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
@@ -17,7 +18,6 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 from src.main.python.visitor.evaluator import Evaluator
-from src.main.python.calculator.inverse import Inverse
 
 
 @given("I initialise a calculator")

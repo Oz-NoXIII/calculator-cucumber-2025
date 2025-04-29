@@ -41,7 +41,7 @@ class TestRealNumber(unittest.TestCase):
         self.assertAlmostEqual(result.get_value(), 8.0)
 
     def test_sinus(self):
-        a = RealNumber(math.pi/2)
+        a = RealNumber(math.pi / 2)
         result = a.sin()
         self.assertEqual(result.get_value(), 1)
 

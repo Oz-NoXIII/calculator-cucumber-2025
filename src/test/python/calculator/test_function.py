@@ -1,11 +1,11 @@
 import unittest
 
 from src.main.python.calculator.inverse import Inverse
-from src.main.python.calculator.real_number import RealNumber
-from src.main.python.calculator.my_number import MyNumber
-from src.main.python.visitor.counter import Counter
-from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.minus import Minus
+from src.main.python.calculator.my_number import MyNumber
+from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.real_number import RealNumber
+from src.main.python.visitor.counter import Counter
 
 
 class TestFunction(unittest.TestCase):
