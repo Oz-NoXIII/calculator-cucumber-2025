@@ -8,3 +8,4 @@ black
 isort
 coverage
 coveralls
+sympy
