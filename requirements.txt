@@ -10,3 +10,4 @@ coverage
 coveralls
 sympy
 lark
+rich
