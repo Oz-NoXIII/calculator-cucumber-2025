@@ -20,9 +20,9 @@ const base_buttons = [
     { label: 'e', value: 'e', disabled: true, second: { label: 'i', value: 'i' } },
     { label: '[::]', value: '[::]', disabled: true, second: null },
     { label: 'x', value: 'x', disabled: true, second: { label: '=', value: '=' } },
-    { label: '(', value: '(', disabled: true, second: { label: '[', value: '[' } },
+    { label: '(', value: '(', disabled: false, second: { label: '[', value: '[' } },
     { label: ',', value: ',', disabled: true, second: null },
-    { label: ')', value: ')', disabled: true, second: { label: ']', value: ']' } },
+    { label: ')', value: ')', disabled: false, second: { label: ']', value: ']' } },
     { label: <ArrowLeftRight />, value: 'swap', disabled: true, second: null },
     { label: <CornerDownLeft />, value: 'enter', disabled: true, second: null },
   ],
@@ -104,18 +104,28 @@ export default function App() {
   const [expression, setExpression] = useState('');
   const inputRef = useRef(null);
 
-  const handleClick = (value) => {
+  const handleClick = async (value) => {
     inputRef.current.focus();
     if (value === 'clear') {
       setExpression('');
     } else if (value === '=') {
       try {
-        //TODO: Send the expression to the API for evaluation
-        const result = eval(
-          expression.replace(/÷/g, '/').replace(/x/g, '*').replace(/-/g, '-'),
-        );
-        setExpression(result.toString());
-      } catch {
+        const response = await fetch("http://localhost:8000/api/calculate/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ expression }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Erreur lors de l’évaluation");
+        }
+
+        const data = await response.json();
+        setExpression(String(data.result));  // assure-toi que c'est bien une chaîne
+      } catch (error) {
+        console.error(error);
         setExpression('Erreur');
       }
     } else {
