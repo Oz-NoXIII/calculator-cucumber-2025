@@ -1,0 +1,114 @@
+name: Continuous reporting
+
+on:
+  workflow_run:
+    workflows: ["Continuous building and testing"]
+    types: [completed]
+  release:
+    types: [published]
+
+jobs:
+
+  generate-report:
+    name: Reports Generation
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'release' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+
+    permissions:
+      contents: write
+      packages: read
+      checks: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: Install virtual environment
+        run: |
+          make venv-clean venv-install 
+          pip install sphinx pytest coverage pylint
+
+     # Documentation generation
+      - name: Generate Documentation
+        run: |
+          mkdir -p docs/build
+          sphinx-apidoc -o docs/source src/main/python
+          sphinx-build -b html docs/source docs/build/html
+
+      - name: Zip HTML documentation
+        run: |
+          cd docs/build
+          zip -r html-docs.zip html
+
+      # Test execution and reporting
+      - name: Run unit tests and BDD scenarios
+        run: make venv-test-action
+
+      - name: Run unit tests with coverage
+        run: make venv-test-coverage-xml
+
+      # Allure report handling
+      - name: Load test report history
+        if: always()
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        if: always()
+        uses: simple-elf/allure-report-action@v1.12
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: allure-results
+
+      - name: Publish test report
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+          force_orphan: true
+
+      - name: Zip test report
+        if: always()
+        run: zip -r test-report.zip allure-history
+
+      # Coverage report handling
+      - name: Zip coverage report
+        run: zip -r coverage-report.zip coverage.xml
+
+      # Combined release asset upload (with original names)
+      - name: Upload release assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          files: |
+            docs/build/html-docs.zip
+            test-report.zip
+            coverage-report.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Artifact uploads for debugging
+      - name: Upload artifacts
+        if: always() && github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            docs/build/html-docs.zip
+            test-report.zip
+            coverage-report.zip
