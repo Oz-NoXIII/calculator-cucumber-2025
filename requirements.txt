@@ -11,3 +11,6 @@ coveralls
 sympy
 lark
 rich
+django~=5.2
+djangorestframework~=3.16.0
+django-cors-headers
