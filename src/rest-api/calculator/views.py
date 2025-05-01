@@ -32,7 +32,7 @@ class CalculatorAPIView(APIView):
                 else:
                     result_value = result
                 
-                return Response({'result': result_value}, status=status.HTTP_200_OK)
+                return Response({'result': str(result_value)}, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
