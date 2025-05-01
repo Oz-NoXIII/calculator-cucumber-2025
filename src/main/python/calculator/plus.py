@@ -24,9 +24,9 @@ class Plus(Operation):
     def op(self, left, right):
         """
         The actual computation of the (binary) arithmetic addition of two integers
-        :param left: The first integer
-        :param right: The second integer that should be added to the first
-        :return: The integer that is the result of the addition
+        :param left: Left operand
+        :param right: Right operand
+        :return: The number that is the result of the addition
         """
 
-        return left + right
+        return left.add(right)

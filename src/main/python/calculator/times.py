@@ -24,9 +24,9 @@ class Times(Operation):
     def op(self, left, right):
         """
         The actual computation of the (binary) arithmetic multiplication of two integers
-        :param left:
-        :param right:
-        :return: The integer that is the result of the multiplication
+        :param left: Left operand
+        :param right: Right operand
+        :return: The number that is the result of the multiplication
         """
 
-        return left * right
+        return left.multiply(right)
