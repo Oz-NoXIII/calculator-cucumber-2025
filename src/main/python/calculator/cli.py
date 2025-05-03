@@ -2,6 +2,7 @@ import os
 import sys
 
 from src.main.python.calculator import calculator
+from src.main.python.calculator.linear_solver import LinearEquationSolver
 from src.main.python.parsing.expression_parser import parse_expression
 from rich.console import Console
 
@@ -22,7 +23,7 @@ class CalculatorREPL:
         self._welcome_message = (
             "Calculator REPL\n"
             "Enter arithmetic expressions to evaluate.\n"
-            "Commands: <expression>, 'help', 'quit'\n"
+            "Commands: <expression>, 'help', 'linear solver', 'quit'\n"
         )
         self._prompt = "calc> "
 
@@ -54,13 +55,17 @@ class CalculatorREPL:
         elif input_str.lower() == "help":
             self._print_help()
             return
-
+        elif input_str.lower() == "linear solver":
+            self._linear_mode()
+        elif input_str.lower().startswith("linear>"):
+            self._handle_linear_equation(input_str[7:].strip())
+        else:
         # Parse and evaluate the expression
-        try:
-            parsed_expr = parse_expression(input_str)
-            calculator.print_result(parsed_expr)
-        except Exception as e:
-            self._handle_parse_error(input_str)
+            try:
+                parsed_expr = parse_expression(input_str)
+                calculator.print_result(parsed_expr)
+            except Exception as e:
+                self._handle_parse_error(input_str)
 
     def _handle_parse_error(self, error):
         """Enhanced error handling with suggestions."""
@@ -68,6 +73,55 @@ class CalculatorREPL:
         #print(f"Syntax error: {type(error)}")
         print(f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples.")
 
+    def _handle_linear_equation(self, raw_input):
+        if not raw_input:
+            print("Please provide equations separated by semicolons.")
+            return
+
+        equations = [eq.strip() for eq in raw_input.split(";") if eq.strip()]
+
+        try:
+            solver = LinearEquationSolver(equations)
+            result = solver.solve()
+
+            if isinstance(result, dict):
+                print("Solution:")
+                for var, val in result.items():
+                    print(f"  {var} = {val}")
+            else:
+                print(result)
+        except Exception as e:
+            print(f"Error: {e}")
+
+
+    def _linear_mode(self):
+        print("Enter each equation on a new line.")
+        print("Type 'ok' when finished.\n")
+
+        equations = []
+        while True:
+            line = input("eq> ").strip()
+            if line.lower() == "ok":
+                break
+            if line:
+                equations.append(line)
+
+        if not equations:
+            print("No equations entered.")
+            return
+
+        try:
+            solver = LinearEquationSolver(equations)
+            result = solver.solve()
+
+            if isinstance(result, dict):
+                print("Solution:")
+                for var, val in result.items():
+                    print(f"  {var} = {val}")
+            else:
+                print(result)
+        except Exception as e:
+            print(f"Error: {e}")
 
 
 
@@ -114,6 +168,7 @@ class CalculatorREPL:
         -----------------
         help   - Show this help message
         quit   - Exit the calculator
+        linear mode    - Enter multiline linear equation solving mode.
         """
         print(help_text)
 
