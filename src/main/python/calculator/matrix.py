@@ -93,7 +93,9 @@ class Matrix:
                 except ValueError as e:
                     raise ValueError("Unsupported number type") from e
                 result_value = val1.subtract(val2)
-                row_result.append(result_value.get_value())  # Récupérer la valeur réelle de l'élément
+                row_result.append(
+                    result_value.get_value()
+                )  # Récupérer la valeur réelle de l'élément
             result.append(row_result)
 
         return Matrix(result)

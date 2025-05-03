@@ -2,21 +2,24 @@ import ast
 import os
 import sys
 
+from rich.console import Console
+
 from src.main.python.calculator import calculator
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.linear_solver import LinearEquationSolver
 from src.main.python.calculator.matrix import Matrix
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.parsing.expression_parser import parse_expression
-from rich.console import Console
 
 console = Console()
+
 
 def clear_screen():
     if sys.platform == "win32":
         os.system("cls")
     else:
         os.system("clear")
+
 
 def wrap_number(value):
     """
@@ -78,7 +81,7 @@ class CalculatorREPL:
             self._handle_matrix_command(input_str[7:].strip())
 
         else:
-        # Parse and evaluate the expression
+            # Parse and evaluate the expression
             try:
                 parsed_expr = parse_expression(input_str)
                 calculator.print_result(parsed_expr)
@@ -88,8 +91,10 @@ class CalculatorREPL:
     def _handle_parse_error(self, error):
         """Enhanced error handling with suggestions."""
 
-        #print(f"Syntax error: {type(error)}")
-        print(f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples.")
+        # print(f"Syntax error: {type(error)}")
+        print(
+            f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples."
+        )
 
     def _handle_linear_equation(self, raw_input):
         if not raw_input:
@@ -147,7 +152,6 @@ class CalculatorREPL:
         except Exception as e:
             print(f"Matrix error: {e}")
 
-
     def _linear_mode(self):
         print("Enter each equation on a new line.")
         print("Type 'ok' when finished.\n")
@@ -176,8 +180,6 @@ class CalculatorREPL:
                 print(result)
         except Exception as e:
             print(f"Error: {e}")
-
-
 
     def _print_help(self):
         """Prints available commands."""

@@ -36,7 +36,10 @@ class TestMatrixOperations(unittest.TestCase):
             [[IntegerNumber(5), IntegerNumber(6)], [IntegerNumber(7), IntegerNumber(8)]]
         )
         result = matrix1.subtract(matrix2)
-        expected_result = [[IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()], [IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()]]
+        expected_result = [
+            [IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()],
+            [IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()],
+        ]
 
         self.assertEqual(str(result), str(expected_result))
 

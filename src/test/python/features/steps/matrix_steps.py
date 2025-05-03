@@ -38,7 +38,8 @@ def when_i_add_the_matrices(context):
     except ValueError as e:
         context.error_message = str(e)
 
-@when('I subtract the matrices')
+
+@when("I subtract the matrices")
 def when_i_substract_the_matrices(context):
     matrix1 = Matrix(context.matrix_data)
     matrix2 = Matrix(context.other_matrix_data)
@@ -46,6 +47,7 @@ def when_i_substract_the_matrices(context):
         context.result = matrix1.subtract(matrix2)
     except ValueError as e:
         context.error_message = str(e)
+
 
 @when("I multiply the matrices")
 def when_i_multiply_the_matrices(context):
