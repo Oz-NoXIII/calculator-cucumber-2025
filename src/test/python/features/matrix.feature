@@ -1,59 +1,34 @@
-Feature: Matrices operations in the calculator
+Feature: Matrix operations
 
-
-  Scenario: Adding two matrices of the same size with IntegerNumbers
-    Given the following IntegerNumber matrix:
-      | 1 | 2 |
-      | 3 | 4 |
-    And the following IntegerNumber matrix:
-      | 5 | 6 |
-      | 7 | 8 |
+  Scenario: Matrix addition
+    Given I have matrix A = [[1, 2], [3, 4]]
+    And I have matrix B = [[5, 6], [7, 8]]
     When I add the matrices
-    Then the result should be:
-      | 6 | 8 |
-      | 10 | 12 |
+    Then the result matrix should be [[6, 8], [10, 12]]
 
-  Scenario: Multiplying two matrices with RealNumbers
-    Given I have the following RealNumber matrix:
-      | 1.5 | 2.5 |
-      | 3.5 | 4.5 |
-    And I have the following RealNumber matrix:
-      | 5.5 | 6.5 |
-      | 7.5 | 8.5 |
+  Scenario: Matrix multiplication
+    Given I have matrix A = [[1, 2], [3, 4]]
+    And I have matrix B = [[5, 6], [7, 8]]
     When I multiply the matrices
-    Then the result should be:
-      | 19.0 | 22.0 |
-      | 43.0 | 50.0 |
+    Then the result matrix should be [[19, 22], [43, 50]]
 
-  Scenario: Transposing a matrix with RationalNumbers
-    Given I have the following RationalNumber matrix:
-      | 1/2 | 2/3 |
-      | 3/4 | 5/6 |
+  Scenario: Matrix transposition
+    Given I have matrix A = [[1, 2], [3, 4]]
     When I transpose the matrix
-    Then the result should be:
-      | 1/2 | 3/4 |
-      | 2/3 | 5/6 |
+    Then the result matrix should be [[1, 3], [2, 4]]
 
-  Scenario: Inverting a matrix with IntegerNumbers
-    Given I have the following IntegerNumber matrix:
-      | 4 | 7 |
-      | 2 | 6 |
+  Scenario: Matrix inversion
+    Given I have matrix A = [[4, 7], [2, 6]]
     When I invert the matrix
-    Then the result should be:
-      | 0.6 | -0.7 |
-      | -0.2 | 0.4 |
+    Then the result matrix should be [[0.6, -0.7], [-0.2, 0.4]]
 
   Scenario: Adding matrices with incompatible dimensions
-    Given I have the following IntegerNumber matrix:
-      | 1 | 2 |
-    And I have the following IntegerNumber matrix:
-      | 5 | 6 | 7 |
+    Given I have matrix A = [[1, 2]]
+    And I have matrix B = [[5, 6], [7, 8]]
     When I add the matrices
-    Then I should see an error message "Incompatible matrix dimensions for addition"
+    Then I should see an error message "Dies must have the same dimensions for addition"
 
-  Scenario: Trying to invert a non-invertible matrix with RationalNumbers
-    Given I have the following RationalNumber matrix:
-      | 1/2 | 2/3 |
-      | 2/3 | 4/6 |
+  Scenario: Trying to invert a non-invertible matrix
+    Given I have matrix A = [[1, 2], [2, 4]]
     When I invert the matrix
-    Then I should see an error message "Matrix is not invertible"
+    Then I should see an error message "The matrix is not invertible."

@@ -8,17 +8,15 @@ from src.main.python.calculator.real_number import RealNumber
 class Matrix:
     def __init__(self, data):
         """
-        Initialise une matrice avec les données fournies sous forme de liste de listes.
+        Initializes a matrix with data supplied as a list of lists.
         """
         if not isinstance(data, list) or not all(isinstance(row, list) for row in data):
-            raise ValueError("La matrice doit être une liste de listes.")
+            raise ValueError("The matrix must be a list of lists.")
 
         # Vérifie si toutes les lignes ont la même taille
         row_lengths = [len(row) for row in data]
         if len(set(row_lengths)) != 1:
-            raise ValueError(
-                "Toutes les lignes de la matrice doivent avoir la même taille."
-            )
+            raise ValueError("All matrix rows must have the same size.")
 
         self.data = data
         self.rows = len(data)  # Nombre de lignes
@@ -41,7 +39,7 @@ class Matrix:
 
     def _cast_to_appropriate_type(self, value):
         """
-        Convertit les valeurs en leur type approprié (Integer, Real, Rational).
+        Converts values to their appropriate type (Integer, Real, Rational).
         """
         if isinstance(value, IntegerNumber):
             return value
@@ -55,9 +53,7 @@ class Matrix:
     def add(self, other):
         # Vérifier si les matrices ont les mêmes dimensions
         if self.rows != other.rows or self.cols != other.cols:
-            raise ValueError(
-                "Les matrices doivent avoir les mêmes dimensions pour l'addition."
-            )
+            raise ValueError("Dies must have the same dimensions for addition.")
 
         result = []
         for i in range(self.rows):
@@ -83,7 +79,7 @@ class Matrix:
         # Vérifier si les matrices sont compatibles pour la multiplication
         if self.cols != other.rows:
             raise ValueError(
-                "Le nombre de colonnes de la première matrice doit être égal au nombre de lignes de la seconde matrice."
+                "The number of columns in the first matrix must be equal to the number of rows in the second matrix."
             )
 
         result = []
@@ -111,10 +107,15 @@ class Matrix:
         return Matrix(result.tolist())
 
     def inverse(self):
+        numeric_data = [
+            [cell.get_value() if hasattr(cell, "get_value") else cell for cell in row]
+            for row in self.data
+        ]
+
         if self.rows != self.cols:
-            raise ValueError("La matrice doit être carrée pour calculer l'inverse.")
+            raise ValueError("The matrix must be square to calculate the inverse.")
         try:
-            result = np.linalg.inv(self.data)
+            result = np.linalg.inv(numeric_data)
             return Matrix(result.tolist())
         except np.linalg.LinAlgError:
-            raise ValueError("La matrice n'est pas inversible.")
+            raise ValueError("The matrix is not invertible.")
