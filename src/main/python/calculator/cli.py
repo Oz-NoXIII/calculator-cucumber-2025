@@ -1,8 +1,12 @@
+import ast
 import os
 import sys
 
 from src.main.python.calculator import calculator
+from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.linear_solver import LinearEquationSolver
+from src.main.python.calculator.matrix import Matrix
+from src.main.python.calculator.real_number import RealNumber
 from src.main.python.parsing.expression_parser import parse_expression
 from rich.console import Console
 
@@ -13,6 +17,17 @@ def clear_screen():
         os.system("cls")
     else:
         os.system("clear")
+
+def wrap_number(value):
+    """
+    Converts a float/int into a suitable numeric type
+    """
+    if isinstance(value, int):
+        return IntegerNumber(value)
+    elif isinstance(value, float):
+        return RealNumber(value)
+    else:
+        raise TypeError(f"Unsupported number type: {type(value)}")
 
 
 class CalculatorREPL:
@@ -59,6 +74,9 @@ class CalculatorREPL:
             self._linear_mode()
         elif input_str.lower().startswith("linear>"):
             self._handle_linear_equation(input_str[7:].strip())
+        elif input_str.lower().startswith("matrix "):
+            self._handle_matrix_command(input_str[7:].strip())
+
         else:
         # Parse and evaluate the expression
             try:
@@ -92,6 +110,42 @@ class CalculatorREPL:
                 print(result)
         except Exception as e:
             print(f"Error: {e}")
+
+    def _handle_matrix_command(self, command_str):
+
+        def wrap_matrix(raw_matrix):
+            return [[wrap_number(cell) for cell in row] for row in raw_matrix]
+
+        try:
+            parts = command_str.split(maxsplit=1)
+            if len(parts) < 2:
+                print("Usage: matrix <operation> <matrix1> [<matrix2>]")
+                return
+
+            operation, rest = parts[0], parts[1]
+            args = ast.literal_eval(rest)
+
+            if operation in {"add", "mult"}:
+                if not isinstance(args, list) or len(args) != 2:
+                    print("Provide two matrices: matrix add [matrix1, matrix2]")
+                    return
+                m1 = Matrix(wrap_matrix(args[0]))
+                m2 = Matrix(wrap_matrix(args[1]))
+                result = m1.add(m2) if operation == "add" else m1.multiply(m2)
+            elif operation == "trans":
+                result = Matrix(wrap_matrix(args)).transpose()
+            elif operation == "inv":
+                result = Matrix(wrap_matrix(args)).inverse()
+            else:
+                print(f"Unknown matrix operation: {operation}")
+                return
+
+            print("Result:")
+            for row in result.data:
+                print(row)
+
+        except Exception as e:
+            print(f"Matrix error: {e}")
 
 
     def _linear_mode(self):
@@ -169,6 +223,11 @@ class CalculatorREPL:
         help   - Show this help message
         quit   - Exit the calculator
         linear mode    - Enter multiline linear equation solving mode.
+        print("  matrix add [A,B]         - Add two matrices A and B")
+        print("  matrix mult [A,B]        - Multiply two matrices A and B")
+        print("  matrix trans A           - Transpose matrix A")
+        print("  matrix inv A             - Invert matrix A")
+
         """
         print(help_text)
 

@@ -75,6 +75,29 @@ class Matrix:
 
         return Matrix(result)
 
+    def subtract(self, other):
+        # Vérifie si les dimensions des matrices sont compatibles pour la soustraction
+        if self.rows != other.rows or self.cols != other.cols:
+            raise ValueError("Matrices must have the same dimensions for subtraction.")
+
+        result = []
+        for i in range(self.rows):
+            row_result = []
+            for j in range(self.cols):
+                # Soustraire les éléments correspondants des deux matrices
+                val1 = self.data[i][j]
+                val2 = other.data[i][j]
+                try:
+                    val1 = self._cast_to_appropriate_type(val1)
+                    val2 = self._cast_to_appropriate_type(val2)
+                except ValueError as e:
+                    raise ValueError("Unsupported number type") from e
+                result_value = val1.subtract(val2)
+                row_result.append(result_value.get_value())  # Récupérer la valeur réelle de l'élément
+            result.append(row_result)
+
+        return Matrix(result)
+
     def multiply(self, other):
         # Vérifier si les matrices sont compatibles pour la multiplication
         if self.cols != other.rows:

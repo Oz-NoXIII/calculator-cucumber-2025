@@ -6,6 +6,13 @@ Feature: Matrix operations
     When I add the matrices
     Then the result matrix should be [[6, 8], [10, 12]]
 
+
+  Scenario: Matrix subtraction with compatible dimensions
+    Given I have matrix A = [[5, 6], [7, 8]]
+    And I have matrix B = [[1, 2], [3, 4]]
+    When I subtract the matrices
+    Then the result should be [[4, 4], [4, 4]]
+
   Scenario: Matrix multiplication
     Given I have matrix A = [[1, 2], [3, 4]]
     And I have matrix B = [[5, 6], [7, 8]]

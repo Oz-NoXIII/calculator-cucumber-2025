@@ -27,6 +27,19 @@ class TestMatrixOperations(unittest.TestCase):
 
         self.assertEqual(str(result), str(expected_result))
 
+    def test_matrix_subtraction(self):
+        """Test de la soustraction des matrices avec des dimensions compatibles."""
+        matrix1 = Matrix(
+            [[IntegerNumber(1), IntegerNumber(2)], [IntegerNumber(3), IntegerNumber(4)]]
+        )
+        matrix2 = Matrix(
+            [[IntegerNumber(5), IntegerNumber(6)], [IntegerNumber(7), IntegerNumber(8)]]
+        )
+        result = matrix1.subtract(matrix2)
+        expected_result = [[IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()], [IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()]]
+
+        self.assertEqual(str(result), str(expected_result))
+
     def test_matrix_multiplication_with_integer_numbers(self):
         # Matrices 2x2 avec des IntegerNumbers
         matrix1 = Matrix(
