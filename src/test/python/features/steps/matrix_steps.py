@@ -12,7 +12,7 @@ def parse_matrix(matrix_str):
 
 
 @given("I have matrix A = {matrix_str}")
-def step_impl(context, matrix_str):
+def given_a_matrix_A(context, matrix_str):
 
     matrix_data = parse_matrix(matrix_str)
     context.matrix_data = []
@@ -21,7 +21,7 @@ def step_impl(context, matrix_str):
 
 
 @given("I have matrix B = {matrix_str}")
-def step_impl(context, matrix_str):
+def given_a_matrix_B(context, matrix_str):
 
     matrix_data = parse_matrix(matrix_str)
     context.other_matrix_data = []
