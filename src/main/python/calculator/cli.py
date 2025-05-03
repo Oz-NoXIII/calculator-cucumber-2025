@@ -7,6 +7,7 @@ from rich.console import Console
 
 console = Console()
 
+
 def clear_screen():
     if sys.platform == "win32":
         os.system("cls")
@@ -59,17 +60,13 @@ class CalculatorREPL:
         try:
             parsed_expr = parse_expression(input_str)
             calculator.print_result(parsed_expr)
-        except Exception as e:
+        except Exception:
             self._handle_parse_error(input_str)
 
     def _handle_parse_error(self, error):
         """Enhanced error handling with suggestions."""
 
-        #print(f"Syntax error: {type(error)}")
         print(f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples.")
-
-
-
 
     def _print_help(self):
         """Prints available commands."""
