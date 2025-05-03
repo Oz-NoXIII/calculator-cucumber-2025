@@ -119,4 +119,3 @@ if __name__ == "__main__":
     clear_screen()
     repl = CalculatorREPL()
     repl.start()
-    
