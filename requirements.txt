@@ -9,4 +9,5 @@ isort
 coverage
 coveralls
 sympy
+numpy
 lark
