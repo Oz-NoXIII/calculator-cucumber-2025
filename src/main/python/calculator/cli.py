@@ -85,7 +85,7 @@ class CalculatorREPL:
             try:
                 parsed_expr = parse_expression(input_str)
                 calculator.print_result(parsed_expr)
-            except Exception as e:
+            except Exception as input_str:
                 self._handle_parse_error(input_str)
 
     def _handle_parse_error(self, error):
