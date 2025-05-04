@@ -96,7 +96,6 @@ class TestMatrixOperations(unittest.TestCase):
         result = matrix.inverse()
         expected_result = Matrix([[0.6, -0.7], [-0.2, 0.4]])
 
-
         result_data_rounded = [
             [round(value, 2) for value in row] for row in result.data
         ]
@@ -112,16 +111,23 @@ class TestMatrixOperations(unittest.TestCase):
         )
         matrix2 = Matrix([[IntegerNumber(5), IntegerNumber(6)]])
 
-
         with self.assertRaises(ValueError):
             matrix1.add(matrix2)
+
+    def test_matrix_substraction_error(self):
+        matrix2 = Matrix(
+            [[IntegerNumber(1), IntegerNumber(2)], [IntegerNumber(3), IntegerNumber(4)]]
+        )
+        matrix1 = Matrix([[IntegerNumber(5), IntegerNumber(6)]])
+
+        with self.assertRaises(ValueError):
+            matrix1.subtract(matrix2)
 
     def test_matrix_multiplication_error(self):
         matrix1 = Matrix(
             [[IntegerNumber(1), IntegerNumber(2)], [IntegerNumber(3), IntegerNumber(4)]]
         )
         matrix2 = Matrix([[IntegerNumber(5), IntegerNumber(6)]])
-
 
         with self.assertRaises(ValueError):
             matrix1.multiply(matrix2)
@@ -134,7 +140,6 @@ class TestMatrixOperations(unittest.TestCase):
             ]
         )
 
-
         with self.assertRaises(ValueError):
             matrix.inverse()
 
@@ -145,7 +150,6 @@ class TestMatrixOperations(unittest.TestCase):
                 [IntegerNumber(2).get_value(), IntegerNumber(4).get_value()],
             ]
         )
-
 
         with self.assertRaises(ValueError):
             matrix.inverse()
@@ -159,7 +163,6 @@ class TestMatrixOperations(unittest.TestCase):
 
         matrix1 = Matrix([[1, 2, 3], [4, 5, 6]])
         matrix2 = Matrix([[7, 8], [9, 10]])
-
 
         with self.assertRaises(ValueError):
             matrix1.multiply(matrix2)
@@ -180,14 +183,16 @@ class TestMatrixOperations(unittest.TestCase):
     def test_matrix_contains_non_list_elements(self):
 
         with self.assertRaises(ValueError):
-            Matrix(
-                [[IntegerNumber(1), IntegerNumber(2)], IntegerNumber(3)]
-            )
+            Matrix([[IntegerNumber(1), IntegerNumber(2)], IntegerNumber(3)])
 
         with self.assertRaises(ValueError):
             Matrix([[1, 2], "not a list"])
 
     def test_invalid_number_type(self):
+        with self.assertRaises(ValueError) as context:
+            Matrix([[[], []], [[], []]]).subtract(Matrix([["a", "b"], ["c", "d"]]))
+        self.assertEqual(str(context.exception), "Unsupported number type")
+
         with self.assertRaises(ValueError) as context:
             Matrix([["a", "b"], ["c", "d"]]).add(Matrix([["a", "b"], ["c", "d"]]))
         self.assertEqual(str(context.exception), "Unsupported number type")
@@ -209,7 +214,6 @@ class TestMatrixOperations(unittest.TestCase):
         visitor = TestVisitor()
         matrix.accept(visitor)
 
-
         self.assertEqual(visitor.visited, matrix)
 
     def test_get_depth(self):
@@ -217,7 +221,6 @@ class TestMatrixOperations(unittest.TestCase):
         matrix = Matrix(
             [[IntegerNumber(1), IntegerNumber(2)], [IntegerNumber(3), IntegerNumber(4)]]
         )
-
 
         self.assertEqual(matrix.get_depth(), 2)
 
@@ -227,7 +230,6 @@ class TestMatrixOperations(unittest.TestCase):
             [[IntegerNumber(1), IntegerNumber(2)], [IntegerNumber(3), IntegerNumber(4)]]
         )
 
-
         self.assertEqual(matrix.get_ops(), 4)
 
     def test_get_nbs(self):
@@ -235,7 +237,6 @@ class TestMatrixOperations(unittest.TestCase):
         matrix = Matrix(
             [[IntegerNumber(1), IntegerNumber(2)], [IntegerNumber(3), IntegerNumber(4)]]
         )
-
 
         self.assertEqual(matrix.get_nbs(), 4)
 
@@ -303,7 +304,6 @@ class TestMatrixOperations(unittest.TestCase):
         self.assertEqual(str(result), str(expected_result))
 
     def test_matrix_multiplication_with_rational_numbers(self):
-
 
         matrix1 = Matrix(
             [

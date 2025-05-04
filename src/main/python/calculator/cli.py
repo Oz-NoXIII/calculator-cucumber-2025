@@ -219,16 +219,20 @@ class CalculatorREPL:
         Infix:       3 * (4 + 5) ^ 2
         Prefix:      *(3, ^(+(4, 5), 2))
         Postfix:     (3, ((4, 5)+, 2)^)*
+        matrix mult [[[1,2],[3,4]], [[5,6],[7,8]]]
+        matrix add [[[1,2],[3,4]], [[5,6],[7,8]]]
+        matrix inv [[1,2],[3,4]]
+        matrix trans [[1,2],[3,4]]
 
         Special Commands:
         -----------------
         help   - Show this help message
         quit   - Exit the calculator
         linear mode    - Enter multiline linear equation solving mode.
-        print("  matrix add [A,B]         - Add two matrices A and B")
-        print("  matrix mult [A,B]        - Multiply two matrices A and B")
-        print("  matrix trans A           - Transpose matrix A")
-        print("  matrix inv A             - Invert matrix A")
+        matrix add [A,B]         - Add two matrices A and B
+        matrix mult [A,B]        - Multiply two matrices A and B
+        matrix trans A           - Transpose matrix A
+        matrix inv A             - Invert matrix A
 
         """
         print(help_text)

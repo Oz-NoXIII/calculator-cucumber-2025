@@ -13,7 +13,6 @@ class Matrix:
         if not isinstance(data, list) or not all(isinstance(row, list) for row in data):
             raise ValueError("The matrix must be a list of lists.")
 
-
         row_lengths = [len(row) for row in data]
         if len(set(row_lengths)) != 1:
             raise ValueError("All matrix rows must have the same size.")
@@ -68,9 +67,7 @@ class Matrix:
                     raise ValueError("Unsupported number type") from e
 
                 result_value = val1.add(val2)
-                row_result.append(
-                    result_value.get_value()
-                )
+                row_result.append(result_value.get_value())
             result.append(row_result)
 
         return Matrix(result)
@@ -93,9 +90,7 @@ class Matrix:
                 except ValueError as e:
                     raise ValueError("Unsupported number type") from e
                 result_value = val1.subtract(val2)
-                row_result.append(
-                    result_value.get_value()
-                )
+                row_result.append(result_value.get_value())
             result.append(row_result)
 
         return Matrix(result)
@@ -120,15 +115,18 @@ class Matrix:
                             self._cast_to_appropriate_type(val2)
                         )
                     )
-                row_result.append(
-                    product.get_value()
-                )
+                row_result.append(product.get_value())
             result.append(row_result)
 
         return Matrix(result)
 
     def transpose(self):
-        result = np.transpose(self.data)
+        numeric_data = [
+            [cell.get_value() if hasattr(cell, "get_value") else cell for cell in row]
+            for row in self.data
+        ]
+        # result = np.transpose(self.data)
+        result = np.linalg.matrix_transpose(numeric_data)
         return Matrix(result.tolist())
 
     def inverse(self):
