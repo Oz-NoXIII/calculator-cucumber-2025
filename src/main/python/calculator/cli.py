@@ -41,7 +41,7 @@ class CalculatorREPL:
         self._welcome_message = (
             "Calculator REPL\n"
             "Enter arithmetic expressions to evaluate.\n"
-            "Commands: <expression>, 'help', 'linear solver', 'quit'\n"
+            "Commands: <expression>, 'help', 'linear solver', 'matrix' 'quit'\n"
         )
         self._prompt = "calc> "
 

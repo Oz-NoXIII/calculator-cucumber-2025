@@ -13,20 +13,20 @@ class Matrix:
         if not isinstance(data, list) or not all(isinstance(row, list) for row in data):
             raise ValueError("The matrix must be a list of lists.")
 
-        # Vérifie si toutes les lignes ont la même taille
+
         row_lengths = [len(row) for row in data]
         if len(set(row_lengths)) != 1:
             raise ValueError("All matrix rows must have the same size.")
 
         self.data = data
-        self.rows = len(data)  # Nombre de lignes
-        self.cols = len(data[0])  # Nombre de colonnes
+        self.rows = len(data)
+        self.cols = len(data[0])
 
     def accept(self, visitor):
         visitor.visit_matrix(self)
 
     def get_depth(self):
-        return 2  # Représente une dimension 2D (matrice)
+        return 2
 
     def get_ops(self):
         return self.rows * self.cols
@@ -51,7 +51,7 @@ class Matrix:
             raise ValueError("Unsupported number type")
 
     def add(self, other):
-        # Vérifier si les matrices ont les mêmes dimensions
+
         if self.rows != other.rows or self.cols != other.cols:
             raise ValueError("Dies must have the same dimensions for addition.")
 
@@ -70,13 +70,13 @@ class Matrix:
                 result_value = val1.add(val2)
                 row_result.append(
                     result_value.get_value()
-                )  # Assurer de récupérer la valeur réelle du nombre
+                )
             result.append(row_result)
 
         return Matrix(result)
 
     def subtract(self, other):
-        # Vérifie si les dimensions des matrices sont compatibles pour la soustraction
+
         if self.rows != other.rows or self.cols != other.cols:
             raise ValueError("Matrices must have the same dimensions for subtraction.")
 
@@ -84,7 +84,7 @@ class Matrix:
         for i in range(self.rows):
             row_result = []
             for j in range(self.cols):
-                # Soustraire les éléments correspondants des deux matrices
+
                 val1 = self.data[i][j]
                 val2 = other.data[i][j]
                 try:
@@ -95,13 +95,13 @@ class Matrix:
                 result_value = val1.subtract(val2)
                 row_result.append(
                     result_value.get_value()
-                )  # Récupérer la valeur réelle de l'élément
+                )
             result.append(row_result)
 
         return Matrix(result)
 
     def multiply(self, other):
-        # Vérifier si les matrices sont compatibles pour la multiplication
+
         if self.cols != other.rows:
             raise ValueError(
                 "The number of columns in the first matrix must be equal to the number of rows in the second matrix."
@@ -122,7 +122,7 @@ class Matrix:
                     )
                 row_result.append(
                     product.get_value()
-                )  # Assurer de récupérer la valeur réelle du nombre
+                )
             result.append(row_result)
 
         return Matrix(result)
