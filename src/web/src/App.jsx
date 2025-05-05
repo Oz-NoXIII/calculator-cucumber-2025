@@ -1,3 +1,4 @@
+import './App.css';
 import {
   Tabs,
   TabsContent,
@@ -6,6 +7,7 @@ import {
 } from './components/tabs.jsx';
 import ClassicCalculator from './components/classic-calculator.jsx';
 import MatrixCalculator from './components/matrix-calculator.jsx';
+import { useState } from 'react';
 
 export default function App() {
   const [mode, setMode] = useState('classic');
