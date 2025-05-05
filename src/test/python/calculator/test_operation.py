@@ -1,6 +1,7 @@
 import unittest
 
 from src.main.python.calculator.divides import Divides
+from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
@@ -10,9 +11,13 @@ from src.main.python.visitor.counter import Counter
 class TestOperation(unittest.TestCase):
 
     def setUp(self):
-        params1 = [MyNumber(3), MyNumber(4), MyNumber(5)]
-        params2 = [MyNumber(5), MyNumber(4)]
-        params3 = [Plus(params1), Minus(params2), MyNumber(7)]
+        params1 = [
+            MyNumber(IntegerNumber(3)),
+            MyNumber(IntegerNumber(4)),
+            MyNumber(IntegerNumber(5)),
+        ]
+        params2 = [MyNumber(IntegerNumber(5)), MyNumber(IntegerNumber(4))]
+        params3 = [Plus(params1), Minus(params2), MyNumber(IntegerNumber(7))]
         self.o = Divides(params3)
         self.o2 = Divides(params3)
         self.o.accept(Counter())

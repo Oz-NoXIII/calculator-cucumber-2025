@@ -1,11 +1,13 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
+from src.main.python.calculator.expression import Expression
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
+from src.main.python.calculator.number_type import NumberType
 from src.main.python.visitor.printer import Printer
 
 
-class Operation(ABC):  # pragma: no cover
+class Operation(Expression):  # pragma: no cover
 
     @abstractmethod
     def __init__(self, elist, n=None):
@@ -24,7 +26,7 @@ class Operation(ABC):  # pragma: no cover
         self._neutral = None
 
     @abstractmethod
-    def op(self, left, right):
+    def op(self, left: NumberType, right: NumberType):
         pass
 
     def add_more_params(self, params):

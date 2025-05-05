@@ -7,6 +7,7 @@ from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
+from src.main.python.calculator.power import Power
 from src.main.python.calculator.times import Times
 from src.main.python.visitor.counter import Counter
 
@@ -31,6 +32,7 @@ class TestCounting(unittest.TestCase):
             ("+",),
             ("/",),
             ("-",),
+            ("^",),
         ]
     )
     def test_operation_counting(self, symbol):
@@ -45,6 +47,8 @@ class TestCounting(unittest.TestCase):
                     self.e = Times(params)
                 case "/":
                     self.e = Divides(params)
+                case "^":
+                    self.e = Power(params)
                 case _:
                     self.fail("Invalid symbol")
         except IllegalConstruction as e:

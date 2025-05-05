@@ -24,9 +24,9 @@ class Minus(Operation):
     def op(self, left, right):
         """
         The actual computation of the (binary) arithmetic subtraction of two integers
-        :param left: The first integer
-        :param right: The second integer that should be subtracted from the first
-        :return: The integer that is the result of the subtraction
+        :param left: Left operand
+        :param right: Right operand
+        :return: The number that is the result of the subtraction
         """
 
-        return left - right
+        return left.subtract(right)

@@ -1,4 +1,4 @@
-Feature: Integer Arithmetic Expressions
+Feature:  Arithmetic Expressions
   This feature provides a range of scenarios corresponding to the
   intended external behaviour of arithmetic expressions on integers.
 
@@ -17,6 +17,12 @@ Feature: Integer Arithmetic Expressions
     When I provide a first number 4
     And I provide a second number 5
     Then the operation evaluates to 9
+
+  Scenario: Powering two integer numbers
+    Given an integer operation '^'
+    When I provide a first number 7
+    And I provide a second number 2
+    Then the operation evaluates to 49
 
   Scenario: Subtracting two integer numbers
     Given an integer operation '-'
@@ -40,6 +46,16 @@ Feature: Integer Arithmetic Expressions
     Given an integer operation '/'
     When I provide a first number 5
     And I provide a second number 0
+    Then the operation evaluates to NaN
+
+  Scenario: Inverse one integer
+    Given an integer operation '1/'
+    When I provide a first number 5
+    Then the operation evaluates to 0
+
+  Scenario: Inverse of zero
+    Given an integer operation '1/'
+    When I provide a first number 0
     Then the operation evaluates to NaN
 
   Scenario: Printing the sum of two integer numbers
@@ -127,3 +143,270 @@ Feature: Integer Arithmetic Expressions
     Examples:
       | op | op2 | op3 |
       | /  |  +  |  - |
+
+  Scenario: Adding two real numbers
+    Given a real number 3.5
+    And another real number 1.2
+    When I add them
+    Then the result should be 4.7
+
+  Scenario: Negative divided by 0.0
+    Given a real number -1.0
+    And another real number 0.0
+    When I divide them
+    Then the result should be -Infinity
+
+  Scenario: Square root of negative
+    Given a real number -4.0
+    When I take the square root
+    Then the result should be NaN
+
+
+  Scenario: Subtracting two real numbers
+    Given a real number 5.0
+    And another real number 2.5
+    When I subtract them
+    Then the result should be 2.5
+
+  Scenario: Powering two real numbers
+    Given a real number 5.0
+    And another real number 2.0
+    When I power the first to the second them
+    Then the result should be 25.0
+
+  Scenario: Multiplying two real numbers
+    Given a real number 3.0
+    And another real number 2.0
+    When I multiply them
+    Then the result should be 6.0
+
+  Scenario: Adding a negative real number
+    Given a real number -1.5
+    And another real number 2.0
+    When I add them
+    Then the result should be 0.5
+
+  Scenario: Formatting with precision
+  Given a real number 3.14159265
+  When I set the precision to 4
+  Then its string representation is "3.1416"
+
+  Scenario: Scientific notation
+    Given a real number 6.022574E23
+    When I set the precision to 3
+    Then the scientific notation is "6.023E+23"
+
+  Scenario: Scientific notation
+    Given a real number 6.022574E-23
+    When I set the precision to 3
+    Then the scientific notation is "6.023E-23"
+
+  Scenario: Degrees to radians
+    Given a real number 180.0
+    When I convert to radians
+    Then the result is approximately 3.14159265
+
+  Scenario: Radians to degrees
+    Given a real number 3.14159265
+    When I convert to degrees
+    Then the result is approximately 180.0
+
+  Scenario: Multiplying by zero
+    Given a real number 0.0
+    And another real number 99.99
+    When I multiply them
+    Then the result should be 0.0
+
+  Scenario: Inverse of a real
+    Given a real number 5.0
+    When I inverse it
+    Then the result should be 0.2
+
+  Scenario: Inverse of 0 as a real
+    Given a real number 0.0
+    When I inverse it
+    Then the result should be Infinity
+
+  Scenario: Adding two rational numbers
+    Given a rational number 1/2
+    And another rational number 1/4
+    When I add them
+    Then the rational result should be 3/4
+
+  Scenario: Powering two rational numbers
+    Given a rational number 1/4
+    And another rational number 2/1
+    When I power the first to the second them
+    Then the rational result should be 1/16
+
+  Scenario: Dividing by zero
+    Given a rational number 1/2
+    And another rational number 0/1
+    When I divide them
+    Then the result should be NaN
+
+  Scenario: Subtracting two rational numbers
+    Given a rational number 3/4
+    And another rational number 1/4
+    When I subtract them
+    Then the rational result should be 1/2
+
+  Scenario: Multiplying two rational numbers
+    Given a rational number 2/3
+    And another rational number 3/5
+    When I multiply them
+    Then the rational result should be 2/5
+
+  Scenario: Dividing two rational numbers
+    Given a rational number 1/2
+    And another rational number 1/4
+    When I divide them
+    Then the rational result should be 2/1
+
+  Scenario: Inverse a rational number
+    Given a rational number 1/2
+    When I inverse it
+    Then the rational result should be 2/1
+
+  Scenario: Inverse the rational number 0/0
+    Given a rational number 0/0
+    When I inverse it
+    Then the result should be NaN
+
+  Scenario: Adding rational and integer
+    Given a rational number 3/4
+    And an integer number 1
+    When I add them
+    Then the rational result should be 7/4
+
+  Scenario: Simplification of rational result
+    Given a rational number 3/6
+    And another rational number 3/6
+    When I add them
+    Then the rational result should be 1/1
+
+  Scenario: Adding a list of rational numbers
+    Given the following list of rational numbers
+      | 1/2 | 1/3 | 1/6 |
+    When I compute their sum
+    Then the rational result should be 1/1
+
+  Scenario: Multiplying a list of rational numbers
+    Given the following list of rational numbers
+      | 2/3 | 3/5 | 5/4 |
+    When I compute their product
+    Then the rational result should be 1/2
+
+  Scenario: Show simplified rational in fraction form
+    Given a rational number 18/12
+    Then its fraction form is "3/2"
+
+  Scenario: Show simplified rational in mixed form
+    Given a rational number 18/12
+    Then its mixed form is "1 1/2"
+
+  Scenario: Negative rational in mixed form
+    Given a rational number -7/3
+    Then its mixed form is "-2 1/3"
+
+  Scenario: Rational with whole result
+    Given a rational number 3/1
+    Then its mixed form is "3"
+
+  Scenario: NaN rational
+    Given a rational number 1/0
+    Then its mixed form is "NaN"
+    And its fraction form is "NaN"
+
+
+  Scenario: Advanced composition
+    Given a rational expression first using + with the list
+      | 1/2 | 1/2 |
+    And a rational expression second using - with the list
+      | 1/1 | 1/2 |
+    When I combine expressions first,second with *
+    Then the rational result should be 1/2
+
+  Scenario: Mixing integers and rationals in a list
+    Given the following mixed list of rational and integer numbers
+      | 1/2 | 1/2 | 1 |
+    When I compute their sum
+    Then the rational result should be 2/1
+
+  Scenario: Adding complex numbers
+    Given a complex number 2+3i
+    And another complex number 1-1i
+    When I add them
+    Then the complex result should be 3+2i
+
+  Scenario: Powering complex number
+    Given a complex number 1+2i
+    And another real number 2.0
+    When I power the first to the second them
+    Then the complex result should be -3+4i
+
+  Scenario: Subtracting complex numbers
+    Given a complex number 5+2i
+    And another complex number 1+4i
+    When I subtract them
+    Then the complex result should be 4-2i
+
+  Scenario: Multiplying complex numbers
+    Given a complex number 1+2i
+    And another complex number 3+4i
+    When I multiply them
+    Then the complex result should be -5+10i
+
+  Scenario: Dividing complex numbers
+    Given a complex number 1+2i
+    And another complex number 3+4i
+    When I divide them
+    Then the complex result should be 0.44+0.08i
+
+  Scenario: Division of complex by zero
+    Given a complex number 1+2i
+    And another complex number 0+0i
+    When I divide them
+    Then the result should be NaN
+
+  Scenario: Inverse complex number
+    Given a complex number 1+2i
+    When I inverse it
+    Then the complex result should be 0.2-0.4i
+
+  Scenario: Inverse complex number 0+0i
+    Given a complex number 0+0i
+    When I inverse it
+    Then the result should be NaN
+
+  Scenario: Getting the modulus of a complex number
+    Given a complex number 3+4i
+    When I get its modulus
+    Then the result is approximately 5.0
+
+  Scenario: Getting the conjugate of a complex number
+    Given a complex number 2-3i
+    When I get its conjugate
+    Then the complex result should be 2+3i
+
+  Scenario: Square root of a complex number
+    Given a complex number -1+0i
+    When I take the square root
+    Then the complex result should be 0+1i
+
+
+  Scenario: Logarithm of positive real number
+    Given a real number 2.718281828
+    When I take the logarithm
+    Then the result is approximately 1.0
+
+  Scenario: Logarithm of zero
+    Given a real number 0.0
+    When I take the logarithm
+    Then the result should be NaN
+
+  Scenario: Logarithm of negative real
+    Given a real number -5.0
+    When I take the logarithm
+    Then the result should be NaN
+

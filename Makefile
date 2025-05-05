@@ -35,6 +35,9 @@ TEST_PYTHON = src/test/python
 # Main file
 MAIN_PYTHON = src/main/python/calculator/main.py
 
+# CLI file
+CLI_PYTHON = src/main/python/calculator/cli.py
+
 # Commands
 BEHAVE = behave
 ALLURE = allure
@@ -100,36 +103,36 @@ venv-serve-behave-test:
 
 test-coverage:
 	@echo "Running unit tests with coverage..."
-	$(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON),$(CLI_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(COVERAGE) report
 	$(COVERAGE) html
 
 venv-test-coverage:
 	@echo "Running unit tests with coverage..."
-	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON),$(CLI_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(SOURCE_VENV) && $(COVERAGE) report
 	$(SOURCE_VENV) && $(COVERAGE) html
 
 test-coverage-xml:
 	@echo "Running unit tests with coverage..."
-	$(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON),$(CLI_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(COVERAGE) report
 	$(COVERAGE) xml
 
 venv-test-coverage-xml:
 	@echo "Running unit tests with coverage..."
-	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
+	$(SOURCE_VENV) && $(COVERAGE) run --source=$(SRC_PYTHON) --omit=$(MAIN_PYTHON),$(CLI_PYTHON) -m unittest discover -s $(TEST_PYTHON) -v
 	$(SOURCE_VENV) && $(COVERAGE) report
 	$(SOURCE_VENV) && $(COVERAGE) xml
 
 # Lint the code
 lint:
 	@echo "Linting code..."
-	$(FLAKE8) $(SRC_PYTHON) $(TEST_PYTHON)
+	$(FLAKE8) --extend-ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
 
 venv-lint:
 	@echo "Linting code..."
-	$(SOURCE_VENV) && $(FLAKE8) --ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
+	$(SOURCE_VENV) && $(FLAKE8) --extend-ignore=E501 $(SRC_PYTHON) $(TEST_PYTHON)
 
 # Format the code
 format:
@@ -192,6 +195,15 @@ else
 	export PYTHONPATH=$(shell pwd) && $(PYTHON) src/main/python/calculator/main.py
 endif
 
+# Run the CLI
+run-cli:
+	@echo "Running the CLI..."
+ifeq ($(OS),Windows_NT)
+	set PYTHONPATH=. && $(PYTHON) src/main/python/calculator/cli.py
+else
+	export PYTHONPATH=$(shell pwd) && $(PYTHON) src/main/python/calculator/cli.py
+endif
+
 # Run the application
 venv-run:
 	@echo "Running the application..."
@@ -199,6 +211,15 @@ ifeq ($(OS),Windows_NT)
 	$(SOURCE_VENV) && set PYTHONPATH=. && $(PYTHON) src/main/python/calculator/main.py
 else
 	$(SOURCE_VENV) && export PYTHONPATH=$(shell pwd) && $(PYTHON) src/main/python/calculator/main.py
+endif
+
+# Run the CLI
+venv-run-cli:
+	@echo "Running the application..."
+ifeq ($(OS),Windows_NT)
+	$(SOURCE_VENV) && set PYTHONPATH=. && $(PYTHON) -m src/main/python/calculator/cli.py
+else
+	$(SOURCE_VENV) && export PYTHONPATH=$(shell pwd) && $(PYTHON) -m src/main/python/calculator/cli.py
 endif
 
 
