@@ -6,6 +6,8 @@ from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.inverse import Inverse
+from src.main.python.calculator.linear_solver import LinearEquationSolver
+from src.main.python.calculator.matrix import Matrix
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
@@ -61,7 +63,24 @@ class ExprTransformer(Transformer):
     def inverse(self, token):
         return Inverse([token])
 
+    @v_args(inline=True)
+    def linear_expr(self, equation_str):
+        raw = str(equation_str)[1:-1]  # enlever les guillemets
+        equations = [eq.strip() for eq in raw.split(";") if eq.strip()]
+        solver = LinearEquationSolver(equations)
+        result = solver.solve()
+        return result
+
+    def row(self, items):
+        return items
+
+    def matrix(self, rows):
+        return Matrix(rows)
+
+
 
 def parse_expression(expr_str: str):
     tree = parser.parse(expr_str)
     return ExprTransformer().transform(tree)
+
+parse_expression("[[1, 2], [3, 4]]")

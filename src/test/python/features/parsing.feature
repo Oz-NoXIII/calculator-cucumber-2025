@@ -157,4 +157,19 @@ Feature: Parsing Arithmetic Expressions
       | ( ( (2 3j)+ (1 4j)- ) * ( (5 2j)+ 2.0 ) / ) + | ( ( 2 + 3j ) * ( 1 - 4j ) ) + ( ( 5 + 2j ) / 2 ) |
 
 
+  Scenario: Solving a valid linear system
+    When I evaluate the expression 'solve_linear("x + y = 2; x - y = 0")'
+    Then the result should be {'x': 1, 'y': 1}
 
+
+  Scenario: Syntax error in linear system
+    When I evaluate the expression 'solve_linear("x + = y")'
+    Then the result should contain "Error solving equations"
+
+  Scenario: No solution to the linear system
+    When I evaluate the expression 'solve_linear("x + y = 2; x + y = 3")'
+    Then the result should contain "no solution"
+
+  Scenario: Infinite solutions in the linear system
+    When I evaluate the expression 'solve_linear("x + y = 2; 2x + 2y = 4")'
+    Then the result should contain "infinite"

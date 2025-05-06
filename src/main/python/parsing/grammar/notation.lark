@@ -1,4 +1,4 @@
-?start: expr
+?start: expr | matrix | linear_expr
 
 ?expr: infix_expr
      | prefix_expr
@@ -52,6 +52,14 @@
 ?postfix_factor: factor
                | "(" factor "-" ")" -> neg
 
+
+
+matrix: "[" row ("," row)* "]"
+row: "[" factor ("," factor)* "]"
+
+linear_expr: "solve_linear" "(" STRING ")"
+
+STRING: /"[^"]*"/
 
 //FACTOR
 ?factor: INT           -> integer_number
