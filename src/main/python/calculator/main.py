@@ -20,6 +20,7 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.times import Times
+from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
 
 try:
@@ -183,6 +184,21 @@ try:
     e = Cosinus([rCos], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
+
+    res = parse_expression('solve_linear("2x+3y=5; 3x-4z=7; y+z=10")')
+    print("linear solver",res)
+
+    expr = "[[1, 2.5], [3, 4j], [5, 3.75]]"
+    matrix = parse_expression(expr)
+
+    print(f"\nParsed matrix ({matrix.rows} x {matrix.cols}):")
+    for row in matrix.data:
+        print(" | ", end="")
+        for cell in row:
+            number = cell.get_value()
+            typename = type(number).__name__
+            print(f"{number} ({typename})", end=" | ")
+        print()
 
 except IllegalConstruction:
     print("cannot create operations without parameters")
