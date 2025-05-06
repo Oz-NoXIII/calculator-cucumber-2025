@@ -108,11 +108,15 @@ class TestExpressionParser(unittest.TestCase):
         self.assertIsInstance(result, str)
         self.assertIn("error solving equations", result.lower())
 
-    @patch("src.main.python.calculator.linear_solver.LinearEquationSolver.solve", return_value={"x": 1})
+    @patch(
+        "src.main.python.calculator.linear_solver.LinearEquationSolver.solve",
+        return_value={"x": 1},
+    )
     def test_parser_calls_solver(self, mock_solve):
         result = parse_expression('solve_linear("x + y = 2; x - y = 0")')
         mock_solve.assert_called_once()
         self.assertEqual(result, {"x": 1})
+
 
 if __name__ == "__main__":
     unittest.main()
