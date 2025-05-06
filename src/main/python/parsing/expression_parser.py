@@ -78,9 +78,9 @@ class ExprTransformer(Transformer):
         return Matrix(rows)
 
 
-
 def parse_expression(expr_str: str):
     tree = parser.parse(expr_str)
     return ExprTransformer().transform(tree)
+
 
 parse_expression("[[1, 2], [3, 4]]")

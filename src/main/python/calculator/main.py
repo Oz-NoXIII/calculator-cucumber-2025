@@ -186,7 +186,7 @@ try:
     calculator.eval_expression(e)
 
     res = parse_expression('solve_linear("2x+3y=5; 3x-4z=7; y+z=10")')
-    print("linear solver",res)
+    print("linear solver", res)
 
     expr = "[[1, 2.5], [3, 4j], [5, 3.75]]"
     matrix = parse_expression(expr)
