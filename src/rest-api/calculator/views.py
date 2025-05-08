@@ -34,5 +34,8 @@ class CalculatorAPIView(APIView):
                 
                 return Response({'result': str(result_value)}, status=status.HTTP_200_OK)
             except Exception as e:
-                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error("An error occurred while processing the request.", exc_info=True)
+                return Response({'error': "An internal error occurred."}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
