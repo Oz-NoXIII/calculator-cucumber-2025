@@ -6,11 +6,33 @@ from src.main.python.calculator.number_type import NumberType
 
 class RationalNumber(NumberType):
     def __init__(self, numerator: int, denominator: int = 1):
-        if denominator == 0:
-            self.value = Fraction(0, 1)
-            self._is_nan = True
+        n = numerator
+        d = denominator
+        if isinstance(numerator, str):
+            match numerator:
+                case "pi":
+                    n = math.pi
+                case "e":
+                    n = mah.e
+                case _:
+                    raise ValueError(f"Valeur inconnue : {value}")
+        if isinstance(denominator, str):
+            match denominator:
+                case "pi":
+                    d = math.pi
+                case "e":
+                    d = math.e
+                case _:
+                    raise ValueError(f"Valeur inconnue : {value}")
+        if isinstance(numerator, int) and isinstance(denominator, int):
+            if denominator == 0:
+                self.value = Fraction(0, 1)
+                self._is_nan = True
+            else:
+                self.value = Fraction(numerator, denominator)
+                self._is_nan = False
         else:
-            self.value = Fraction(numerator, denominator)
+            self.value = Fraction(int(n), int(d))
             self._is_nan = False
 
     def get_value(self):
