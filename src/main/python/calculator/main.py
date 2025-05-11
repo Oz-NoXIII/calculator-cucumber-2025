@@ -200,5 +200,17 @@ try:
             print(f"{number} ({typename})", end=" | ")
         print()
 
+    # constants : pi
+    p = MyNumber(RealNumber("pi"))
+    e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # constants : e
+    p = MyNumber(RationalNumber("pi", "e"))
+    e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
 except IllegalConstruction:
     print("cannot create operations without parameters")
