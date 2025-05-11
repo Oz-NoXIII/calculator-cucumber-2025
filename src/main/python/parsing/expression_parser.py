@@ -41,12 +41,18 @@ class ExprTransformer(Transformer):
         return MyNumber(ComplexNumber(0, token.get_value()))
 
     def add(self, args):
+        if all(isinstance(arg, Matrix) for arg in args):
+            return args[0].add(args[1])
         return Plus(args)
 
     def sub(self, args):
+        if all(isinstance(arg, Matrix) for arg in args):
+            return args[0].subtract(args[1])
         return Minus(args)
 
     def mul(self, args):
+        if all(isinstance(arg, Matrix) for arg in args):
+            return args[0].multiply(args[1])
         return Times(args)
 
     def div(self, args):
@@ -64,6 +70,10 @@ class ExprTransformer(Transformer):
         return Inverse([token])
 
     @v_args(inline=True)
+    def transpose(self, token):
+        return token.transpose()
+
+    @v_args(inline=True)
     def linear_expr(self, equation_str):
         raw = str(equation_str)[1:-1]  # enlever les guillemets
         equations = [eq.strip() for eq in raw.split(";") if eq.strip()]
@@ -75,12 +85,15 @@ class ExprTransformer(Transformer):
         return items
 
     def matrix(self, rows):
+        if len(rows) == 1 and isinstance(rows[0], Matrix):
+            return rows[0]  # évite double wrapping
         return Matrix(rows)
+
+    def matrix_inverse(self, children):
+        matrix = children[0]
+        return matrix.inverse()
 
 
 def parse_expression(expr_str: str):
     tree = parser.parse(expr_str)
     return ExprTransformer().transform(tree)
-
-
-parse_expression("[[1, 2], [3, 4]]")

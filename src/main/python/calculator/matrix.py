@@ -1,7 +1,6 @@
 import numpy as np
 
 from src.main.python.calculator.integer_number import IntegerNumber
-from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 
 
@@ -40,12 +39,14 @@ class Matrix:
         """
         Converts values to their appropriate type (Integer, Real, Rational).
         """
+        if hasattr(value, "get_value"):
+            value = value.get_value()
         if isinstance(value, IntegerNumber):
             return value
         elif isinstance(value, RealNumber):
             return value
-        elif isinstance(value, RationalNumber):
-            return value
+        elif isinstance(value, (int, float)):
+            return IntegerNumber(value) if isinstance(value, int) else RealNumber(value)
         else:
             raise ValueError("Unsupported number type")
 
@@ -67,7 +68,7 @@ class Matrix:
                     raise ValueError("Unsupported number type") from e
 
                 result_value = val1.add(val2)
-                row_result.append(result_value.get_value())
+                row_result.append(result_value)
             result.append(row_result)
 
         return Matrix(result)
@@ -90,7 +91,7 @@ class Matrix:
                 except ValueError as e:
                     raise ValueError("Unsupported number type") from e
                 result_value = val1.subtract(val2)
-                row_result.append(result_value.get_value())
+                row_result.append(result_value)
             result.append(row_result)
 
         return Matrix(result)
@@ -115,7 +116,7 @@ class Matrix:
                             self._cast_to_appropriate_type(val2)
                         )
                     )
-                row_result.append(product.get_value())
+                row_result.append(product)
             result.append(row_result)
 
         return Matrix(result)
@@ -125,6 +126,7 @@ class Matrix:
             [cell.get_value() if hasattr(cell, "get_value") else cell for cell in row]
             for row in self.data
         ]
+
         result = np.linalg.matrix_transpose(numeric_data)
         return Matrix(result.tolist())
 
