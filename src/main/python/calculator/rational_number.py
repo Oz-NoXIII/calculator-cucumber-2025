@@ -85,6 +85,10 @@ class RationalNumber(NumberType):
         frac = Fraction(math.cos(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
+    def tan(self):
+        frac = Fraction(math.tan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
     def to_mixed_str(self):
 
         if self._is_nan:

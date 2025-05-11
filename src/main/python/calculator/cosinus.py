@@ -23,7 +23,7 @@ class Cosinus(Function):
 
     def op(self, base):
         """
-        The actual computation of the power of two integers
+        The actual computation of the cosinus
         :param base: The first integer
         :return: The integer that is the result of the cosinus
         """

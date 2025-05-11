@@ -60,6 +60,9 @@ class IntegerNumber(NumberType):
     def cos(self):
         return IntegerNumber(int(math.cos(self.value)))
 
+    def tan(self):
+        return IntegerNumber(int(math.tan(self.value)))
+
     def __str__(self):
         return str(self.value)
 

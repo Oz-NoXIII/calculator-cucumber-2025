@@ -43,6 +43,11 @@ class TestIntegerNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), 0)
 
+    def test_tangent(self):
+        a = IntegerNumber(0)
+        result = a.tan()
+        self.assertEqual(result.get_value(), 0)
+
     def test_sinus_by_zero(self):
         a = IntegerNumber(0)
         result = a.sin()

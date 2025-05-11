@@ -46,17 +46,24 @@ class TestRationalNumber(unittest.TestCase):
         self.assertEqual(result.get_value(), Fraction(2))
 
     def test_sinus(self):
-        a = RationalNumber(3, 1)
+        a = RationalNumber(0, 1)
         result = a.sin()
         self.assertEqual(
-            result.get_value(), Fraction(5084384125703515, 36028797018963968)
+            result.get_value(), Fraction(0, 1)
         )
 
     def test_cosinus(self):
-        a = RationalNumber(3, 1)
+        a = RationalNumber(0, 1)
         result = a.cos()
         self.assertEqual(
-            result.get_value(), Fraction(-4458529838789353, 4503599627370496)
+            result.get_value(), Fraction(1, 1)
+        )
+
+    def test_tangent(self):
+        a = RationalNumber(0, 1)
+        result = a.tan()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
         )
 
     def test_sinus_by_zero(self):

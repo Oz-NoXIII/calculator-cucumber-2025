@@ -50,6 +50,16 @@ class TestRealNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), -1)
 
+    def test_tangent(self):
+        a = RealNumber(0)
+        result = a.tan()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_tangent_by_zero(self):
+        a = RealNumber(math.pi / 2)
+        result = a.tan()
+        self.assertTrue(result.is_nan(), "Expected NaN from tan (pi/2)")
+
     def test_sinus_by_zero(self):
         a = RealNumber(0)
         result = a.sin()

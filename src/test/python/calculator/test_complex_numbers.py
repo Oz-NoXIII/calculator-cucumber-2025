@@ -47,6 +47,16 @@ class TestComplexNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), complex(-1, 0))
 
+    def test_tangent(self):
+        a = ComplexNumber(cmath.pi, 0)
+        result = a.tan()
+        self.assertAlmostEqual(result.get_value(), complex(-0, 0))
+
+    def test_tangent_by_zero(self):
+        a = ComplexNumber(cmath.pi / 2, 0)
+        result = a.tan()
+        self.assertTrue(result.is_nan())
+
     def test_sinus_by_zero(self):
         a = ComplexNumber(0, 0)
         result = a.sin()

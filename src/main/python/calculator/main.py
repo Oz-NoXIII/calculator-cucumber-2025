@@ -22,6 +22,7 @@ from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.times import Times
 from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
+from src.main.python.calculator.tangent import Tangent
 
 try:
     e = MyNumber(RealNumber(8))
@@ -182,6 +183,12 @@ try:
     # cosinus : cos(0)
     rCos = MyNumber(RealNumber(0))
     e = Cosinus([rCos], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # tangent : tan(0)
+    rTan = MyNumber(RealNumber(math.pi))
+    e = Tangent([rTan], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 

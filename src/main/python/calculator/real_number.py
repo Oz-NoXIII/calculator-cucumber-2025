@@ -71,6 +71,11 @@ class RealNumber(NumberType):
     def cos(self):
         return RealNumber(math.cos(self.value))
 
+    def tan(self):
+        if(abs(math.cos(self.value).real) <= 1e-14):
+            return RealNumber(float("nan"))
+        return RealNumber(math.tan(self.value))
+
     def inverse(self):
         if self.value == 0.0:
             return RealNumber(float("inf"))
