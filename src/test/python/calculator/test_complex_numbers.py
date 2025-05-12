@@ -67,6 +67,21 @@ class TestComplexNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), complex(1, 0))
 
+    def test_arcsinus(self):
+        a = ComplexNumber(0, 0)
+        result = a.arcsin()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_arccosinus(self):
+        a = ComplexNumber(1, 0)
+        result = a.arccos()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_arctangent(self):
+        a = ComplexNumber(0, 0)
+        result = a.arctan()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
     def test_logarithm(self):
         a = ComplexNumber(1, 0)
         result = a.log()

@@ -89,6 +89,22 @@ class RationalNumber(NumberType):
         frac = Fraction(math.tan(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
+    def arcsin(self):
+        if not(-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.asin(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arccos(self):
+        if not(-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.acos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arctan(self):
+        frac = Fraction(math.atan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
     def to_mixed_str(self):
 
         if self._is_nan:

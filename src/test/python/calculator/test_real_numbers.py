@@ -70,6 +70,41 @@ class TestRealNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
 
+    def test_arcsinus(self):
+        a = RealNumber(0)
+        result = a.arcsin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arccosinus(self):
+        a = RealNumber(1)
+        result = a.arccos()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arctangent(self):
+        a = RealNumber(0)
+        result = a.arctan()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arcsinus_by_negatif(self):
+        a = RealNumber(-10)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan(), "Expected NaN from arcsin(-10)")
+
+    def test_arccosinus_by_negatif(self):
+        a = RealNumber(-10)
+        result = a.arccos()
+        self.assertTrue(result.is_nan(), "Expected NaN from arccos(-10)")
+
+    def test_arcsinus_by_positif(self):
+        a = RealNumber(10)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan(), "Expected NaN from arcsin(10)")
+
+    def test_arccosinus_by_positif(self):
+        a = RealNumber(10)
+        result = a.arccos()
+        self.assertTrue(result.is_nan(), "Expected NaN from arccos(10)")
+
     def test_logarithm(self):
         a = RealNumber(1)
         result = a.log()

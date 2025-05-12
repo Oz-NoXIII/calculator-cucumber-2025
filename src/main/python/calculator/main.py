@@ -23,6 +23,7 @@ from src.main.python.calculator.times import Times
 from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
 from src.main.python.calculator.tangent import Tangent
+from src.main.python.calculator.arcsinus import Arcsinus
 
 try:
     e = MyNumber(RealNumber(8))
@@ -216,6 +217,12 @@ try:
     # constants : e
     p = MyNumber(RationalNumber("pi", "e"))
     e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # arcsinus : arcsin(0)
+    rArcsin = MyNumber(IntegerNumber(-5))
+    e = Arcsinus([rArcsin], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 

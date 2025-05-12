@@ -76,6 +76,19 @@ class RealNumber(NumberType):
             return RealNumber(float("nan"))
         return RealNumber(math.tan(self.value))
 
+    def arcsin(self):
+        if not(-1 <= self.value <= 1):
+            return RealNumber(float("nan"))
+        return RealNumber(math.asin(self.value))
+
+    def arccos(self):
+        if not(-1 <= self.value <= 1):
+            return RealNumber(float("nan"))
+        return RealNumber(math.acos(self.value))
+
+    def arctan(self):
+        return RealNumber(math.atan(self.value))
+
     def inverse(self):
         if self.value == 0.0:
             return RealNumber(float("inf"))

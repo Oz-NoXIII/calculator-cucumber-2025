@@ -76,6 +76,47 @@ class TestRationalNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
 
+    def test_arcsinus(self):
+        a = RationalNumber(0, 1)
+        result = a.arcsin()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_arccosinus(self):
+        a = RationalNumber(1, 1)
+        result = a.arccos()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_arctangent(self):
+        a = RationalNumber(0, 1)
+        result = a.arctan()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_arcsinus_by_negatif(self):
+        a = RationalNumber(-10, 1)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan())
+
+    def test_arccosinus_by_negatif(self):
+        a = RationalNumber(-10, 1)
+        result = a.arccos()
+        self.assertTrue(result.is_nan())
+
+    def test_arcsinus_by_positif(self):
+        a = RationalNumber(10, 1)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan())
+
+    def test_arccosinus_by_positif(self):
+        a = RationalNumber(10, 1)
+        result = a.arccos()
+        self.assertTrue(result.is_nan())
+
     def test_logarithm(self):
         a = RationalNumber(1, 1)
         result = a.log()

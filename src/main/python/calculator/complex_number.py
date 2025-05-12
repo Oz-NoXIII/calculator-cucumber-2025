@@ -68,6 +68,15 @@ class ComplexNumber(NumberType):
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(cmath.tan(self.value))
 
+    def arcsin(self):
+        return ComplexNumber.from_complex(cmath.asin(self.value))
+
+    def arccos(self):
+        return ComplexNumber.from_complex(cmath.acos(self.value))
+
+    def arctan(self):
+        return ComplexNumber.from_complex(cmath.atan(self.value))
+
     def modulus(self):
         return abs(self.value)
 
