@@ -6,13 +6,13 @@ from src.main.python.calculator.number_type import NumberType
 class ComplexNumber(NumberType):
     def __init__(self, real: float, imag: float = 0.0):
         if isinstance(real, str):
-            match value:
+            match real:
                 case "pi":
                     self.value = complex(cmath.pi, 0)
                 case "e":
                     self.value = complex(cmath.e, 0)
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {real}")
         else:
             self.value = complex(real, imag)
 

@@ -13,9 +13,9 @@ class RationalNumber(NumberType):
                 case "pi":
                     n = math.pi
                 case "e":
-                    n = mah.e
+                    n = math.e
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {numerator}")
         if isinstance(denominator, str):
             match denominator:
                 case "pi":
@@ -23,7 +23,7 @@ class RationalNumber(NumberType):
                 case "e":
                     d = math.e
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {denominator}")
         if isinstance(numerator, int) and isinstance(denominator, int):
             if denominator == 0:
                 self.value = Fraction(0, 1)
