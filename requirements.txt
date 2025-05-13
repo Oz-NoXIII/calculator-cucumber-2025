@@ -9,6 +9,7 @@ isort
 coverage
 coveralls
 sympy
+numpy
 lark
 rich
 django~=5.2

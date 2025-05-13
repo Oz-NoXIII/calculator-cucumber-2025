@@ -2,7 +2,8 @@ import unittest
 
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
-from src.main.python.calculator.inverse import Inverse
+from src.main.python.calculator.inverse import Inverse, MatrixInverse
+from src.main.python.calculator.matrix import Matrix
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.times import Times
@@ -14,6 +15,21 @@ class TestInverse(unittest.TestCase):
 
     def setUp(self):
         params = [self.value1]
+        self.invertible_matrix = Matrix(
+            [
+                [MyNumber(IntegerNumber(4)), MyNumber(IntegerNumber(3))],
+                [MyNumber(IntegerNumber(3)), MyNumber(IntegerNumber(2))],
+            ]
+        )
+
+        self.singular_matrix = Matrix(
+            [
+                [MyNumber(IntegerNumber(1)), MyNumber(IntegerNumber(2))],
+                [MyNumber(IntegerNumber(2)), MyNumber(IntegerNumber(4))],
+            ]
+        )
+
+        self.simple_matrix = Matrix([[MyNumber(IntegerNumber(5))]])
         try:
             self.op = Inverse(params, Notation.INFIX)
         except IllegalConstruction as e:
@@ -66,6 +82,80 @@ class TestInverse(unittest.TestCase):
 
         except IllegalConstruction as e:
             self.fail(e)
+
+    def test_inverse_of_invertible_matrix(self):
+
+        inverse_op = MatrixInverse([self.invertible_matrix])
+        result = inverse_op.op(self.invertible_matrix)
+
+        self.assertIsInstance(result, Matrix)
+
+        self.assertEqual(result.rows, 2)
+        self.assertEqual(result.cols, 2)
+
+        expected_values = [[-2, 3], [3, -4]]
+        for i in range(2):
+            for j in range(2):
+                self.assertAlmostEqual(
+                    result.data[i][j], expected_values[i][j], places=5
+                )
+
+    def test_inverse_of_singular_matrix(self):
+
+        inverse_op = MatrixInverse([self.singular_matrix])
+
+        with self.assertRaises(ValueError) as context:
+            inverse_op.op(self.singular_matrix)
+
+        self.assertIn("not invertible", str(context.exception).lower())
+
+    def test_inverse_of_1x1_matrix(self):
+
+        inverse_op = MatrixInverse([self.simple_matrix])
+        result = inverse_op.op(self.simple_matrix)
+
+        self.assertIsInstance(result, Matrix)
+        self.assertEqual(result.rows, 1)
+        self.assertEqual(result.cols, 1)
+
+        self.assertAlmostEqual(result.data[0][0], 0.2, places=5)
+
+    def test_symbol_property(self):
+
+        inverse_op = MatrixInverse([self.invertible_matrix])
+        self.assertEqual(inverse_op._symbol, "^(-1)")
+
+    def test_non_square_matrix(self):
+
+        non_square_matrix = Matrix(
+            [
+                [
+                    MyNumber(IntegerNumber(1)),
+                    MyNumber(IntegerNumber(2)),
+                    MyNumber(IntegerNumber(3)),
+                ],
+                [
+                    MyNumber(IntegerNumber(4)),
+                    MyNumber(IntegerNumber(5)),
+                    MyNumber(IntegerNumber(6)),
+                ],
+            ]
+        )
+
+        inverse_op = MatrixInverse([non_square_matrix])
+
+        with self.assertRaises(ValueError) as context:
+            inverse_op.op(non_square_matrix)
+
+        self.assertIn("must be square", str(context.exception).lower())
+
+    def test_empty_matrix(self):
+
+        with self.assertRaises(ValueError) as context:
+            Matrix([])
+        self.assertIn(
+            "all matrix rows must have the same size", str(context.exception).lower()
+        )
 
 
 if __name__ == "__main__":

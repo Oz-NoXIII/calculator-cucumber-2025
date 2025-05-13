@@ -33,6 +33,14 @@ class TestIntegerNumber(unittest.TestCase):
         result = IntegerNumber(10).pow(IntegerNumber(2))
         self.assertEqual(result.get_value(), 100)
 
+    def test_nroot(self):
+        result = IntegerNumber(8).nroot(IntegerNumber(3))
+        self.assertEqual(result.get_value(), 2)
+
+    def test_root_by_zero_returns_nan(self):
+        result = IntegerNumber(1).nroot(IntegerNumber(0))
+        self.assertTrue(result.is_nan(), "Expected NaN result for nroot by zero")
+
     def test_sinus(self):
         a = IntegerNumber(3)
         result = a.sin()
@@ -41,6 +49,11 @@ class TestIntegerNumber(unittest.TestCase):
     def test_cosinus(self):
         a = IntegerNumber(3)
         result = a.cos()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_tangent(self):
+        a = IntegerNumber(0)
+        result = a.tan()
         self.assertEqual(result.get_value(), 0)
 
     def test_sinus_by_zero(self):
@@ -52,6 +65,56 @@ class TestIntegerNumber(unittest.TestCase):
         a = IntegerNumber(0)
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
+
+    def test_arcsinus(self):
+        a = IntegerNumber(0)
+        result = a.arcsin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arccosinus(self):
+        a = IntegerNumber(1)
+        result = a.arccos()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arctangent(self):
+        a = IntegerNumber(0)
+        result = a.arctan()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arcsinus_by_negatif(self):
+        a = IntegerNumber(-10)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan(), "Expected NaN result for arcsin(-10)")
+
+    def test_arccosinus_by_negatif(self):
+        a = IntegerNumber(-10)
+        result = a.arccos()
+        self.assertTrue(result.is_nan(), "Expected NaN result for arccos(-10)")
+
+    def test_arcsinus_by_positif(self):
+        a = IntegerNumber(10)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan(), "Expected NaN result for arcsin(10)")
+
+    def test_arccosinus_by_positif(self):
+        a = IntegerNumber(10)
+        result = a.arccos()
+        self.assertTrue(result.is_nan(), "Expected NaN result for arccos(10)")
+
+    def test_sinushyperbolic(self):
+        a = IntegerNumber(0)
+        result = a.sinh()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinushyperbolic(self):
+        a = IntegerNumber(0)
+        result = a.cosh()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_tangenthyperbolic(self):
+        a = IntegerNumber(0)
+        result = a.tanh()
+        self.assertEqual(result.get_value(), 0)
 
     def test_logarithm(self):
         a = IntegerNumber(1)

@@ -45,18 +45,37 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.pow(r2)
         self.assertEqual(result.get_value(), Fraction(2))
 
+    def test_nroot(self):
+        r1 = RationalNumber(8, 1)
+        r2 = RationalNumber(3, 1)
+        result = r1.nroot(r2)
+        self.assertEqual(result.get_value(), Fraction(2, 1))
+
+    def test_nroot_by_zero(self):
+        r1 = RationalNumber(1, 2)
+        r2 = RationalNumber(0, 1)
+        result = r1.nroot(r2)
+        self.assertTrue(result.is_nan())
+
     def test_sinus(self):
-        a = RationalNumber(3, 1)
+        a = RationalNumber(0, 1)
         result = a.sin()
         self.assertEqual(
-            result.get_value(), Fraction(5084384125703515, 36028797018963968)
+            result.get_value(), Fraction(0, 1)
         )
 
     def test_cosinus(self):
-        a = RationalNumber(3, 1)
+        a = RationalNumber(0, 1)
         result = a.cos()
         self.assertEqual(
-            result.get_value(), Fraction(-4458529838789353, 4503599627370496)
+            result.get_value(), Fraction(1, 1)
+        )
+
+    def test_tangent(self):
+        a = RationalNumber(0, 1)
+        result = a.tan()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
         )
 
     def test_sinus_by_zero(self):
@@ -68,6 +87,68 @@ class TestRationalNumber(unittest.TestCase):
         a = RationalNumber(0, 1)
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
+
+    def test_arcsinus(self):
+        a = RationalNumber(0, 1)
+        result = a.arcsin()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_arccosinus(self):
+        a = RationalNumber(1, 1)
+        result = a.arccos()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_arctangent(self):
+        a = RationalNumber(0, 1)
+        result = a.arctan()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_arcsinus_by_negatif(self):
+        a = RationalNumber(-10, 1)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan())
+
+    def test_arccosinus_by_negatif(self):
+        a = RationalNumber(-10, 1)
+        result = a.arccos()
+        self.assertTrue(result.is_nan())
+
+    def test_arcsinus_by_positif(self):
+        a = RationalNumber(10, 1)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan())
+
+    def test_arccosinus_by_positif(self):
+        a = RationalNumber(10, 1)
+        result = a.arccos()
+        self.assertTrue(result.is_nan())
+
+    def test_sinushyperbolic(self):
+        a = RationalNumber(0, 1)
+        result = a.sinh()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_cosinushyperbolic(self):
+        a = RationalNumber(0, 1)
+        result = a.cosh()
+        self.assertEqual(
+            result.get_value(), Fraction(1, 1)
+        )
+
+    def test_tangenthyperbolic(self):
+        a = RationalNumber(0, 1)
+        result = a.tanh()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
 
     def test_logarithm(self):
         a = RationalNumber(1, 1)

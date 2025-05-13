@@ -20,7 +20,10 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.times import Times
+from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
+from src.main.python.calculator.tangent import Tangent
+from src.main.python.calculator.arcsinus import Arcsinus
 
 try:
     e = MyNumber(RealNumber(8))
@@ -149,7 +152,7 @@ try:
     calculator.eval_expression(e)
 
     # inverse : inverse(5)
-    rInv = MyNumber(RealNumber(0))
+    rInv = MyNumber(RealNumber(5))
     e = Inverse([rInv], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
@@ -181,6 +184,56 @@ try:
     # cosinus : cos(0)
     rCos = MyNumber(RealNumber(0))
     e = Cosinus([rCos], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # tangent : tan(0)
+    rTan = MyNumber(RealNumber(math.pi))
+    e = Tangent([rTan], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    res = parse_expression('solve_linear("2x+3y=5; 3x-4z=7; y+z=10")')
+    print("linear solver", res)
+
+    expr = "[[1, 2], [3, 4]] - [[2, 0], [1, 2]]"
+    result = parse_expression(expr)
+
+    calculator.print_result(result)
+    calculator.print_expression_details(result)
+
+    expr = "inv([[1, 2], [3, 4]])"
+    result = parse_expression(expr)
+    calculator.print_expression_details(result)
+
+    expr = "transpose([[1, 2], [3, 4]])"
+    result = parse_expression(expr)
+    calculator.print_expression_details(result)
+
+    res = parse_expression('solve_linear("2x + 3y = 5; 3x - 4z = 7; y + z = 10")')
+    calculator.print_expression_details(res)
+
+    # constants : pi
+    p = MyNumber(RealNumber("pi"))
+    e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # constants : e
+    p = MyNumber(RationalNumber("pi", "e"))
+    e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # arcsinus : arcsin(0)
+    rArcsin = MyNumber(IntegerNumber(-5))
+    e = Arcsinus([rArcsin], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # n-th root : 8 n-th root 3
+    rnR = MyNumber(IntegerNumber(8), IntegerNumber(3))
+    e = NRoot([rnR], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 

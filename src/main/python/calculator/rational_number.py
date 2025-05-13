@@ -6,11 +6,33 @@ from src.main.python.calculator.number_type import NumberType
 
 class RationalNumber(NumberType):
     def __init__(self, numerator: int, denominator: int = 1):
-        if denominator == 0:
-            self.value = Fraction(0, 1)
-            self._is_nan = True
+        n = numerator
+        d = denominator
+        if isinstance(numerator, str):
+            match numerator:
+                case "pi":
+                    n = math.pi
+                case "e":
+                    n = math.e
+                case _:
+                    raise ValueError(f"Valeur inconnue : {numerator}")
+        if isinstance(denominator, str):
+            match denominator:
+                case "pi":
+                    d = math.pi
+                case "e":
+                    d = math.e
+                case _:
+                    raise ValueError(f"Valeur inconnue : {denominator}")
+        if isinstance(numerator, int) and isinstance(denominator, int):
+            if denominator == 0:
+                self.value = Fraction(0, 1)
+                self._is_nan = True
+            else:
+                self.value = Fraction(numerator, denominator)
+                self._is_nan = False
         else:
-            self.value = Fraction(numerator, denominator)
+            self.value = Fraction(int(n), int(d))
             self._is_nan = False
 
     def get_value(self):
@@ -55,12 +77,49 @@ class RationalNumber(NumberType):
         frac = Fraction(math.exp(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return RationalNumber(0, 1).set_nan()
+        return RationalNumber((self.value ** (1 / other.get_value())))
+
     def sin(self):
         frac = Fraction(math.sin(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def cos(self):
         frac = Fraction(math.cos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tan(self):
+        frac = Fraction(math.tan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arcsin(self):
+        if not (-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.asin(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arccos(self):
+        if not (-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.acos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arctan(self):
+        frac = Fraction(math.atan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def sinh(self):
+        frac = Fraction(math.sinh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def cosh(self):
+        frac = Fraction(math.cosh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tanh(self):
+        frac = Fraction(math.tanh(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def to_mixed_str(self):

@@ -15,16 +15,6 @@ class Evaluator(Visitor):
         self.stack.append(number.get_number_type())
 
     def visit_operation(self, o):
-        """evaluated_args = []
-        for arg in o.get_args():
-                arg.accept(self)
-                evaluated_args.append(self.__computed_value)
-        temp = evaluated_args[0]
-        maximum = len(evaluated_args)
-        for counter in range(1, maximum):
-                temp = o.op(temp, evaluated_args[counter])
-        self.__computed_value = temp"""
-        # -------
 
         args = o.get_args()
         # Support only binary for now, extendable to n-ary
@@ -44,3 +34,15 @@ class Evaluator(Visitor):
                 result = o.op(result, operand)
 
         self.stack.append(result)
+
+    def visit_matrix(self, matrix):
+        self.stack.append(matrix)
+
+    def visit_linear_solution(self, equation):
+        result = equation.solve()
+        if isinstance(result, str):
+            self.stack.append(result)
+        elif hasattr(result, "get_value"):
+            self.stack.append(result.get_value())
+        else:
+            self.stack.append(result)

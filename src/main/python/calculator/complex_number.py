@@ -5,7 +5,16 @@ from src.main.python.calculator.number_type import NumberType
 
 class ComplexNumber(NumberType):
     def __init__(self, real: float, imag: float = 0.0):
-        self.value = complex(real, imag)
+        if isinstance(real, str):
+            match real:
+                case "pi":
+                    self.value = complex(cmath.pi, 0)
+                case "e":
+                    self.value = complex(cmath.e, 0)
+                case _:
+                    raise ValueError(f"Valeur inconnue : {real}")
+        else:
+            self.value = complex(real, imag)
 
     def get_value(self):
         return self.value
@@ -47,11 +56,40 @@ class ComplexNumber(NumberType):
     def exp(self):
         return ComplexNumber.from_complex(cmath.exp(self.value))
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return ComplexNumber(0, 0).set_nan()
+        return ComplexNumber.from_complex(self.value ** (1 / other.get_value()))
+
     def sin(self):
         return ComplexNumber.from_complex(cmath.sin(self.value))
 
     def cos(self):
         return ComplexNumber.from_complex(cmath.cos(self.value))
+
+    def tan(self):
+        print(cmath.cos(self.value))
+        if (abs(cmath.cos(self.value).real) <= 1e-14):
+            return ComplexNumber(0, 0).set_nan()
+        return ComplexNumber.from_complex(cmath.tan(self.value))
+
+    def arcsin(self):
+        return ComplexNumber.from_complex(cmath.asin(self.value))
+
+    def arccos(self):
+        return ComplexNumber.from_complex(cmath.acos(self.value))
+
+    def arctan(self):
+        return ComplexNumber.from_complex(cmath.atan(self.value))
+
+    def sinh(self):
+        return ComplexNumber.from_complex(cmath.sinh(self.value))
+
+    def cosh(self):
+        return ComplexNumber.from_complex(cmath.cosh(self.value))
+
+    def tanh(self):
+        return ComplexNumber.from_complex(cmath.tanh(self.value))
 
     def modulus(self):
         return abs(self.value)

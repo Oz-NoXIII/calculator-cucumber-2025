@@ -8,9 +8,22 @@ class RealNumber(NumberType):
     _precision = 6
 
     def __init__(self, value: float):
-        self.value = float(value)
-        self._is_nan = math.isnan(self.value)
-        self._is_infinite = math.isinf(self.value)
+        if isinstance(value, str):
+            match value:
+                case "pi":
+                    self.value = float(math.pi)
+                    self._is_nan = math.isnan(self.value)
+                    self._is_infinite = math.isinf(self.value)
+                case "e":
+                    self.value = float(math.e)
+                    self._is_nan = math.isnan(self.value)
+                    self._is_infinite = math.isinf(self.value)
+                case _:
+                    raise ValueError(f"Valeur inconnue : {value}")
+        else:
+            self.value = float(value)
+            self._is_nan = math.isnan(self.value)
+            self._is_infinite = math.isinf(self.value)
 
     def get_value(self):
         return self.value
@@ -52,11 +65,43 @@ class RealNumber(NumberType):
     def exp(self):
         return RealNumber(math.exp(self.value))
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return RealNumber(float("nan"))
+        return RealNumber((self.value ** (1 / other.get_value())))
+
     def sin(self):
         return RealNumber(math.sin(self.value))
 
     def cos(self):
         return RealNumber(math.cos(self.value))
+
+    def tan(self):
+        if (abs(math.cos(self.value).real) <= 1e-14):
+            return RealNumber(float("nan"))
+        return RealNumber(math.tan(self.value))
+
+    def arcsin(self):
+        if not (-1 <= self.value <= 1):
+            return RealNumber(float("nan"))
+        return RealNumber(math.asin(self.value))
+
+    def arccos(self):
+        if not (-1 <= self.value <= 1):
+            return RealNumber(float("nan"))
+        return RealNumber(math.acos(self.value))
+
+    def arctan(self):
+        return RealNumber(math.atan(self.value))
+
+    def sinh(self):
+        return RealNumber(math.sinh(self.value))
+
+    def cosh(self):
+        return RealNumber(math.cosh(self.value))
+
+    def tanh(self):
+        return RealNumber(math.tanh(self.value))
 
     def inverse(self):
         if self.value == 0.0:
