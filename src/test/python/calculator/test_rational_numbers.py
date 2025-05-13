@@ -45,6 +45,18 @@ class TestRationalNumber(unittest.TestCase):
         result = r1.pow(r2)
         self.assertEqual(result.get_value(), Fraction(2))
 
+    def test_nroot(self):
+        r1 = RationalNumber(8, 1)
+        r2 = RationalNumber(3, 1)
+        result = r1.nroot(r2)
+        self.assertEqual(result.get_value(), Fraction(2, 1))
+
+    def test_nroot_by_zero(self):
+        r1 = RationalNumber(1, 2)
+        r2 = RationalNumber(0, 1)
+        result = r1.nroot(r2)
+        self.assertTrue(result.is_nan())
+
     def test_sinus(self):
         a = RationalNumber(0, 1)
         result = a.sin()

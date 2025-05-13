@@ -222,6 +222,13 @@ else
 	$(SOURCE_VENV) && export PYTHONPATH=$(shell pwd) && $(PYTHON) -m src/main/python/calculator/cli.py
 endif
 
+# Run the API Rest
+venv-run-api-rest:
+	@echo "Running the application..."
+	$(PYTHON) src/rest-api/manage.py makemigrations
+	$(PYTHON) src/rest-api/manage.py migrate
+	$(PYTHON) src/rest-api/manage.py runserver
+
 # Run the Frontend
 venv-run-frontend:
 	@echo "Running the application..."

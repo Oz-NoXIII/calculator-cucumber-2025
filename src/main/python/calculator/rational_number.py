@@ -77,6 +77,11 @@ class RationalNumber(NumberType):
         frac = Fraction(math.exp(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return RationalNumber(0, 1).set_nan()
+        return RationalNumber((self.value ** (1 / other.get_value())))
+
     def sin(self):
         frac = Fraction(math.sin(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
@@ -90,13 +95,13 @@ class RationalNumber(NumberType):
         return RationalNumber(frac.numerator, frac.denominator)
 
     def arcsin(self):
-        if not(-1 <= self.value <= 1):
+        if not (-1 <= self.value <= 1):
             return RationalNumber(0, 1).set_nan()
         frac = Fraction(math.asin(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def arccos(self):
-        if not(-1 <= self.value <= 1):
+        if not (-1 <= self.value <= 1):
             return RationalNumber(0, 1).set_nan()
         frac = Fraction(math.acos(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
