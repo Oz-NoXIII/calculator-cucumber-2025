@@ -60,6 +60,31 @@ class IntegerNumber(NumberType):
     def cos(self):
         return IntegerNumber(int(math.cos(self.value)))
 
+    def tan(self):
+        return IntegerNumber(int(math.tan(self.value)))
+
+    def arcsin(self):
+        if not(-1 <= self.value <= 1):
+            return Integernan()
+        return IntegerNumber(int(math.asin(self.value)))
+
+    def arccos(self):
+        if not(-1 <= self.value <= 1):
+            return Integernan()
+        return IntegerNumber(int(math.acos(self.value)))
+
+    def arctan(self):
+        return IntegerNumber(int(math.atan(self.value)))
+
+    def sinh(self):
+        return IntegerNumber(int(math.sinh(self.value)))
+
+    def cosh(self):
+        return IntegerNumber(int(math.cosh(self.value)))
+
+    def tanh(self):
+        return IntegerNumber(int(math.tanh(self.value)))
+
     def __str__(self):
         return str(self.value)
 
