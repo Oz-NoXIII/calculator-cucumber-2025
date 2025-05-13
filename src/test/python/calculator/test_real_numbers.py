@@ -105,6 +105,21 @@ class TestRealNumber(unittest.TestCase):
         result = a.arccos()
         self.assertTrue(result.is_nan(), "Expected NaN from arccos(10)")
 
+    def test_sinushyperbolic(self):
+        a = RealNumber(0)
+        result = a.sinh()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinushyperbolic(self):
+        a = RealNumber(0)
+        result = a.cosh()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_tangenthyperbolic(self):
+        a = RealNumber(0)
+        result = a.tanh()
+        self.assertEqual(result.get_value(), 0)
+
     def test_logarithm(self):
         a = RealNumber(1)
         result = a.log()

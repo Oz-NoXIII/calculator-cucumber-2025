@@ -117,6 +117,27 @@ class TestRationalNumber(unittest.TestCase):
         result = a.arccos()
         self.assertTrue(result.is_nan())
 
+    def test_sinushyperbolic(self):
+        a = RationalNumber(0, 1)
+        result = a.sinh()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
+    def test_cosinushyperbolic(self):
+        a = RationalNumber(0, 1)
+        result = a.cosh()
+        self.assertEqual(
+            result.get_value(), Fraction(1, 1)
+        )
+
+    def test_tangenthyperbolic(self):
+        a = RationalNumber(0, 1)
+        result = a.tanh()
+        self.assertEqual(
+            result.get_value(), Fraction(0, 1)
+        )
+
     def test_logarithm(self):
         a = RationalNumber(1, 1)
         result = a.log()

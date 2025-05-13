@@ -82,6 +82,21 @@ class TestComplexNumber(unittest.TestCase):
         result = a.arctan()
         self.assertEqual(result.get_value(), complex(0, 0))
 
+    def test_sinushyperbolic(self):
+        a = ComplexNumber(0, 0)
+        result = a.sinh()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_cosinushyperbolic(self):
+        a = ComplexNumber(0, 0)
+        result = a.cosh()
+        self.assertEqual(result.get_value(), complex(1, 0))
+
+    def test_tangenthyperbolic(self):
+        a = ComplexNumber(0, 0)
+        result = a.tanh()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
     def test_logarithm(self):
         a = ComplexNumber(1, 0)
         result = a.log()
