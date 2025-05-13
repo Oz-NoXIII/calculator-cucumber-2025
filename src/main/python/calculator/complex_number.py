@@ -5,7 +5,16 @@ from src.main.python.calculator.number_type import NumberType
 
 class ComplexNumber(NumberType):
     def __init__(self, real: float, imag: float = 0.0):
-        self.value = complex(real, imag)
+        if isinstance(real, str):
+            match value:
+                case "pi":
+                    self.value = complex(cmath.pi, 0)
+                case "e":
+                    self.value = complex(cmath.e, 0)
+                case _:
+                    raise ValueError(f"Valeur inconnue : {value}")
+        else:
+            self.value = complex(real, imag)
 
     def get_value(self):
         return self.value

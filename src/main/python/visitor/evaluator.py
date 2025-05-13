@@ -36,4 +36,13 @@ class Evaluator(Visitor):
         self.stack.append(result)
 
     def visit_matrix(self, matrix):
-        self.stack.append(matrix.data)
+        self.stack.append(matrix)
+
+    def visit_linear_solution(self, equation):
+        result = equation.solve()
+        if isinstance(result, str):
+            self.stack.append(result)
+        elif hasattr(result, "get_value"):
+            self.stack.append(result.get_value())
+        else:
+            self.stack.append(result)

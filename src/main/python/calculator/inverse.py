@@ -28,3 +28,14 @@ class Inverse(Function):
         :return: The integer that is the result of the power
         """
         return base.inverse()
+
+
+class MatrixInverse(Function):
+
+    def __init__(self, elist, n=None):
+
+        super().__init__(elist, n)
+        self._symbol = "^(-1)"
+
+    def op(self, base):
+        return base.inverse()

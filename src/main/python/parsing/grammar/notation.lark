@@ -1,4 +1,5 @@
-?start: expr | matrix | linear_expr
+?start: expr
+        | linear_expr
 
 ?expr: infix_expr
      | prefix_expr
@@ -9,11 +10,13 @@
            | infix_expr "-" infix_term   -> sub
            | infix_term
            | "inv" "(" infix_expr ")"    -> inverse
+           | "transpose" "(" infix_expr ")" -> transpose
            | "(" "-" infix_expr ")"      -> neg
 
 ?infix_term: infix_term "*" infix_factor -> mul
            | infix_term "/" infix_factor -> div
            | infix_factor
+
 
 ?infix_factor: factor
              | infix_factor "^" infix_factor -> pow
@@ -27,6 +30,7 @@
             | "/" "(" prefix_term (","? prefix_term)+ ")"   -> div
             | "^" "(" prefix_term (","? prefix_term)+ ")"   -> pow
             | "inv" "(" prefix_expr ")"                     -> inverse
+            | "transpose" "(" prefix_expr ")"               -> transpose
             | "(" "-" prefix_expr ")"                      -> neg
 
 ?prefix_term: prefix_expr
@@ -35,8 +39,6 @@
 ?prefix_factor: factor
               | "(" "-" factor ")"    -> neg
 
-
-
 //POSTFIX notation
 ?postfix_expr: "(" postfix_term (","? postfix_term)+ ")" "+"   -> add
              | "(" postfix_term (","? postfix_term)+ ")" "-"   -> sub
@@ -44,6 +46,7 @@
              | "(" postfix_term (","? postfix_term)+ ")" "/"   -> div
              | "(" postfix_term (","? postfix_term)+ ")" "^"   -> pow
              | "inv" "(" postfix_expr ")"                      -> inverse
+             | "transpose" "(" postfix_expr ")"               -> transpose
              | "(" postfix_expr "-" ")"                       -> neg
 
 ?postfix_term: postfix_expr
@@ -53,10 +56,6 @@
                | "(" factor "-" ")" -> neg
 
 
-
-matrix: "[" row ("," row)* "]"
-row: "[" factor ("," factor)* "]"
-
 linear_expr: "solve_linear" "(" STRING ")"
 
 STRING: /"[^"]*"/
@@ -65,6 +64,13 @@ STRING: /"[^"]*"/
 ?factor: INT           -> integer_number
        | DECIMAL       -> real_number
        | factor "j"    -> complex_number
+       | matrix        -> matrix
+       | "inv" "(" matrix ")" -> matrix_inverse
+
+
+?matrix: "[" row ("," row)* "]"
+?row: "[" factor ("," factor)* "]"
+
 
 %import common.INT
 %import common.DECIMAL

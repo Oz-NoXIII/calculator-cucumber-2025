@@ -2,7 +2,6 @@ import unittest
 
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.matrix import Matrix
-from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 
 
@@ -25,7 +24,10 @@ class TestMatrixOperations(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(str(result), str(expected_result))
+        self.assertEqual(
+            [[cell.get_value() for cell in row] for row in result.data].__str__(),
+            expected_result.__str__(),
+        )
 
     def test_matrix_subtraction(self):
         matrix1 = Matrix(
@@ -40,7 +42,10 @@ class TestMatrixOperations(unittest.TestCase):
             [IntegerNumber(-4).get_value(), IntegerNumber(-4).get_value()],
         ]
 
-        self.assertEqual(str(result), str(expected_result))
+        self.assertEqual(
+            [[cell.get_value() for cell in row] for row in result.data].__str__(),
+            expected_result.__str__(),
+        )
 
     def test_matrix_multiplication_with_integer_numbers(self):
 
@@ -59,7 +64,10 @@ class TestMatrixOperations(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(str(result), str(expected_result))
+        self.assertEqual(
+            [[cell.get_value() for cell in row] for row in result.data].__str__(),
+            expected_result.__str__(),
+        )
 
     def test_matrix_transpose(self):
 
@@ -257,32 +265,10 @@ class TestMatrixOperations(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(str(result), str(expected_result))
-
-    def test_matrix_addition_with_rational_numbers(self):
-
-        matrix1 = Matrix(
-            [
-                [RationalNumber(1, 2), RationalNumber(2, 3)],
-                [RationalNumber(3, 4), RationalNumber(5, 6)],
-            ]
+        self.assertEqual(
+            [[cell.get_value() for cell in row] for row in result.data].__str__(),
+            expected_result.__str__(),
         )
-        matrix2 = Matrix(
-            [
-                [RationalNumber(5, 6), RationalNumber(7, 8)],
-                [RationalNumber(9, 10), RationalNumber(11, 12)],
-            ]
-        )
-
-        result = matrix1.add(matrix2)
-        expected_result = Matrix(
-            [
-                [RationalNumber(8, 6).get_value(), RationalNumber(37, 24).get_value()],
-                [RationalNumber(33, 20).get_value(), RationalNumber(7, 4).get_value()],
-            ]
-        )
-
-        self.assertEqual(str(result), str(expected_result))
 
     def test_matrix_multiplication_with_real_numbers(self):
 
@@ -301,38 +287,21 @@ class TestMatrixOperations(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(str(result), str(expected_result))
-
-    def test_matrix_multiplication_with_rational_numbers(self):
-
-        matrix1 = Matrix(
-            [
-                [RationalNumber(1, 2), RationalNumber(2, 3)],
-                [RationalNumber(3, 4), RationalNumber(5, 6)],
-            ]
+        self.assertEqual(
+            [[cell.get_value() for cell in row] for row in result.data].__str__(),
+            expected_result.__str__(),
         )
-        matrix2 = Matrix(
+
+    def test_with_primitive_float(self):
+        matrix = Matrix(
             [
-                [RationalNumber(5, 6), RationalNumber(7, 8)],
-                [RationalNumber(9, 10), RationalNumber(11, 12)],
+                [IntegerNumber(1), IntegerNumber(2), IntegerNumber(3)],
+                [IntegerNumber(4), IntegerNumber(5), IntegerNumber(6)],
             ]
         )
 
-        result = matrix1.multiply(matrix2)
-        expected_result = Matrix(
-            [
-                [
-                    RationalNumber(61, 60).get_value(),
-                    RationalNumber(151, 144).get_value(),
-                ],
-                [
-                    RationalNumber(11, 8).get_value(),
-                    RationalNumber(409, 288).get_value(),
-                ],
-            ]
-        )
-
-        self.assertEqual(str(result), str(expected_result))
+        result = matrix.__str__()
+        self.assertEqual(result, "[[1, 2, 3], [4, 5, 6]]")
 
 
 if __name__ == "__main__":

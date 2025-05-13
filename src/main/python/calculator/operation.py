@@ -3,7 +3,6 @@ from abc import abstractmethod
 from src.main.python.calculator.expression import Expression
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.notation import Notation
-from src.main.python.calculator.number_type import NumberType
 from src.main.python.visitor.printer import Printer
 
 
@@ -26,7 +25,7 @@ class Operation(Expression):  # pragma: no cover
         self._neutral = None
 
     @abstractmethod
-    def op(self, left: NumberType, right: NumberType):
+    def op(self, left, right):
         pass
 
     def add_more_params(self, params):

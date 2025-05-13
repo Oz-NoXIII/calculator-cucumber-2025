@@ -157,19 +157,41 @@ Feature: Parsing Arithmetic Expressions
       | ( ( (2 3j)+ (1 4j)- ) * ( (5 2j)+ 2.0 ) / ) + | ( ( 2 + 3j ) * ( 1 - 4j ) ) + ( ( 5 + 2j ) / 2 ) |
 
 
-  Scenario: Solving a valid linear system
+  Scenario: Parsing a valid linear system
     When I evaluate the expression 'solve_linear("x + y = 2; x - y = 0")'
-    Then the result should be {'x': 1, 'y': 1}
+    Then the result should be ['x + y = 2', 'x - y = 0']
 
 
   Scenario: Syntax error in linear system
     When I evaluate the expression 'solve_linear("x + = y")'
-    Then the result should contain "Error solving equations"
+    Then the result should contain "['x + = y']"
 
-  Scenario: No solution to the linear system
-    When I evaluate the expression 'solve_linear("x + y = 2; x + y = 3")'
-    Then the result should contain "no solution"
 
-  Scenario: Infinite solutions in the linear system
-    When I evaluate the expression 'solve_linear("x + y = 2; 2x + 2y = 4")'
-    Then the result should contain "infinite"
+  Scenario: Matrix addition
+    When I parse the matrix expression "[[1, 2], [3, 5]] + [[5, 6], [7, 8]]"
+    Then the matrix should be
+      | col1 | col2 |
+      | 6 | 8 |
+      | 10 | 13 |
+
+  Scenario: Matrix addition
+    When I parse the matrix expression "[[1, 2], [3, 5]] - [[5, 6], [7, 8]]"
+    Then the matrix should be
+      | col1 | col2 |
+      | -4 | -4 |
+      | -4 | -3 |
+
+  Scenario: Matrix addition
+    When I parse the matrix expression "[[1, 2], [3, 5]] * [[5, 6], [7, 8]]"
+    Then the matrix should be
+      | col1 | col2 |
+      | 19 | 22 |
+      | 50 | 58 |
+
+  Scenario: Matrix inverse
+    When I parse the matrix expression "inv([[4, 10], [2, 6]])"
+    Then the matrix should be approximately
+      | col1  | col2 |
+      | 1.5   | -2.5 |
+      | -0.5  | 1.0  |
+

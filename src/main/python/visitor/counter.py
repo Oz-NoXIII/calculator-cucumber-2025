@@ -20,3 +20,10 @@ class Counter(Visitor):
         o.set_depth(self.__depth)
         o.set_ops(self.__ops)
         o.set_nbs(self.__nbs)
+
+    def visit_linear_solution(self, solution):
+        pass
+
+    def visit_matrix(self, matrix):
+        """The Visitor can traverse a matrix"""
+        pass
