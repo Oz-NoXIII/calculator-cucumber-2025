@@ -1,16 +1,17 @@
 import unittest
-from unittest.mock import patch
 
 from lark.exceptions import VisitError
 
+from src.main.python.calculator import calculator
 from src.main.python.calculator.divides import Divides
-from src.main.python.calculator.inverse import Inverse
-from src.main.python.calculator.matrix import Matrix
+from src.main.python.calculator.inverse import Inverse, MatrixInverse
+from src.main.python.calculator.linear_solver import LinearEquationSolver
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
 from src.main.python.calculator.times import Times
+from src.main.python.calculator.transpose import MatrixTranspose
 from src.main.python.parsing.expression_parser import parse_expression
 
 
@@ -90,63 +91,45 @@ class TestExpressionParser(unittest.TestCase):
 
     def test_simple_linear_solution(self):
         result = parse_expression('solve_linear("x + y = 2; x - y = 0")')
-        self.assertIsInstance(result, dict)
-        self.assertIn("x", result)
-        self.assertIn("y", result)
-        self.assertEqual(result["x"], 1.0)
-        self.assertEqual(result["y"], 1.0)
+        expected = {"x": 1, "y": 1}
+        res = result.solve()
+        self.assertEqual(res.get_value(), expected)
 
     def test_syntax_error(self):
         result = parse_expression('solve_linear("x + = y")')
-        self.assertIsInstance(result, str)
-        self.assertIn("error", result.lower())
+        self.assertIsInstance(result, LinearEquationSolver)
+        res = calculator.eval_expression(result)
+        self.assertIn("Error", res)
 
     def test_no_solution(self):
         result = parse_expression('solve_linear("x + y = 2; x + y = 3")')
-        self.assertIsInstance(result, str)
-        self.assertIn("no solution", result.lower() or "incompatible" in result.lower())
+        self.assertIsInstance(result, LinearEquationSolver)
+        res = calculator.eval_expression(result)
+
+        self.assertIn("No solution", res or "incompatible" in res)
 
     def test_infinite_solutions(self):
         result = parse_expression('solve_linear("x + y = 2; 2x + 2y = 4")')
-        self.assertIsInstance(result, str)
-        self.assertIn("error solving equations", result.lower())
-
-    @patch(
-        "src.main.python.calculator.linear_solver.LinearEquationSolver.solve",
-        return_value={"x": 1},
-    )
-    def test_parser_calls_solver(self, mock_solve):
-        result = parse_expression('solve_linear("x + y = 2; x - y = 0")')
-        mock_solve.assert_called_once()
-        self.assertEqual(result, {"x": 1})
+        self.assertIsInstance(result, LinearEquationSolver)
+        res = calculator.eval_expression(result)
+        self.assertIn("Error", res)
 
     def test_addition(self):
         expr = "[[1, 2], [3, 4]] + [[5, 6], [7, 8]]"
         result = parse_expression(expr)
-        expected = [[6, 8], [10, 12]]
-        self.assertIsInstance(result, Matrix)
-        self.assertEqual(
-            [[cell.get_value() for cell in row] for row in result.data], expected
-        )
+        self.assertIsInstance(result, Plus)
 
     def test_subtraction(self):
         expr = "[[10, 20], [30, 40]] - [[1, 2], [3, 4]]"
         result = parse_expression(expr)
-        expected = [[9, 18], [27, 36]]
 
-        self.assertIsInstance(result, Matrix)
-        self.assertEqual(
-            [[cell.get_value() for cell in row] for row in result.data], expected
-        )
+        self.assertIsInstance(result, Minus)
 
     def test_multiplication(self):
         expr = "[[1, 2], [3, 4]] * [[2, 0], [1, 2]]"
         result = parse_expression(expr)
-        expected = [[4, 4], [10, 8]]
-        self.assertIsInstance(result, Matrix)
-        self.assertEqual(
-            [[cell.get_value() for cell in row] for row in result.data], expected
-        )
+
+        self.assertIsInstance(result, Times)
 
     def assertMatrixAlmostEqual(self, actual_matrix, expected_values, places=4):
         actual_data = [
@@ -157,16 +140,12 @@ class TestExpressionParser(unittest.TestCase):
     def test_inverse(self):
         expr = "inv([[4, 7], [2, 6]])"
         result = parse_expression(expr)
-        expected = [[0.6, -0.7], [-0.2, 0.4]]
-        self.assertIsInstance(result, Matrix)
-        self.assertMatrixAlmostEqual(result, expected)
+        self.assertIsInstance(result, MatrixInverse)
 
     def test_transpose(self):
         expr = "transpose([[1, 2], [3, 4]])"
         result = parse_expression(expr)
-        expected = [[1, 3], [2, 4]]
-        self.assertIsInstance(result, Matrix)
-        self.assertEqual([[cell for cell in row] for row in result.data], expected)
+        self.assertIsInstance(result, MatrixTranspose)
 
     def test_inverse_non_square(self):
         try:

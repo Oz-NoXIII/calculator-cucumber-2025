@@ -68,8 +68,8 @@ STRING: /"[^"]*"/
        | "inv" "(" matrix ")" -> matrix_inverse
 
 
-matrix: "[" row ("," row)* "]"
-row: "[" factor ("," factor)* "]"
+?matrix: "[" row ("," row)* "]"
+?row: "[" factor ("," factor)* "]"
 
 
 %import common.INT
