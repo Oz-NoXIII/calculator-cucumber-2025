@@ -40,7 +40,7 @@ class Evaluator(Visitor):
 
     def visit_linear_solution(self, equation):
         result = equation.solve()
-        if type(result) == str:
+        if isinstance(result, str):
             self.stack.append(result)
         elif hasattr(result, "get_value"):
             self.stack.append(result.get_value())
