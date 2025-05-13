@@ -222,6 +222,12 @@ else
 	$(SOURCE_VENV) && export PYTHONPATH=$(shell pwd) && $(PYTHON) -m src/main/python/calculator/cli.py
 endif
 
+# Run the API Rest
+venv-run-api-rest:
+	@echo "Running the application..."
+	$(PYTHON) src/rest-api/manage.py makemigrations
+	$(PYTHON) src/rest-api/manage.py migrate
+	$(PYTHON) src/rest-api/manage.py runserver
 
 # Phony targets
 .PHONY: all install venv-install test venv-test test-action venv-test-action unit-test venv-unit-test behave-test venv-behave-test lint venv-lint format venv-format build venv-build clean venv-clean run venv-run serve-behave-test venv-serve-behave-test test-coverage venv-test-coverage test-coverage-xml venv-test-coverage-xml
