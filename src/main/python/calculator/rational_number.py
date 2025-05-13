@@ -13,9 +13,9 @@ class RationalNumber(NumberType):
                 case "pi":
                     n = math.pi
                 case "e":
-                    n = mah.e
+                    n = math.e
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {numerator}")
         if isinstance(denominator, str):
             match denominator:
                 case "pi":
@@ -23,7 +23,7 @@ class RationalNumber(NumberType):
                 case "e":
                     d = math.e
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {denominator}")
         if isinstance(numerator, int) and isinstance(denominator, int):
             if denominator == 0:
                 self.value = Fraction(0, 1)
@@ -83,6 +83,38 @@ class RationalNumber(NumberType):
 
     def cos(self):
         frac = Fraction(math.cos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tan(self):
+        frac = Fraction(math.tan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arcsin(self):
+        if not(-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.asin(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arccos(self):
+        if not(-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.acos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arctan(self):
+        frac = Fraction(math.atan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def sinh(self):
+        frac = Fraction(math.sinh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def cosh(self):
+        frac = Fraction(math.cosh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tanh(self):
+        frac = Fraction(math.tanh(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def to_mixed_str(self):
