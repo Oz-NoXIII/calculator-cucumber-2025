@@ -8,9 +8,22 @@ class RealNumber(NumberType):
     _precision = 6
 
     def __init__(self, value: float):
-        self.value = float(value)
-        self._is_nan = math.isnan(self.value)
-        self._is_infinite = math.isinf(self.value)
+        if isinstance(value, str):
+            match value:
+                case "pi":
+                    self.value = float(math.pi)
+                    self._is_nan = math.isnan(self.value)
+                    self._is_infinite = math.isinf(self.value)
+                case "e":
+                    self.value = float(math.e)
+                    self._is_nan = math.isnan(self.value)
+                    self._is_infinite = math.isinf(self.value)
+                case _:
+                    raise ValueError(f"Valeur inconnue : {value}")
+        else:
+            self.value = float(value)
+            self._is_nan = math.isnan(self.value)
+            self._is_infinite = math.isinf(self.value)
 
     def get_value(self):
         return self.value

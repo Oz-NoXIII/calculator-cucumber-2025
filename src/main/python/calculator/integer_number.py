@@ -5,7 +5,16 @@ from src.main.python.calculator.number_type import NumberType
 
 class IntegerNumber(NumberType):
     def __init__(self, value: int):
-        self.value = value
+        if isinstance(value, str):
+            match value:
+                case "pi":
+                    self.value = int(math.pi)
+                case "e":
+                    self.value = int(math.e)
+                case _:
+                    raise ValueError(f"Valeur inconnue : {value}")
+        else:
+            self.value = value
 
     def get_value(self):
         return self.value

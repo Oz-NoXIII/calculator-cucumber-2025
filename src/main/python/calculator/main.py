@@ -202,5 +202,18 @@ try:
     res = parse_expression('solve_linear("2x + 3y = 5; 3x - 4z = 7; y + z = 10")')
     calculator.print_expression_details(res)
 
+
+    # constants : pi
+    p = MyNumber(RealNumber("pi"))
+    e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    # constants : e
+    p = MyNumber(RationalNumber("pi", "e"))
+    e = Cosinus([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
 except IllegalConstruction:
     print("cannot create operations without parameters")
