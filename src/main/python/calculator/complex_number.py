@@ -77,6 +77,15 @@ class ComplexNumber(NumberType):
     def arctan(self):
         return ComplexNumber.from_complex(cmath.atan(self.value))
 
+    def sinh(self):
+        return ComplexNumber.from_complex(cmath.sinh(self.value))
+
+    def cosh(self):
+        return ComplexNumber.from_complex(cmath.cosh(self.value))
+
+    def tanh(self):
+        return ComplexNumber.from_complex(cmath.tanh(self.value))
+
     def modulus(self):
         return abs(self.value)
 

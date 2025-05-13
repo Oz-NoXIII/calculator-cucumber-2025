@@ -76,6 +76,15 @@ class IntegerNumber(NumberType):
     def arctan(self):
         return IntegerNumber(int(math.atan(self.value)))
 
+    def sinh(self):
+        return IntegerNumber(int(math.sinh(self.value)))
+
+    def cosh(self):
+        return IntegerNumber(int(math.cosh(self.value)))
+
+    def tanh(self):
+        return IntegerNumber(int(math.tanh(self.value)))
+
     def __str__(self):
         return str(self.value)
 

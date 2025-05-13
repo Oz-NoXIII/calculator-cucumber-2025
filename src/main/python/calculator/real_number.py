@@ -89,6 +89,15 @@ class RealNumber(NumberType):
     def arctan(self):
         return RealNumber(math.atan(self.value))
 
+    def sinh(self):
+        return RealNumber(math.sinh(self.value))
+
+    def cosh(self):
+        return RealNumber(math.cosh(self.value))
+
+    def tanh(self):
+        return RealNumber(math.tanh(self.value))
+
     def inverse(self):
         if self.value == 0.0:
             return RealNumber(float("inf"))

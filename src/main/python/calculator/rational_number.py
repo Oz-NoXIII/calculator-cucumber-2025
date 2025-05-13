@@ -105,6 +105,18 @@ class RationalNumber(NumberType):
         frac = Fraction(math.atan(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
+    def sinh(self):
+        frac = Fraction(math.sinh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def cosh(self):
+        frac = Fraction(math.cosh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tanh(self):
+        frac = Fraction(math.tanh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
     def to_mixed_str(self):
 
         if self._is_nan:
