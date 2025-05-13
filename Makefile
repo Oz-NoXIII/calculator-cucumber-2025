@@ -229,6 +229,11 @@ venv-run-api-rest:
 	$(PYTHON) src/rest-api/manage.py migrate
 	$(PYTHON) src/rest-api/manage.py runserver
 
+# Run the Frontend
+venv-run-frontend:
+	@echo "Running the application..."
+	nix develop
+
 # Phony targets
 .PHONY: all install venv-install test venv-test test-action venv-test-action unit-test venv-unit-test behave-test venv-behave-test lint venv-lint format venv-format build venv-build clean venv-clean run venv-run serve-behave-test venv-serve-behave-test test-coverage venv-test-coverage test-coverage-xml venv-test-coverage-xml
 
