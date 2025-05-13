@@ -24,6 +24,7 @@ from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
 from src.main.python.calculator.tangent import Tangent
 from src.main.python.calculator.arcsinus import Arcsinus
+from src.main.python.calculator.nroot import Nroot
 
 try:
     e = MyNumber(RealNumber(8))

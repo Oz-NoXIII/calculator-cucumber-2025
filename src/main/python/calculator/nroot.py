@@ -25,6 +25,6 @@ class Nroot(Operation):
         Delegates the n-root to the internal NumberType logic of MyNumber.
         :param left: Left operand
         :param right: Right operand
-        :return: MyNumber wrapping the result of n-root using NumberType 
+        :return: MyNumber wrapping the result of n-root using NumberType
         """
         return left.nroot(right)
