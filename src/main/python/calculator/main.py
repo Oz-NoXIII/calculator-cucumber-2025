@@ -233,9 +233,9 @@ try:
     calculator.eval_expression(e)
 
     # n-th root : 8 n-th root 3
-    rnR = MyNumber(IntegerNumber(8), IntegerNumber(3))
-    e = NRoot([rnR], Notation.INFIX)
-    calculator.print_expression_details(e)
+    nth = [MyNumber(RealNumber(8)), MyNumber(RealNumber(3))]
+    e = Nroot(nth)
+    calculator.print_result(e)
     calculator.eval_expression(e)
 
 except IllegalConstruction:
