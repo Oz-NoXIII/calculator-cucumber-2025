@@ -190,6 +190,20 @@ export default function MatrixCalculator() {
                 className="w-16 text-center border rounded"
               />
             </div>
+            <button
+              onClick={() => setExpression(`inv(${JSON.stringify(matrixA)})`)}
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Inverse
+            </button>
+            <button
+              onClick={() =>
+                setExpression(`transpose(${JSON.stringify(matrixA)})`)
+              }
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Transpose
+            </button>
           </div>
           <MatrixInput
             matrix={matrixA}
@@ -199,7 +213,7 @@ export default function MatrixCalculator() {
           />
         </div>
 
-        <div className="flex flex-col space-y-2 w-full">
+        <div className="flex flex-col space-y-2 w-full mt-6">
           <div className="flex justify-start items-center gap-3">
             <label className="font-semibold">Matrix B</label>
             <div className="flex items-center gap-2">
@@ -256,6 +270,20 @@ export default function MatrixCalculator() {
                 className="w-16 text-center border rounded"
               />
             </div>
+            <button
+              onClick={() => setExpression(`inv(${JSON.stringify(matrixB)})`)}
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Inverse
+            </button>
+            <button
+              onClick={() =>
+                setExpression(`transpose(${JSON.stringify(matrixB)})`)
+              }
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Transpose
+            </button>
           </div>
           <MatrixInput
             matrix={matrixB}
