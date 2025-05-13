@@ -40,6 +40,17 @@ class TestRealNumber(unittest.TestCase):
         result = r1.pow(r2)
         self.assertAlmostEqual(result.get_value(), 8.0)
 
+    def test_nroot(self):
+        r1 = RealNumber(8.0)
+        r2 = RealNumber(3.0)
+        result = r1.nroot(r2)
+        self.assertAlmostEqual(result.get_value(), 2.0)
+
+    def test_zero_nroot_by_zero(self):
+        a = RealNumber(0.0)
+        result = a.nroot(RealNumber(0.0))
+        self.assertTrue(result.is_nan(), "Expected NaN from 0.0 nroot 0.0")
+
     def test_sinus(self):
         a = RealNumber(math.pi / 2)
         result = a.sin()

@@ -65,6 +65,11 @@ class RealNumber(NumberType):
     def exp(self):
         return RealNumber(math.exp(self.value))
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return RealNumber(float("nan"))
+        return RealNumber((self.value ** (1 / other.get_value())))
+
     def sin(self):
         return RealNumber(math.sin(self.value))
 
@@ -72,17 +77,17 @@ class RealNumber(NumberType):
         return RealNumber(math.cos(self.value))
 
     def tan(self):
-        if(abs(math.cos(self.value).real) <= 1e-14):
+        if (abs(math.cos(self.value).real) <= 1e-14):
             return RealNumber(float("nan"))
         return RealNumber(math.tan(self.value))
 
     def arcsin(self):
-        if not(-1 <= self.value <= 1):
+        if not (-1 <= self.value <= 1):
             return RealNumber(float("nan"))
         return RealNumber(math.asin(self.value))
 
     def arccos(self):
-        if not(-1 <= self.value <= 1):
+        if not (-1 <= self.value <= 1):
             return RealNumber(float("nan"))
         return RealNumber(math.acos(self.value))
 

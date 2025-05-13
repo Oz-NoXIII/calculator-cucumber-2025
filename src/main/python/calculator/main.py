@@ -231,5 +231,11 @@ try:
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 
+    # n-th root : 8 n-th root 3
+    rnR = MyNumber(IntegerNumber(8), IntegerNumber(3))
+    e = NRoot([rnR], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
 except IllegalConstruction:
     print("cannot create operations without parameters")
