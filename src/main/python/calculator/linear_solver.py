@@ -2,6 +2,8 @@ import re
 
 import sympy as sp
 
+from src.main.python.calculator.linear_solution import LinearSolution
+
 
 class LinearEquationSolver:
     def __init__(self, equations):
@@ -13,6 +15,9 @@ class LinearEquationSolver:
         self.equations_raw = equations
         self.variables = set()
         self.parsed_system = None
+
+    def accept(self, visitor):
+        return visitor.visit_linear_solution(self)
 
     def preprocess_equation(self, eq):
         # Remove spaces
@@ -54,7 +59,7 @@ class LinearEquationSolver:
         try:
             self.parse_equations()
             if not self.parsed_system:
-                return "Error solving equations: Cannot convert expression to float"
+                return "Error solving equations"
 
             solution = sp.solve(self.parsed_system, self.variables, dict=True)
             if not solution:
@@ -69,7 +74,7 @@ class LinearEquationSolver:
                         result[str(var)] = (
                             int(val) if val.is_integer else round(float(val), 2)
                         )
-                    return result
+                    return LinearSolution(result)
                 else:
                     return "Infinite solutions."
 
@@ -78,10 +83,15 @@ class LinearEquationSolver:
         except Exception as e:
             return f"Error solving equations: {str(e)}"
 
+    def get_depth(self):
+        return 0
 
-"""if __name__ == "__main__":
-    equations = ["2x + 3y = 5", "3x - 4z = 7", "y + z = 10"]
+    def get_ops(self):
+        return 0
 
-    solver = LinearEquationSolver(equations)
-    result = solver.solve()
-    print(result)"""
+    def get_nbs(self):
+        return len(self.variables)
+
+    def __str__(self):
+
+        return self.equations_raw.__str__()

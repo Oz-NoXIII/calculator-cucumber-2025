@@ -33,7 +33,17 @@ class Matrix:
         return self.rows * self.cols
 
     def __str__(self):
-        return str(self.data)
+        def format_value(value):
+
+            if hasattr(value, "get_value"):
+                return str(value.get_value())
+            return str(value)
+
+        rows_str = []
+        for row in self.data:
+            row_str = ", ".join(format_value(item) for item in row)
+            rows_str.append(f"[{row_str}]")
+        return f"[{', '.join(rows_str)}]"
 
     def _cast_to_appropriate_type(self, value):
         """
@@ -41,11 +51,8 @@ class Matrix:
         """
         if hasattr(value, "get_value"):
             value = value.get_value()
-        if isinstance(value, IntegerNumber):
-            return value
-        elif isinstance(value, RealNumber):
-            return value
-        elif isinstance(value, (int, float)):
+
+        if isinstance(value, (int, float)):
             return IntegerNumber(value) if isinstance(value, int) else RealNumber(value)
         else:
             raise ValueError("Unsupported number type")
