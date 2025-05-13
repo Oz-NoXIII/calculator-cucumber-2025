@@ -64,12 +64,12 @@ class IntegerNumber(NumberType):
         return IntegerNumber(int(math.tan(self.value)))
 
     def arcsin(self):
-        if not(-1 <= self.value <= 1):
+        if not (-1 <= self.value <= 1):
             return Integernan()
         return IntegerNumber(int(math.asin(self.value)))
 
     def arccos(self):
-        if not(-1 <= self.value <= 1):
+        if not (-1 <= self.value <= 1):
             return Integernan()
         return IntegerNumber(int(math.acos(self.value)))
 
