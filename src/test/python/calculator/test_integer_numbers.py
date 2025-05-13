@@ -33,6 +33,14 @@ class TestIntegerNumber(unittest.TestCase):
         result = IntegerNumber(10).pow(IntegerNumber(2))
         self.assertEqual(result.get_value(), 100)
 
+    def test_nroot(self):
+        result = IntegerNumber(8).nroot(IntegerNumber(3))
+        self.assertEqual(result.get_value(), 2)
+
+    def test_root_by_zero_returns_nan(self):
+        result = IntegerNumber(1).nroot(IntegerNumber(0))
+        self.assertTrue(result.is_nan(), "Expected NaN result for nroot by zero")
+
     def test_sinus(self):
         a = IntegerNumber(3)
         result = a.sin()

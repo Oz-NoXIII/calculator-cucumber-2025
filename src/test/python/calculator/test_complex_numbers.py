@@ -117,6 +117,18 @@ class TestComplexNumber(unittest.TestCase):
         result = a.exp()
         self.assertEqual(result.get_value(), complex(1, 0))
 
+    def test_nroot(self):
+        a = ComplexNumber(8, 0)
+        b = ComplexNumber(3, 0)
+        result = a.nroot(b)
+        self.assertEqual(result.get_value(), complex(2, 0))
+
+    def test_nan_on_nroot_by_zero(self):
+        a = ComplexNumber(1, 2)
+        b = ComplexNumber(0, 0)
+        result = a.nroot(b)
+        self.assertTrue(result.is_nan())
+
     def test_power(self):
         a = ComplexNumber(1, 2)
         b = ComplexNumber(3, 4)

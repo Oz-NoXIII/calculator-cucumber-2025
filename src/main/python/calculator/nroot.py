@@ -27,4 +27,4 @@ class Nroot(Operation):
         :param right: Right operand
         :return: MyNumber wrapping the result of n-root using NumberType 
         """
-        return left.divide(right)
+        return left.nroot(right)

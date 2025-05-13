@@ -65,6 +65,11 @@ class RealNumber(NumberType):
     def exp(self):
         return RealNumber(math.exp(self.value))
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return RealNumber(float("nan"))
+        return RealNumber((self.value ** (1 / other.get_value())))
+
     def sin(self):
         return RealNumber(math.sin(self.value))
 

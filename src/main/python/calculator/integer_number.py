@@ -54,6 +54,11 @@ class IntegerNumber(NumberType):
     def exp(self):
         return IntegerNumber(int(math.exp(self.value)))
 
+    def nroot(self, other):
+        if (other.get_value() == 0):
+            return Integernan()
+        return IntegerNumber(int((self.value ** (1 / other.get_value()))))
+
     def sin(self):
         return IntegerNumber(int(math.sin(self.value)))
 
