@@ -48,8 +48,15 @@ def then_solution_should_be(context, solution):
         var, val = pair.split(":")
         expected[var.strip()] = float(val) if "." in val else int(val)
 
+    result_dict = (
+        context.result.get_value() if hasattr(context.result, "get_value") else {}
+    )
+
     for var in expected:
-        assert abs(context.result[var] - expected[var]) < 0.01
+        assert var in result_dict, f"Variable {var} not found in solution"
+        assert (
+            abs(result_dict[var] - expected[var]) < 1e-9
+        ), f"Expected {var}={expected[var]}, got {var}={result_dict[var]}"
 
 
 @then('I should get "{message}"')

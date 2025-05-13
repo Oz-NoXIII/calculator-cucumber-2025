@@ -21,3 +21,13 @@ class Visitor(ABC):  # pragma: no cover
         :param op: The operation being visited
         """
         pass
+
+    @abstractmethod
+    def visit_linear_solution(self, solution):
+        """The Visitor can traverse a linear equation solution"""
+        pass
+
+    @abstractmethod
+    def visit_matrix(self, matrix):
+        """The Visitor can traverse a matrix"""
+        pass

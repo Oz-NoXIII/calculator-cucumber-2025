@@ -152,7 +152,7 @@ try:
     calculator.eval_expression(e)
 
     # inverse : inverse(5)
-    rInv = MyNumber(RealNumber(0))
+    rInv = MyNumber(RealNumber(5))
     e = Inverse([rInv], Notation.INFIX)
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
@@ -196,17 +196,22 @@ try:
     res = parse_expression('solve_linear("2x+3y=5; 3x-4z=7; y+z=10")')
     print("linear solver", res)
 
-    expr = "[[1, 2.5], [3, 4j], [5, 3.75]]"
-    matrix = parse_expression(expr)
+    expr = "[[1, 2], [3, 4]] - [[2, 0], [1, 2]]"
+    result = parse_expression(expr)
 
-    print(f"\nParsed matrix ({matrix.rows} x {matrix.cols}):")
-    for row in matrix.data:
-        print(" | ", end="")
-        for cell in row:
-            number = cell.get_value()
-            typename = type(number).__name__
-            print(f"{number} ({typename})", end=" | ")
-        print()
+    calculator.print_result(result)
+    calculator.print_expression_details(result)
+
+    expr = "inv([[1, 2], [3, 4]])"
+    result = parse_expression(expr)
+    calculator.print_expression_details(result)
+
+    expr = "transpose([[1, 2], [3, 4]])"
+    result = parse_expression(expr)
+    calculator.print_expression_details(result)
+
+    res = parse_expression('solve_linear("2x + 3y = 5; 3x - 4z = 7; y + z = 10")')
+    calculator.print_expression_details(res)
 
     # constants : pi
     p = MyNumber(RealNumber("pi"))

@@ -12,6 +12,7 @@ import {
   XIcon,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { toast } from 'sonner';
 
 const calculator_buttons = [
   [
@@ -201,14 +202,14 @@ export default function ClassicCalculator() {
         });
 
         if (!response.ok) {
-          throw new Error("Erreur lors de l'évaluation");
+          toast.error('Error during the assessment. Check your expression !');
+        } else {
+          const data = await response.json();
+          setExpression(String(data.result));
         }
-
-        const data = await response.json();
-        setExpression(String(data.result)); // assure-toi que c'est bien une chaîne
       } catch (error) {
         console.error(error);
-        setExpression('Erreur');
+        toast.error('Request error. Check if the backend is online !');
       }
     } else {
       const start = input.selectionStart;
