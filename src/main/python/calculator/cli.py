@@ -205,6 +205,18 @@ class CalculatorREPL:
         | Exponentiation | a ^ b               | ^(a, b) or ^(a b)   | (a, b)^ or (a b)^   |
         | Negation       | (-a)                | (-(a))              | (a-)-               |
         | Inverse        | inv(a)              | inv(a)              | inv(a)              |
+        | Logarithm      | log(a)              | log(a)              | (a)log              |
+        | Log Neperien   | ln(a)               | ln(a)               | (a)ln               |
+        | Sinus          | sin(a)              | sin(a)              | (a)sin              |
+        | Cosinus        | cos(a)              | cos(a)              | (a)cos              |
+        | Tangent        | tan(a)              | tan(a)              | (a)tan              |
+        | Arcinus        | arcsin(a)           | arcsin(a)           | (a)arcsin           |
+        | ArcCosinus     | arccos(a)           | arccos(a)           | (a)arccos           |
+        | ArcTangent     | arctan(a)           | arctan(a)           | (a)arctan           |
+        | Sinushyp       | sinh(a)             | sinh(a)             | (a)sinh             |
+        | Cosinushyp     | cosh(a)             | cosh(a)             | (a)cosh             |
+        | Tangenthyp     | tanh(a)             | tanh(a)             | (a)tanh             |
+        | Nroot          | a nsqrt b           | nsqrt(a, b)         | (a, b)nsqrt         |
         +----------------+---------------------+---------------------+---------------------+
 
         Advanced Features:

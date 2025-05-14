@@ -12,7 +12,17 @@
            | "inv" "(" infix_expr ")"    -> inverse
            | "transpose" "(" infix_expr ")" -> transpose
            | "(" "-" infix_expr ")"      -> neg
+           | "log" "(" infix_expr ")"  -> log
+           | "ln" "(" infix_expr ")"  -> ln
            | "sin" "(" infix_expr ")"  -> sin
+           | "cos" "(" infix_expr ")"  -> cos
+           | "tan" "(" infix_expr ")"  -> tan
+           | "arcsin" "(" infix_expr ")"  -> arcsin
+           | "arccos" "(" infix_expr ")"  -> arccos
+           | "arctan" "(" infix_expr ")"  -> arctan
+           | "sinh" "(" infix_expr ")"  -> sinh
+           | "cosh" "(" infix_expr ")"  -> cosh
+           | "tanh" "(" infix_expr ")"  -> tanh
 
 ?infix_term: infix_term "*" infix_factor -> mul
            | infix_term "/" infix_factor -> div
@@ -35,7 +45,17 @@
             | "inv" "(" prefix_expr ")"                     -> inverse
             | "transpose" "(" prefix_expr ")"               -> transpose
             | "(" "-" prefix_expr ")"                      -> neg
-            | "sin" "(" prefix_expr ")"                     -> sin
+            | "log" "(" prefix_expr ")"                          -> log
+            | "ln" "(" prefix_expr ")"                           -> ln
+            | "sin" "(" prefix_expr ")"                           -> sin
+            | "cos" "(" prefix_expr ")"                           -> cos
+            | "tan" "(" prefix_expr ")"                           -> tan
+            | "arcsin" "(" prefix_expr ")"                       -> arcsin
+            | "arccos" "(" prefix_expr ")"                        -> arccos
+            | "arctan" "(" prefix_expr ")"                        -> arctan
+            | "sinh" "(" prefix_expr ")"                         -> sinh
+            | "cosh" "(" prefix_expr ")"                         -> cosh
+            | "tanh" "(" prefix_expr ")"                         -> tanh
 
 ?prefix_term: prefix_expr
             | prefix_factor
@@ -53,7 +73,17 @@
              | "inv" "(" postfix_expr ")"                      -> inverse
              | "transpose" "(" postfix_expr ")"               -> transpose
              | "(" postfix_expr "-" ")"                       -> neg
-             | "(" postfix_expr ")" "sin"                       -> sin
+             |  "(" postfix_expr ")" "log"                      -> log
+             |  "(" postfix_expr ")" "ln"                       -> ln
+             |  "(" postfix_expr ")" "sin"                      -> sin
+             |  "(" postfix_expr ")" "cos"                      -> cos
+             |  "(" postfix_expr ")" "tan"                      -> tan
+             |  "(" postfix_expr ")" "arcsin"                   -> arcsin
+             |  "(" postfix_expr ")" "arccos"                   -> arccos
+             |  "(" postfix_expr ")" "arctan"                   -> arctan
+             |  "(" postfix_expr ")" "sinh"                     -> sinh
+             |  "(" postfix_expr ")" "cosh"                     -> cosh
+             |  "(" postfix_expr ")" "tanh"                     -> tanh
 
 ?postfix_term: postfix_expr
              | postfix_factor
@@ -72,6 +102,7 @@ STRING: /"[^"]*"/
        | factor "j"    -> complex_number
        | matrix        -> matrix
        | "e"           -> cst_e
+       | "pi"           -> cst_pi
        | "inv" "(" matrix ")" -> matrix_inverse
 
 
