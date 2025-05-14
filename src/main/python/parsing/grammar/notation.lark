@@ -12,6 +12,7 @@
            | "inv" "(" infix_expr ")"    -> inverse
            | "transpose" "(" infix_expr ")" -> transpose
            | "(" "-" infix_expr ")"      -> neg
+           | "sin" "(" infix_expr ")"  -> sin
 
 ?infix_term: infix_term "*" infix_factor -> mul
            | infix_term "/" infix_factor -> div
@@ -20,6 +21,7 @@
 
 ?infix_factor: factor
              | infix_factor "^" infix_factor -> pow
+             | infix_factor "nroot" infix_factor -> nroot
              | "(" "-" factor ")"                    -> neg
              | "(" infix_expr ")"
 
@@ -29,9 +31,11 @@
             | "*" "(" prefix_term (","? prefix_term)+ ")"   -> mul
             | "/" "(" prefix_term (","? prefix_term)+ ")"   -> div
             | "^" "(" prefix_term (","? prefix_term)+ ")"   -> pow
+            | "nroot" "(" prefix_term (","? prefix_term)+ ")"   -> nroot
             | "inv" "(" prefix_expr ")"                     -> inverse
             | "transpose" "(" prefix_expr ")"               -> transpose
             | "(" "-" prefix_expr ")"                      -> neg
+            | "sin" "(" prefix_expr ")"                     -> sin
 
 ?prefix_term: prefix_expr
             | prefix_factor
@@ -45,9 +49,11 @@
              | "(" postfix_term (","? postfix_term)+ ")" "*"   -> mul
              | "(" postfix_term (","? postfix_term)+ ")" "/"   -> div
              | "(" postfix_term (","? postfix_term)+ ")" "^"   -> pow
+             | "(" postfix_term (","? postfix_term)+ ")" "nroot"   -> nroot
              | "inv" "(" postfix_expr ")"                      -> inverse
              | "transpose" "(" postfix_expr ")"               -> transpose
              | "(" postfix_expr "-" ")"                       -> neg
+             | "(" postfix_expr ")" "sin"                       -> sin
 
 ?postfix_term: postfix_expr
              | postfix_factor
@@ -65,6 +71,7 @@ STRING: /"[^"]*"/
        | DECIMAL       -> real_number
        | factor "j"    -> complex_number
        | matrix        -> matrix
+       | "e"           -> cst_e
        | "inv" "(" matrix ")" -> matrix_inverse
 
 

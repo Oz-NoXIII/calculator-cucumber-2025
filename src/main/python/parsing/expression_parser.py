@@ -16,6 +16,9 @@ from src.main.python.calculator.power import Power
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 from src.main.python.calculator.transpose import MatrixTranspose
+from src.main.python.calculator.sinus import Sinus
+from src.main.python.calculator.nroot import Nroot
+
 
 # Get the directory where the current script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -58,15 +61,24 @@ class ExprTransformer(Transformer):
         return Divides(args)
 
     @v_args(inline=True)
+    def cst_e(self, args):
+        return MyNumber(args)
+
+    def nroot(self, args):
+        return Nroot(args)
+
+    def sin(self, token):
+        return Sinus(token)
+
+    @v_args(inline=True)
     def neg(self, token):
         return Times([token, MyNumber(IntegerNumber(-1))])
 
     def pow(self, args):
         return Power(args)
 
-    @v_args(inline=True)
     def inverse(self, token):
-        return Inverse([token])
+        return Inverse(token)
 
     @v_args(inline=True)
     def linear_expr(self, equation_str):

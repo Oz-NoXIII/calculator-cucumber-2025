@@ -238,5 +238,11 @@ try:
     calculator.print_result(e)
     calculator.eval_expression(e)
 
+    res2 = parse_expression('sin(0)')
+    calculator.print_expression_details(res2)
+
+    res3 = parse_expression('8 nroot 3')
+    calculator.print_expression_details(res3)
+
 except IllegalConstruction:
     print("cannot create operations without parameters")
