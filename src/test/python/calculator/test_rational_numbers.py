@@ -53,6 +53,9 @@ class TestRationalNumber(unittest.TestCase):
         self.assertEqual(a.get_value().numerator, int(math.pi))
         self.assertEqual(a.get_value().denominator, int(math.e))
 
+    def test_error_str(self):
+        self.assertRaises(ValueError, lambda : RationalNumber("mauvaise valeur", 1))
+
     def test_power(self):
         r1 = RationalNumber(2, 1)
         r2 = RationalNumber(1, 1)

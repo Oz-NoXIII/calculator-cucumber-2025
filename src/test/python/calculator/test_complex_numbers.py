@@ -40,6 +40,9 @@ class TestComplexNumber(unittest.TestCase):
         a = ComplexNumber("pi", 2)
         self.assertEqual(a.get_value().real, cmath.pi)
 
+    def test_error_str(self):
+        self.assertRaises(ValueError, lambda: ComplexNumber("mauvaise valeur", 2))
+
     def test_inverse(self):
         a = ComplexNumber(1, 2)
         result = a.inverse()
