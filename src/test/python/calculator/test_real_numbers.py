@@ -43,7 +43,7 @@ class TestRealNumber(unittest.TestCase):
         self.assertEqual(a.get_value(), math.pi)
 
     def test_error_str(self):
-        self.assertRaises(ValueError, lambda : RealNumber("mauvaise valeur"))
+        self.assertRaises(ValueError, lambda: RealNumber("mauvaise valeur"))
 
     def test_rand(self):
         a = RealNumber(10)
