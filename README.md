@@ -76,6 +76,9 @@ We use [SemVer](http://semver.org/) for semantic versioning. For the versions av
 
 # Calculating arithmetic expressions (Python)
 
+About Static and Dynamic Analysis Tools :
+https://youtu.be/A1wSEAJdlJU
+
 ## About
 
 This repository contains Java code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium in the context of the software evolution course.
