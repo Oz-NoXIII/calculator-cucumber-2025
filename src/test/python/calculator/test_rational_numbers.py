@@ -66,8 +66,8 @@ class TestRationalNumber(unittest.TestCase):
     def test_rand(self):
         a = RationalNumber(10, 7)
         result = a.rand()
-        self.assertTrue(0 <= result.get_value() <= 10)
-        self.assertTrue(0 <= result.get_value() <= 7)
+        self.assertTrue(0 <= result.get_value().numerator <= 10)
+        self.assertTrue(0 <= result.get_value().denominator <= 7)
 
     def test_power(self):
         r1 = RationalNumber(2, 1)
