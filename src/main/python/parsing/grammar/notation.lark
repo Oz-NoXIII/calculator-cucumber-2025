@@ -23,6 +23,7 @@
            | "sinh" "(" infix_expr ")"  -> sinh
            | "cosh" "(" infix_expr ")"  -> cosh
            | "tanh" "(" infix_expr ")"  -> tanh
+           | "rand" "(" infix_expr ")"   -> rand
 
 
 ?infix_term: infix_term "*" infix_factor -> mul
@@ -57,7 +58,7 @@
             | "sinh" "(" prefix_expr ")"                         -> sinh
             | "cosh" "(" prefix_expr ")"                         -> cosh
             | "tanh" "(" prefix_expr ")"                         -> tanh
-
+            | "rand" "(" prefix_expr ")"                                   -> rand
 
 ?prefix_term: prefix_expr
             | prefix_factor
@@ -86,6 +87,7 @@
              |  "(" postfix_expr ")" "sinh"                     -> sinh
              |  "(" postfix_expr ")" "cosh"                     -> cosh
              |  "(" postfix_expr ")" "tanh"                     -> tanh
+             |  "(" postfix_expr ")" "rand"                                  -> rand
 
 
 ?postfix_term: postfix_expr
