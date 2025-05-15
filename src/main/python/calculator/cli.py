@@ -216,7 +216,7 @@ class CalculatorREPL:
         | Sinushyp       | sinh(a)             | sinh(a)             | (a)sinh             |
         | Cosinushyp     | cosh(a)             | cosh(a)             | (a)cosh             |
         | Tangenthyp     | tanh(a)             | tanh(a)             | (a)tanh             |
-        | Nroot          | a nsqrt b           | nsqrt(a, b)         | (a, b)nsqrt         |
+        | Nroot          | a nroot b           | nroot(a, b)         | (a, b)nroot         |
         +----------------+---------------------+---------------------+---------------------+
 
         Advanced Features:

@@ -17,7 +17,7 @@ class Nroot(Operation):
                 :raise IllegalConstruction:  If an empty list of expressions is passed as parameter
         """
         super().__init__(elist, n)
-        self._symbol = "nsqrt"
+        self._symbol = "nroot"
         self._neutral = 1
 
     def op(self, left, right):
