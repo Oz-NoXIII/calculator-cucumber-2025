@@ -3,13 +3,25 @@ import unittest
 from lark.exceptions import VisitError
 
 from src.main.python.calculator import calculator
+from src.main.python.calculator.arccosinus import Arccosinus
+from src.main.python.calculator.arcsinus import Arcsinus
+from src.main.python.calculator.arctangent import Arctangent
+from src.main.python.calculator.cosinus import Cosinus
+from src.main.python.calculator.cosinushyperbolic import Cosinushyperbolic
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.inverse import Inverse, MatrixInverse
 from src.main.python.calculator.linear_solver import LinearEquationSolver
+from src.main.python.calculator.logarithm import Logarithm
+from src.main.python.calculator.logarithmNeperien import LogarithmNeperien
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
+from src.main.python.calculator.nroot import Nroot
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
+from src.main.python.calculator.sinus import Sinus
+from src.main.python.calculator.sinushyperbolic import Sinushyperbolic
+from src.main.python.calculator.tangent import Tangent
+from src.main.python.calculator.tangenthyperbolic import Tangenthyperbolic
 from src.main.python.calculator.times import Times
 from src.main.python.calculator.transpose import MatrixTranspose
 from src.main.python.parsing.expression_parser import parse_expression
@@ -88,6 +100,91 @@ class TestExpressionParser(unittest.TestCase):
         self.assertEqual(len(result.get_args()), 2)
         self.assertIsInstance(result.get_args()[0], MyNumber)
         self.assertIsInstance(result.get_args()[1], Inverse)
+
+    def test_parse_expression_sin(self):
+        expr_str = "sin(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Sinus)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_cos(self):
+        expr_str = "cos(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Cosinus)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_tan(self):
+        expr_str = "tan(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Tangent)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_arcsin(self):
+        expr_str = "arcsin(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Arcsinus)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_arccos(self):
+        expr_str = "arccos(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Arccosinus)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_arctan(self):
+        expr_str = "arctan(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Arctangent)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_sinh(self):
+        expr_str = "sinh(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Sinushyperbolic)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_cosh(self):
+        expr_str = "cosh(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Cosinushyperbolic)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_tanh(self):
+        expr_str = "tanh(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Tangenthyperbolic)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_log(self):
+        expr_str = "log(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Logarithm)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_ln(self):
+        expr_str = "ln(0)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, LogarithmNeperien)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_nroot(self):
+        expr_str = "8 nroot 3"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Nroot)
+        self.assertEqual(len(result.get_args()), 2)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+        self.assertIsInstance(result.get_args()[1], MyNumber)
 
     def test_simple_linear_solution(self):
         result = parse_expression('solve_linear("x + y = 2; x - y = 0")')

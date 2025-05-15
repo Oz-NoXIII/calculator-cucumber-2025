@@ -25,7 +25,7 @@ from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.sinushyperbolic import Sinushyperbolic
 from src.main.python.calculator.tangent import Tangent
-from src.main.python.calculator.tangenthyperbolic import tangenthyperbolic
+from src.main.python.calculator.tangenthyperbolic import Tangenthyperbolic
 from src.main.python.calculator.times import Times
 from src.main.python.calculator.transpose import MatrixTranspose
 
