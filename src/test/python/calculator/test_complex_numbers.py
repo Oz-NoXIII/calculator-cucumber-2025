@@ -32,6 +32,14 @@ class TestComplexNumber(unittest.TestCase):
         self.assertAlmostEqual(result.get_value().real, expected.real, places=2)
         self.assertAlmostEqual(result.get_value().imag, expected.imag, places=2)
 
+    def test_e(self):
+        a = ComplexNumber("e", 2)
+        self.assertEqual(a.get_value().real, cmath.e)
+
+    def test_pi(self):
+        a = ComplexNumber("pi", 2)
+        self.assertEqual(a.get_value().real, cmath.pi)
+
     def test_inverse(self):
         a = ComplexNumber(1, 2)
         result = a.inverse()

@@ -34,6 +34,14 @@ class TestRealNumber(unittest.TestCase):
         result = r1.inverse()
         self.assertAlmostEqual(result.get_value(), 0.2)
 
+    def test_e(self):
+        a = RealNumber("e")
+        self.assertEqual(a.get_value(), math.e)
+
+    def test_pi(self):
+        a = RealNumber("pi")
+        self.assertEqual(a.get_value(), math.pi)
+
     def test_power(self):
         r1 = RealNumber(2.0)
         r2 = RealNumber(3.0)
