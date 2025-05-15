@@ -17,7 +17,7 @@ class Nroot(Operation):
                 :raise IllegalConstruction:  If an empty list of expressions is passed as parameter
         """
         super().__init__(elist, n)
-        self._symbol = "nsqrt"
+        self._symbol = "nroot"
         self._neutral = 1
 
     def op(self, left, right):
@@ -25,6 +25,6 @@ class Nroot(Operation):
         Delegates the n-root to the internal NumberType logic of MyNumber.
         :param left: Left operand
         :param right: Right operand
-        :return: MyNumber wrapping the result of n-root using NumberType 
+        :return: MyNumber wrapping the result of n-root using NumberType
         """
         return left.nroot(right)

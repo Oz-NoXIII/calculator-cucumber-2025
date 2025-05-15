@@ -1,3 +1,4 @@
+import math
 import unittest
 from fractions import Fraction
 
@@ -38,6 +39,19 @@ class TestRationalNumber(unittest.TestCase):
         r2 = RationalNumber(1, 4)
         result = r1.divide(r2)
         self.assertEqual(result.get_value(), Fraction(2))
+
+    def test_e(self):
+        a = RationalNumber("e", 1)
+        self.assertEqual(a.get_value().real, Fraction(int(math.e), 1))
+
+    def test_pi(self):
+        a = RationalNumber("pi", 1)
+        self.assertEqual(a.get_value().real, Fraction(int(math.pi), 1))
+
+    def test_pi_e(self):
+        a = RationalNumber("pi", "e")
+        self.assertEqual(a.get_value().numerator, int(math.pi))
+        self.assertEqual(a.get_value().denominator, int(math.e))
 
     def test_power(self):
         r1 = RationalNumber(2, 1)
