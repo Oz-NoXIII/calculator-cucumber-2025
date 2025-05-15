@@ -41,7 +41,7 @@ class IntegerNumber(NumberType):
 
     def rand(self):
         random.seed()
-        return random.randint(0, self.value)
+        return IntegerNumber(random.randint(0, self.value))
 
     def pow(self, other):
         return IntegerNumber(self.value ** other.get_value())

@@ -59,7 +59,7 @@ class RationalNumber(NumberType):
         return RationalNumber.from_fraction(1 / self.value)
 
     def rand(self):
-        return RationalNumber(random.randint(0, self.numerator), random.randint(1, self.denominator))
+        return RationalNumber(random.randint(0, self.value.numerator), random.randint(1, self.value.denominator))
 
     def pow(self, other):
         frac = Fraction(self.value ** other.get_value())

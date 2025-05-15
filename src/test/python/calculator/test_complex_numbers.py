@@ -43,6 +43,12 @@ class TestComplexNumber(unittest.TestCase):
     def test_error_str(self):
         self.assertRaises(ValueError, lambda: ComplexNumber("mauvaise valeur", 2))
 
+    def test_rand(self):
+        a = ComplexNumber(10, 2)
+        result = a.rand()
+        self.assertTrue(0 <= result.get_value().real <= 1)
+        self.assertTrue(0 <= result.get_value().imag <= 1)
+
     def test_inverse(self):
         a = ComplexNumber(1, 2)
         result = a.inverse()
