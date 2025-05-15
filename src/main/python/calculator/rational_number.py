@@ -1,4 +1,5 @@
 import math
+import random
 from fractions import Fraction
 
 from src.main.python.calculator.number_type import NumberType
@@ -56,6 +57,9 @@ class RationalNumber(NumberType):
         if self.value == 0:
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(1 / self.value)
+
+    def rand(self):
+        return RationalNumber(random.randint(0, self.numerator), random.randint(1, self.denominator))
 
     def pow(self, other):
         frac = Fraction(self.value ** other.get_value())

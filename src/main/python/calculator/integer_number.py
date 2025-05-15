@@ -1,4 +1,5 @@
 import math
+import random
 
 from src.main.python.calculator.number_type import NumberType
 
@@ -37,6 +38,10 @@ class IntegerNumber(NumberType):
         if self.value == 0:
             return Integernan()
         return IntegerNumber(1 // self.value)
+
+    def rand(self):
+        random.seed()
+        return random.randint(0, self.value)
 
     def pow(self, other):
         return IntegerNumber(self.value ** other.get_value())

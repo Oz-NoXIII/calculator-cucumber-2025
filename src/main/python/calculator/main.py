@@ -18,6 +18,7 @@ from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.nroot import Nroot
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
+from src.main.python.calculator.rand import Rand
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.sinus import Sinus
@@ -243,6 +244,12 @@ try:
 
     res3 = parse_expression('8 nroot 3')
     calculator.print_expression_details(res3)
+
+    # random
+    p = MyNumber(RealNumber(2))
+    e = Rand([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
 
 except IllegalConstruction:
     print("cannot create operations without parameters")

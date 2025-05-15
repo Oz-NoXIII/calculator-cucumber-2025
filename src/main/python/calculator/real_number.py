@@ -1,4 +1,5 @@
 import math
+import random
 
 from src.main.python.calculator.number_type import NumberType
 
@@ -51,6 +52,10 @@ class RealNumber(NumberType):
 
     def pow(self, other):
         return RealNumber(self.value ** other.get_value())
+
+    def rand(self):
+        random.seed()
+        return RealNumber(random.randint(0, 100) / 100)
 
     def log(self):
         if self.value <= 0:
