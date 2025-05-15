@@ -9,7 +9,7 @@ const EquationInput = ({ equations, setEquations }) => {
   };
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 h-[300px] overflow-scroll">
       {equations.map((equation, index) => (
         <input
           key={index}
