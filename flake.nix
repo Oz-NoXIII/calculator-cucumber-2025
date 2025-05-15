@@ -16,6 +16,17 @@
       devShells = forAllSystems ({ pkgs }: {
         default = pkgs.mkShell {
           buildInputs = [ pkgs.nodejs_20 ];
+
+          shellHook = ''
+            echo "🔧 Installing Node.js dependencies..."
+            cd src/web
+            if [ -f package-lock.json ] || [ -f package.json ]; then
+              npm install
+            fi
+
+            echo "🚀 Starting dev server..."
+            npm run dev
+          '';
         };
       });
     };
