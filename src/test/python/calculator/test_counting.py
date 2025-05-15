@@ -4,6 +4,7 @@ from parameterized import parameterized
 
 from src.main.python.calculator.divides import Divides
 from src.main.python.calculator.illegal_construction import IllegalConstruction
+from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.plus import Plus
@@ -15,8 +16,8 @@ from src.main.python.visitor.counter import Counter
 class TestCounting(unittest.TestCase):
 
     def setUp(self):
-        self.value1 = 8
-        self.value2 = 6
+        self.value1 = IntegerNumber(8)
+        self.value2 = IntegerNumber(6)
         self.e = None
 
     def test_number_counting(self):

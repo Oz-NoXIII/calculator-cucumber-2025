@@ -8,7 +8,7 @@ class RealNumber(NumberType):
 
     _precision = 6
 
-    def __init__(self, value: float):
+    def __init__(self, value):
         if isinstance(value, str):
             match value:
                 case "pi":
@@ -71,7 +71,7 @@ class RealNumber(NumberType):
         return RealNumber(math.exp(self.value))
 
     def nroot(self, other):
-        if (other.get_value() == 0):
+        if other.get_value() == 0:
             return RealNumber(float("nan"))
         return RealNumber((self.value ** (1 / other.get_value())))
 
@@ -82,7 +82,7 @@ class RealNumber(NumberType):
         return RealNumber(math.cos(self.value))
 
     def tan(self):
-        if (abs(math.cos(self.value).real) <= 1e-14):
+        if abs(math.cos(self.value).real) <= 1e-14:
             return RealNumber(float("nan"))
         return RealNumber(math.tan(self.value))
 

@@ -5,7 +5,7 @@ from src.main.python.calculator.number_type import NumberType
 
 
 class ComplexNumber(NumberType):
-    def __init__(self, real: float, imag: float = 0.0):
+    def __init__(self, real, imag = 0.0):
         if isinstance(real, str):
             match real:
                 case "pi":
@@ -62,7 +62,7 @@ class ComplexNumber(NumberType):
         return ComplexNumber.from_complex(cmath.exp(self.value))
 
     def nroot(self, other):
-        if (other.get_value() == 0):
+        if other.get_value() == 0:
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(self.value ** (1 / other.get_value()))
 
@@ -74,7 +74,7 @@ class ComplexNumber(NumberType):
 
     def tan(self):
         print(cmath.cos(self.value))
-        if (abs(cmath.cos(self.value).real) <= 1e-14):
+        if abs(cmath.cos(self.value).real) <= 1e-14:
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(cmath.tan(self.value))
 

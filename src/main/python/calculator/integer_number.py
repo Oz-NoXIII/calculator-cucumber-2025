@@ -5,7 +5,7 @@ from src.main.python.calculator.number_type import NumberType
 
 
 class IntegerNumber(NumberType):
-    def __init__(self, value: int):
+    def __init__(self, value):
         if isinstance(value, str):
             match value:
                 case "pi":
@@ -60,7 +60,7 @@ class IntegerNumber(NumberType):
         return IntegerNumber(int(math.exp(self.value)))
 
     def nroot(self, other):
-        if (other.get_value() == 0):
+        if other.get_value() == 0:
             return Integernan()
         return IntegerNumber(int((self.value ** (1 / other.get_value()))))
 
