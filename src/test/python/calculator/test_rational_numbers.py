@@ -46,7 +46,11 @@ class TestRationalNumber(unittest.TestCase):
 
     def test_pi(self):
         a = RationalNumber("pi", 1)
-        self.assertEqual(a.get_value(), int(math.pi), 1)
+        self.assertEqual(a.get_value(), int(math.pi))
+
+    def test_pi_den(self):
+        a = RationalNumber(1, "pi")
+        self.assertEqual(a.get_value().denominator, int(math.pi))
 
     def test_pi_e(self):
         a = RationalNumber("pi", "e")
