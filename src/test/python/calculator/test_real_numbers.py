@@ -42,6 +42,14 @@ class TestRealNumber(unittest.TestCase):
         a = RealNumber("pi")
         self.assertEqual(a.get_value(), math.pi)
 
+    def test_error_str(self):
+        self.assertRaises(ValueError, lambda : RealNumber("mauvaise valeur"))
+
+    def test_rand(self):
+        a = RealNumber(10)
+        result = a.rand()
+        self.assertTrue(0 <= result.get_value() <= 1)
+
     def test_power(self):
         r1 = RealNumber(2.0)
         r2 = RealNumber(3.0)

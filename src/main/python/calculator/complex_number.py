@@ -1,4 +1,5 @@
 import cmath
+import random
 
 from src.main.python.calculator.number_type import NumberType
 
@@ -32,6 +33,10 @@ class ComplexNumber(NumberType):
         if other.get_value() == 0:
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(self.value / other.get_value())
+
+    def rand(self):
+        random.seed()
+        return ComplexNumber(random.randint(0, 100) / 100, random.randint(0, 100) / 100)
 
     def inverse(self):
         if self.value == 0:
