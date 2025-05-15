@@ -70,9 +70,9 @@ test: unit-test behave-test test-coverage serve-behave-test
 venv-test: venv-unit-test venv-behave-test venv-test-coverage venv-serve-behave-test
 
 # Run all tests (unit and behavior)
-test-action: unit-test behave-test test-coverage-xml
+test-action: unit-test behave-test
 
-venv-test-action: venv-unit-test venv-behave-test venv-test-coverage-xml
+venv-test-action: venv-unit-test venv-behave-test
 
 # Run unit tests
 unit-test:
