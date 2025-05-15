@@ -11,7 +11,7 @@ from src.main.python.calculator.tangent import Tangent
 from src.main.python.calculator.times import Times
 
 
-class TestSinus(unittest.TestCase):
+class TestTangent(unittest.TestCase):
 
     value1 = MyNumber(IntegerNumber(8))
 

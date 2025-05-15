@@ -11,7 +11,7 @@ from src.main.python.calculator.tangenthyperbolic import Tangenthyperbolic
 from src.main.python.calculator.times import Times
 
 
-class TestSinus(unittest.TestCase):
+class TestTangenteHyperbolic(unittest.TestCase):
 
     value1 = MyNumber(IntegerNumber(8))
 

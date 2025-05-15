@@ -11,7 +11,7 @@ from src.main.python.calculator.sinushyperbolic import Sinushyperbolic
 from src.main.python.calculator.times import Times
 
 
-class TestSinus(unittest.TestCase):
+class TestSinusHyperbolic(unittest.TestCase):
 
     value1 = MyNumber(IntegerNumber(8))
 

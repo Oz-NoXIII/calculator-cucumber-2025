@@ -52,7 +52,6 @@ def given_an_integer_operation(context, string):
 def given_the_following_list_of_integer_numbers(context):
     for value in context.table.headings:
         context.params.append(MyNumber(IntegerNumber(int(value))))
-        print(f"value = {value}")
     context.op = None
 
 

@@ -22,7 +22,6 @@ from src.main.python.calculator.nroot import Nroot
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
 from src.main.python.calculator.rand import Rand
-from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.sinushyperbolic import Sinushyperbolic
