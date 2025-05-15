@@ -217,6 +217,7 @@ class CalculatorREPL:
         | Cosinushyp     | cosh(a)             | cosh(a)             | (a)cosh             |
         | Tangenthyp     | tanh(a)             | tanh(a)             | (a)tanh             |
         | Nroot          | a nroot b           | nroot(a, b)         | (a, b)nroot         |
+        | Rand           | rand(a)             | rand(a)             | (a)rand             |
         +----------------+---------------------+---------------------+---------------------+
 
         Advanced Features:
