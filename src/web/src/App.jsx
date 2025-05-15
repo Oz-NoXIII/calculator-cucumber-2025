@@ -25,12 +25,12 @@ export default function App() {
 
   return (
     <>
-      <div className="px-6 py-6 bg-black/95 h-screen">
+      <div className="px-6 py-6 bg-black/95 h-screen overflow-hidden">
         <h1 className="text-4xl text-center text-white font-semibold">
           Calculator Cucumber
         </h1>
-        <div className="px-6 py-24 gap-20 grid grid-cols-2 h-full">
-          <div className="border max-w-3xl h-fit w-full rounded-lg bg-white flex flex-col justify-start items-center p-4 shadow-xs">
+        <div className="px-6 py-24 gap-20 grid grid-cols-2 items-stretch">
+          <div className="border max-w-3xl h-[600px] w-full rounded-lg bg-white flex flex-col justify-start items-center p-4 shadow-xs">
             <div className="mb-6 flex justify-center items-center w-full">
               <div className="flex justify-end items-center gap-1">
                 <button
@@ -102,12 +102,12 @@ export default function App() {
             {mode === 'matrix' && <MatrixCalculator />}
             {mode === 'random' && <RandomCalculator />}
 
-            <p className="mt-3 text-xs text-muted-foreground/40">
+            <p className="mt-auto text-xs text-muted-foreground/40">
               By Arsène Mujyabwami, Ingrid Fondja Tchoumba, Nicolas Delplanque
               and Xavier Delabie{' '}
             </p>
           </div>
-          <div className="flex flex-col gap-6 justify-start items-start h-full w-full bg-white rounded-md p-4">
+          <div className="flex flex-col gap-6 justify-start items-start h-[600px] w-full bg-white rounded-md p-4">
             <p className="text-lg font-medium">Helper</p>
             <Tabs
               defaultValue={tab}
