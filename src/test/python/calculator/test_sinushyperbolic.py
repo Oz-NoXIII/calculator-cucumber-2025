@@ -41,6 +41,23 @@ class TestSinus(unittest.TestCase):
         except IllegalConstruction as e:
             self.fail(e)
 
+    def test_sinushyperbolic(self):
+        p = MyNumber(RealNumber(0))
+        result = Sinushyperbolic([p], Notation.INFIX)
+        self.assertEqual(RealNumber(0).sinh().get_value(), result.op(RealNumber(0)).get_value())
+
+        p2 = MyNumber(IntegerNumber(0))
+        result2 = Sinushyperbolic([p2], Notation.INFIX)
+        self.assertEqual(IntegerNumber(0).sinh().get_value(), result2.op(IntegerNumber(0)).get_value())
+
+        p = MyNumber(ComplexNumber(0, 0))
+        result = Sinushyperbolic([p], Notation.INFIX)
+        self.assertEqual(ComplexNumber(0, 0).sinh().get_value(), result.op(ComplexNumber(0, 0)).get_value())
+
+        p = MyNumber(RationalNumber(0, 1))
+        result = Sinushyperbolic([p], Notation.INFIX)
+        self.assertEqual(RationalNumber(0, 1).sinh().get_value(), result.op(RationalNumber(0, 1)).get_value())
+
     def test_equals(self):
         p = [self.value1]
         try:

@@ -1,5 +1,6 @@
 import unittest
 
+from src.main.python.calculator.arcsinus import Arcsinus
 from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.illegal_construction import IllegalConstruction
 from src.main.python.calculator.integer_number import IntegerNumber
@@ -7,7 +8,6 @@ from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
-from src.main.python.calculator.arcsinus import Arcsinus
 from src.main.python.calculator.times import Times
 
 
@@ -33,6 +33,23 @@ class TestSinus(unittest.TestCase):
             self.op4 = Arcsinus(params4)
         except IllegalConstruction as e:
             self.fail(e)
+
+    def test_arcsinus(self):
+        p = MyNumber(RealNumber(0))
+        result = Arcsinus([p], Notation.INFIX)
+        self.assertEqual(RealNumber(0).arcsin().get_value(), result.op(RealNumber(0)).get_value())
+
+        p2 = MyNumber(IntegerNumber(0))
+        result2 = Arcsinus([p2], Notation.INFIX)
+        self.assertEqual(IntegerNumber(0).arcsin().get_value(), result2.op(IntegerNumber(0)).get_value())
+
+        p = MyNumber(ComplexNumber(0, 0))
+        result = Arcsinus([p], Notation.INFIX)
+        self.assertEqual(ComplexNumber(0, 0).arcsin().get_value(), result.op(ComplexNumber(0, 0)).get_value())
+
+        p = MyNumber(RationalNumber(0, 1))
+        result = Arcsinus([p], Notation.INFIX)
+        self.assertEqual(RationalNumber(0, 1).arcsin().get_value(), result.op(RationalNumber(0, 1)).get_value())
 
     def test_constructor(self):
         self.assertRaises(IllegalConstruction, lambda: Arcsinus(None))

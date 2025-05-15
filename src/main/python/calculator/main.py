@@ -2,6 +2,7 @@ import math
 
 import calculator
 
+from src.main.python.calculator.arcsinus import Arcsinus
 from src.main.python.calculator.complex_number import ComplexNumber
 from src.main.python.calculator.cosinus import Cosinus
 from src.main.python.calculator.divides import Divides
@@ -14,17 +15,17 @@ from src.main.python.calculator.logarithmNeperien import LogarithmNeperien
 from src.main.python.calculator.minus import Minus
 from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.notation import Notation
+from src.main.python.calculator.nroot import Nroot
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
+from src.main.python.calculator.rand import Rand
 from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.sinus import Sinus
+from src.main.python.calculator.tangent import Tangent
 from src.main.python.calculator.times import Times
 from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
-from src.main.python.calculator.tangent import Tangent
-from src.main.python.calculator.arcsinus import Arcsinus
-from src.main.python.calculator.nroot import Nroot
 
 try:
     e = MyNumber(RealNumber(8))
@@ -243,6 +244,15 @@ try:
 
     res3 = parse_expression('8 nroot 3')
     calculator.print_expression_details(res3)
+
+    # random
+    p = MyNumber(RealNumber(2))
+    e = Rand([p], Notation.INFIX)
+    calculator.print_expression_details(e)
+    calculator.eval_expression(e)
+
+    res4 = parse_expression('sin(pi)')
+    calculator.print_expression_details(res4)
 
 except IllegalConstruction:
     print("cannot create operations without parameters")

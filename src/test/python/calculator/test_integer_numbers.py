@@ -49,6 +49,14 @@ class TestIntegerNumber(unittest.TestCase):
         a = IntegerNumber("pi")
         self.assertEqual(a.get_value(), 3)
 
+    def test_error_str(self):
+        self.assertRaises(ValueError, lambda: IntegerNumber("mauvaise valeur"))
+
+    def test_rand(self):
+        a = IntegerNumber(10)
+        result = a.rand()
+        self.assertTrue(0 <= result.get_value() <= 10)
+
     def test_sinus(self):
         a = IntegerNumber(3)
         result = a.sin()
