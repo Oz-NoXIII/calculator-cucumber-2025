@@ -24,6 +24,7 @@
            | "cosh" "(" infix_expr ")"  -> cosh
            | "tanh" "(" infix_expr ")"  -> tanh
 
+
 ?infix_term: infix_term "*" infix_factor -> mul
            | infix_term "/" infix_factor -> div
            | infix_factor
@@ -57,6 +58,7 @@
             | "cosh" "(" prefix_expr ")"                         -> cosh
             | "tanh" "(" prefix_expr ")"                         -> tanh
 
+
 ?prefix_term: prefix_expr
             | prefix_factor
 
@@ -85,6 +87,7 @@
              |  "(" postfix_expr ")" "cosh"                     -> cosh
              |  "(" postfix_expr ")" "tanh"                     -> tanh
 
+
 ?postfix_term: postfix_expr
              | postfix_factor
 
@@ -101,10 +104,9 @@ STRING: /"[^"]*"/
        | DECIMAL       -> real_number
        | factor "j"    -> complex_number
        | matrix        -> matrix
-       | "e"           -> cst_e
-       | "pi"           -> cst_pi
        | "inv" "(" matrix ")" -> matrix_inverse
-
+       | "e"           -> cst_e
+       | "pi"          -> cst_pi
 
 ?matrix: "[" row ("," row)* "]"
 ?row: "[" factor ("," factor)* "]"

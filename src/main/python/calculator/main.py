@@ -251,5 +251,8 @@ try:
     calculator.print_expression_details(e)
     calculator.eval_expression(e)
 
+    res4 = parse_expression('sin(pi)')
+    calculator.print_expression_details(res4)
+
 except IllegalConstruction:
     print("cannot create operations without parameters")
