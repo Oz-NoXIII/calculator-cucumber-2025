@@ -11,7 +11,7 @@ from src.main.python.calculator.rational_number import RationalNumber
 from src.main.python.calculator.real_number import RealNumber
 
 
-class TestTimes(unittest.TestCase):
+class TestNroot(unittest.TestCase):
 
     value1 = MyNumber(IntegerNumber(8))
     value2 = MyNumber(IntegerNumber(6))

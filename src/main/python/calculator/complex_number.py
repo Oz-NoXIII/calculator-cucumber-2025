@@ -73,7 +73,6 @@ class ComplexNumber(NumberType):
         return ComplexNumber.from_complex(cmath.cos(self.value))
 
     def tan(self):
-        print(cmath.cos(self.value))
         if abs(cmath.cos(self.value).real) <= 1e-14:
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(cmath.tan(self.value))

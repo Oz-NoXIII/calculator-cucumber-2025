@@ -11,7 +11,7 @@ from src.main.python.calculator.real_number import RealNumber
 from src.main.python.calculator.times import Times
 
 
-class TestCosinus(unittest.TestCase):
+class TestCosinusHyperbolic(unittest.TestCase):
 
     value1 = MyNumber(IntegerNumber(8))
 

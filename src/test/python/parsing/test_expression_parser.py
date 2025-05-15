@@ -79,7 +79,6 @@ class TestExpressionParser(unittest.TestCase):
     def test_parse_expression_with_negation(self):
         expr_str = "(- 1) + 2 * 3j"
         result = parse_expression(expr_str)
-        print(result)
         self.assertIsInstance(result, Plus)
         self.assertEqual(len(result.get_args()), 2)
         self.assertIsInstance(result.get_args()[0], Times)
