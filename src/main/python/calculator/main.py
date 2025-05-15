@@ -24,6 +24,7 @@ from src.main.python.parsing.expression_parser import parse_expression
 from src.main.python.visitor.evaluator import Evaluator
 from src.main.python.calculator.tangent import Tangent
 from src.main.python.calculator.arcsinus import Arcsinus
+from src.main.python.calculator.nroot import Nroot
 
 try:
     e = MyNumber(RealNumber(8))
@@ -232,10 +233,16 @@ try:
     calculator.eval_expression(e)
 
     # n-th root : 8 n-th root 3
-    rnR = MyNumber(IntegerNumber(8), IntegerNumber(3))
-    e = NRoot([rnR], Notation.INFIX)
-    calculator.print_expression_details(e)
+    nth = [MyNumber(RealNumber(8)), MyNumber(RealNumber(3))]
+    e = Nroot(nth)
+    calculator.print_result(e)
     calculator.eval_expression(e)
+
+    res2 = parse_expression('sin(0)')
+    calculator.print_expression_details(res2)
+
+    res3 = parse_expression('8 nroot 3')
+    calculator.print_expression_details(res3)
 
 except IllegalConstruction:
     print("cannot create operations without parameters")
