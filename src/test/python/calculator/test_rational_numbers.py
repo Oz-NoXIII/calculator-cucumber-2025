@@ -42,11 +42,15 @@ class TestRationalNumber(unittest.TestCase):
 
     def test_e(self):
         a = RationalNumber("e", 1)
-        self.assertEqual(a.get_value().real, Fraction(int(math.e), 1))
+        self.assertEqual(a.get_value(), int(math.e))
 
     def test_pi(self):
         a = RationalNumber("pi", 1)
-        self.assertEqual(a.get_value().real, Fraction(int(math.pi), 1))
+        self.assertEqual(a.get_value(), int(math.pi))
+
+    def test_pi_den(self):
+        a = RationalNumber(1, "pi")
+        self.assertEqual(a.get_value().denominator, int(math.pi))
 
     def test_pi_e(self):
         a = RationalNumber("pi", "e")
@@ -54,7 +58,7 @@ class TestRationalNumber(unittest.TestCase):
         self.assertEqual(a.get_value().denominator, int(math.e))
 
     def test_error_str(self):
-        self.assertRaises(ValueError, lambda : RationalNumber("mauvaise valeur", 1))
+        self.assertRaises(ValueError, lambda: RationalNumber("mauvaise valeur", 1))
 
     def test_rand(self):
         a = RationalNumber(10, 7)

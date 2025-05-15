@@ -1,3 +1,4 @@
+import math
 import unittest
 
 from lark.exceptions import VisitError
@@ -177,6 +178,16 @@ class TestExpressionParser(unittest.TestCase):
         self.assertIsInstance(result, LogarithmNeperien)
         self.assertEqual(len(result.get_args()), 1)
         self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_e(self):
+        expr_str = "e"
+        result = parse_expression(expr_str)
+        self.assertEqual(result.get_value(), math.e)
+
+    def test_parse_pi(self):
+        expr_str = "pi"
+        result = parse_expression(expr_str)
+        self.assertEqual(result.get_value(), math.pi)
 
     def test_parse_expression_nroot(self):
         expr_str = "8 nroot 3"

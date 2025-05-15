@@ -47,7 +47,7 @@ class TestRand(unittest.TestCase):
         self.assertTrue(0 <= result.op(RealNumber(0)).get_value() <= 1)
 
         p2 = MyNumber(IntegerNumber(10))
-        result2 = Rand([p2], Notation.INFIX)
+        result = Rand([p2], Notation.INFIX)
         self.assertTrue(0 <= result.op(IntegerNumber(0)).get_value() <= 10)
 
         p = MyNumber(ComplexNumber(0, 0))
