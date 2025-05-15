@@ -57,8 +57,11 @@ class TestRationalNumber(unittest.TestCase):
         self.assertEqual(a.get_value().numerator, int(math.pi))
         self.assertEqual(a.get_value().denominator, int(math.e))
 
-    def test_error_str(self):
+    def test_error_str_num(self):
         self.assertRaises(ValueError, lambda: RationalNumber("mauvaise valeur", 1))
+
+    def test_error_str_den(self):
+        self.assertRaises(ValueError, lambda: RationalNumber(1, "mauvaise valeur"))
 
     def test_rand(self):
         a = RationalNumber(10, 7)
