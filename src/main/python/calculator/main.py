@@ -254,5 +254,8 @@ try:
     res4 = parse_expression('sin(pi)')
     calculator.print_expression_details(res4)
 
+    res5 = parse_expression('rand(5)')
+    calculator.print_expression_details(res5)
+
 except IllegalConstruction:
     print("cannot create operations without parameters")

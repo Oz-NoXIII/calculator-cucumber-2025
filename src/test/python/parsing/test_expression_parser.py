@@ -19,6 +19,7 @@ from src.main.python.calculator.my_number import MyNumber
 from src.main.python.calculator.nroot import Nroot
 from src.main.python.calculator.plus import Plus
 from src.main.python.calculator.power import Power
+from src.main.python.calculator.rand import Rand
 from src.main.python.calculator.sinus import Sinus
 from src.main.python.calculator.sinushyperbolic import Sinushyperbolic
 from src.main.python.calculator.tangent import Tangent
@@ -176,6 +177,13 @@ class TestExpressionParser(unittest.TestCase):
         expr_str = "ln(0)"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, LogarithmNeperien)
+        self.assertEqual(len(result.get_args()), 1)
+        self.assertIsInstance(result.get_args()[0], MyNumber)
+
+    def test_parse_expression_ln(self):
+        expr_str = "rand(10)"
+        result = parse_expression(expr_str)
+        self.assertIsInstance(result, Rand)
         self.assertEqual(len(result.get_args()), 1)
         self.assertIsInstance(result.get_args()[0], MyNumber)
 
