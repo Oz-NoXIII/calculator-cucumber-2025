@@ -41,6 +41,23 @@ class TestCosinus(unittest.TestCase):
         except IllegalConstruction as e:
             self.fail(e)
 
+    def test_cosinus(self):
+        p = MyNumber(RealNumber(0))
+        result = Cosinus([p], Notation.INFIX)
+        self.assertEqual(RealNumber(0).cos().get_value(), result.op(RealNumber(0)).get_value())
+
+        p2 = MyNumber(IntegerNumber(0))
+        result2 = Cosinus([p2], Notation.INFIX)
+        self.assertEqual(IntegerNumber(0).cos().get_value(), result2.op(IntegerNumber(0)).get_value())
+
+        p = MyNumber(ComplexNumber(0, 0))
+        result = Cosinus([p], Notation.INFIX)
+        self.assertEqual(ComplexNumber(0, 0).cos().get_value(), result.op(ComplexNumber(0, 0)).get_value())
+
+        p = MyNumber(RationalNumber(0, 1))
+        result = Cosinus([p], Notation.INFIX)
+        self.assertEqual(RationalNumber(0, 1).cos().get_value(), result.op(RationalNumber(0, 1)).get_value())
+
     def test_equals(self):
         p = [self.value1]
         try:
