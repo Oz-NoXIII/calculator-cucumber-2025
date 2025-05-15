@@ -5,7 +5,7 @@ from src.main.python.calculator.number_type import NumberType
 
 
 class ComplexNumber(NumberType):
-    def __init__(self, real, imag = 0.0):
+    def __init__(self, real, imag=0.0):
         if isinstance(real, str):
             match real:
                 case "pi":

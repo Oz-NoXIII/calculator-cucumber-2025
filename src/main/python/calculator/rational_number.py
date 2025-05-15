@@ -6,7 +6,7 @@ from src.main.python.calculator.number_type import NumberType
 
 
 class RationalNumber(NumberType):
-    def __init__(self, numerator, denominator = 1):
+    def __init__(self, numerator, denominator=1):
         n = numerator
         d = denominator
         if isinstance(numerator, str):
