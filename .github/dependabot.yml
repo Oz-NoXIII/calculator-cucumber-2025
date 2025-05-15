@@ -7,15 +7,13 @@ version: 2
 updates:
 
   # Maintain dependencies for Maven
-  - package-ecosystem: "maven" # See documentation for possible values
+  - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
     commit-message:
       # Prefix all commit messages with "maven: "
-      prefix: "maven"
-    # Allow up to 10 open pull requests for maven dependencies (default is 5)
-    open-pull-requests-limit: 10
+      prefix: "pip"
 
       
   # Maintain dependencies for GitHub Actions
