@@ -69,13 +69,11 @@ class ExprTransformer(Transformer):
     def div(self, args):
         return Divides(args)
 
-    @v_args(inline=True)
     def cst_e(self, args):
-        return MyNumber(args)
+        return MyNumber(RealNumber("e"))
 
-    @v_args(inline=True)
     def cst_pi(self, args):
-        return MyNumber(args)
+        return MyNumber(RealNumber("pi"))
 
     def nroot(self, args):
         return Nroot(args)
