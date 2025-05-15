@@ -180,7 +180,7 @@ class TestExpressionParser(unittest.TestCase):
         self.assertEqual(len(result.get_args()), 1)
         self.assertIsInstance(result.get_args()[0], MyNumber)
 
-    def test_parse_expression_ln(self):
+    def test_parse_expression_rand(self):
         expr_str = "rand(10)"
         result = parse_expression(expr_str)
         self.assertIsInstance(result, Rand)

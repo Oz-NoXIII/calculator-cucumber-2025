@@ -6,7 +6,7 @@ from src.main.python.calculator.number_type import NumberType
 
 
 class RationalNumber(NumberType):
-    def __init__(self, numerator: int, denominator: int = 1):
+    def __init__(self, numerator, denominator = 1):
         n = numerator
         d = denominator
         if isinstance(numerator, str):
@@ -82,7 +82,7 @@ class RationalNumber(NumberType):
         return RationalNumber(frac.numerator, frac.denominator)
 
     def nroot(self, other):
-        if (other.get_value() == 0):
+        if other.get_value() == 0:
             return RationalNumber(0, 1).set_nan()
         return RationalNumber((self.value ** (1 / other.get_value())))
 

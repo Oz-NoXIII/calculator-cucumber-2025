@@ -24,7 +24,7 @@ class LogarithmNeperien(Function):
     def op(self, base):
         """
         The actual computation of the logarithm neperien of one integers
-        :param l: The first integer
-        :return: The integer that is the result of the logarithm neperien
+        :param base: The number to which the logarithm neperien is applied to
+        :return: The integer that is the result of the logarithm neperien of the base
         """
         return base.ln()

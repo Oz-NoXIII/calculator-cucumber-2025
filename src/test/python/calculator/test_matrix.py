@@ -212,6 +212,9 @@ class TestMatrixOperations(unittest.TestCase):
     def test_accept(self):
 
         class TestVisitor:
+            def __init__(self):
+                self.visited = None
+
             def visit_matrix(self, matrix):
                 self.visited = matrix
 
