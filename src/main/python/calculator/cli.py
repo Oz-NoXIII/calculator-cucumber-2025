@@ -87,7 +87,6 @@ class CalculatorREPL:
             f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples."
         )
 
-
     def _print_help(self):
         """Prints available commands."""
         help_text = """
@@ -133,12 +132,17 @@ class CalculatorREPL:
         - Nested operations:  *(2, +(3, 4))  → 14
         - Complex numbers:    3.5j
         - Parentheses:        (2 + 3) * 4
+        - Matrix:             [[1,2,5],[3,4,6]]
+            Matrices support addition, subtraction, multiplication,
+            inverse and transpose operations in all notations.
+        - Equations system:   solve_linear("eq1; eq2; eq3; eq4; ...")
 
         Examples:
         ---------
         Infix:       3 * (4 + 5) ^ 2
         Prefix:      *(3, ^(+(4, 5), 2))
         Postfix:     (3, ((4, 5)+, 2)^)*
+        Equations system: solve_linear("2x+3y=5; 3x-4z=7; y+z=10")
         [[1,2],[3,4]] * [[5,6],[7,8]]
         [[1,2],[3,4]] + [[5,6],[7,8]]
         [[1,2],[3,4]] - [[5,6],[7,8]]
@@ -149,13 +153,6 @@ class CalculatorREPL:
         -----------------
         help   - Show this help message
         quit   - Exit the calculator
-        solve_linear("2x+3y=5; 3x-4z=7; y+z=10") linear equation solving mode.
-        matrixA + matrixB          - Add two matrices A and B
-        matrixA * matrixB         - Multiply two matrices A and B
-        matrixA - matrixB         - Subtract two matrices A and B
-        transpose(A)           - Transpose matrix A
-        inv(A)             - Invert matrix A
-
         """
         print(help_text)
 
