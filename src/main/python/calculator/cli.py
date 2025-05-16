@@ -5,7 +5,6 @@ from rich.console import Console
 
 from src.main.python.calculator import calculator
 from src.main.python.calculator.integer_number import IntegerNumber
-from src.main.python.calculator.linear_solver import LinearEquationSolver
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.parsing.expression_parser import parse_expression
 
@@ -88,36 +87,6 @@ class CalculatorREPL:
             f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples."
         )
 
-    def _linear_mode(self):
-        print("Enter each equation on a new line.")
-        print("Type 'ok' when finished.\n")
-
-        equations = []
-        while True:
-            line = input("eq> ").strip()
-            if line.lower() == "ok":
-                break
-            if line:
-                equations.append(line)
-
-        if not equations:
-            print("No equations entered.")
-            return
-
-        try:
-            solver = LinearEquationSolver(equations)
-            result = solver.solve()
-
-            if isinstance(result, dict):
-                print("Solution:")
-                for var, val in result.items():
-                    print(f"  {var} = {val}")
-            else:
-                print(result)
-        except Exception:
-            print(
-                f"Linear mode error: '{equations}' is an invalid expression. \nType 'help' for examples."
-            )
 
     def _print_help(self):
         """Prints available commands."""
