@@ -46,7 +46,7 @@ class IntegerNumber(NumberType):
     def pow(self, other):
         try:
             return IntegerNumber(self.value ** other.get_value())
-        except:
+        except Exception:
             return Integernan()
 
     def log(self):

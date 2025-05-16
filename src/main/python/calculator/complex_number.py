@@ -46,19 +46,19 @@ class ComplexNumber(NumberType):
     def pow(self, other):
         try:
             return ComplexNumber.from_complex(self.value ** other.get_value())
-        except:
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
 
     def log(self):
         try:
             return ComplexNumber.from_complex(cmath.log10(self.value))
-        except:
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
 
     def ln(self):
         try:
             return ComplexNumber.from_complex(cmath.log(self.value))
-        except:
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
 
     def exp(self):
@@ -67,7 +67,7 @@ class ComplexNumber(NumberType):
     def nroot(self, other):
         try:
             return ComplexNumber.from_complex(self.value ** (1 / other.get_value()))
-        except:
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
 
     def sin(self):

@@ -53,7 +53,7 @@ class RealNumber(NumberType):
     def pow(self, other):
         try:
             return RealNumber(self.value ** other.get_value())
-        except:
+        except Exception:
             return RealNumber(float("nan"))
 
     def rand(self):
@@ -76,7 +76,7 @@ class RealNumber(NumberType):
     def nroot(self, other):
         try:
             return RealNumber((self.value ** (1 / other.get_value())))
-        except:
+        except Exception:
             return RealNumber(float("nan"))
 
     def sin(self):
