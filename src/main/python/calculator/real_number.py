@@ -51,7 +51,10 @@ class RealNumber(NumberType):
         return RealNumber(self.value / divisor)
 
     def pow(self, other):
-        return RealNumber(self.value ** other.get_value())
+        try:
+            return RealNumber(self.value ** other.get_value())
+        except:
+            return RealNumber(float("nan"))
 
     def rand(self):
         random.seed()

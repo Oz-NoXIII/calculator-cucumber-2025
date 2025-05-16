@@ -44,19 +44,22 @@ class ComplexNumber(NumberType):
         return ComplexNumber.from_complex(1 / self.value)
 
     def pow(self, other):
-        if other.get_value() == 0:
+        try:
+            return ComplexNumber.from_complex(self.value ** other.get_value())
+        except:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(self.value ** other.get_value())
 
     def log(self):
-        if self.value == 0:
+        try:
+            return ComplexNumber.from_complex(cmath.log10(self.value))
+        except:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(cmath.log10(self.value))
 
     def ln(self):
-        if self.value == 0:
+        try:
+            return ComplexNumber.from_complex(cmath.log(self.value))
+        except:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(cmath.log(self.value))
 
     def exp(self):
         return ComplexNumber.from_complex(cmath.exp(self.value))

@@ -62,8 +62,11 @@ class RationalNumber(NumberType):
         return RationalNumber(random.randint(0, self.value.numerator), random.randint(1, self.value.denominator))
 
     def pow(self, other):
-        frac = Fraction(self.value ** other.get_value())
-        return RationalNumber(frac.numerator, frac.denominator)
+        try:
+            frac = Fraction(self.value ** other.get_value())
+            return RationalNumber(frac.numerator, frac.denominator)
+        except:
+            return RationalNumber(0, 1).set_nan()
 
     def log(self):
         if self.value <= 0:

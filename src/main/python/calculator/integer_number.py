@@ -44,7 +44,10 @@ class IntegerNumber(NumberType):
         return IntegerNumber(random.randint(0, self.value))
 
     def pow(self, other):
-        return IntegerNumber(self.value ** other.get_value())
+        try:
+            return IntegerNumber(self.value ** other.get_value())
+        except:
+            return Integernan()
 
     def log(self):
         if self.value <= 0:
