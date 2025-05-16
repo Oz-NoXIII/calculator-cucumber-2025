@@ -129,10 +129,11 @@ class TestComplexNumber(unittest.TestCase):
         result = a.exp()
         self.assertEqual(result.get_value(), complex(cmath.e, 0))
 
-    def test_exponent_by_zero(self):
-        a = ComplexNumber(0, 0)
-        result = a.exp()
-        self.assertEqual(result.get_value(), complex(1, 0))
+    def test_power_by_zero(self):
+        a = ComplexNumber(0, 0).set_nan()
+        b = ComplexNumber(0, 0).set_nan()
+        result = a.pow(b)
+        self.assertTrue(result.is_nan())
 
     def test_nroot(self):
         a = ComplexNumber(8, 0)

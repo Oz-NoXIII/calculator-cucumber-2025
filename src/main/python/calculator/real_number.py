@@ -51,7 +51,10 @@ class RealNumber(NumberType):
         return RealNumber(self.value / divisor)
 
     def pow(self, other):
-        return RealNumber(self.value ** other.get_value())
+        try:
+            return RealNumber(self.value ** other.get_value())
+        except:
+            return RealNumber(float("nan"))
 
     def rand(self):
         random.seed()
@@ -71,9 +74,10 @@ class RealNumber(NumberType):
         return RealNumber(math.exp(self.value))
 
     def nroot(self, other):
-        if other.get_value() == 0:
+        try:
+            return RealNumber((self.value ** (1 / other.get_value())))
+        except:
             return RealNumber(float("nan"))
-        return RealNumber((self.value ** (1 / other.get_value())))
 
     def sin(self):
         return RealNumber(math.sin(self.value))

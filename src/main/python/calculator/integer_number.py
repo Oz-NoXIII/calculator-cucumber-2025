@@ -44,7 +44,10 @@ class IntegerNumber(NumberType):
         return IntegerNumber(random.randint(0, self.value))
 
     def pow(self, other):
-        return IntegerNumber(self.value ** other.get_value())
+        try:
+            return IntegerNumber(self.value ** other.get_value())
+        except:
+            return Integernan()
 
     def log(self):
         if self.value <= 0:
@@ -60,9 +63,11 @@ class IntegerNumber(NumberType):
         return IntegerNumber(int(math.exp(self.value)))
 
     def nroot(self, other):
-        if other.get_value() == 0:
+        try:
+            result = IntegerNumber(int(self.value ** (1/other.get_value())))
+            return result
+        except Exception:
             return Integernan()
-        return IntegerNumber(int((self.value ** (1 / other.get_value()))))
 
     def sin(self):
         return IntegerNumber(int(math.sin(self.value)))
