@@ -12,6 +12,19 @@
            | "inv" "(" infix_expr ")"    -> inverse
            | "transpose" "(" infix_expr ")" -> transpose
            | "(" "-" infix_expr ")"      -> neg
+           | "log" "(" infix_expr ")"  -> log
+           | "ln" "(" infix_expr ")"  -> ln
+           | "sin" "(" infix_expr ")"  -> sin
+           | "cos" "(" infix_expr ")"  -> cos
+           | "tan" "(" infix_expr ")"  -> tan
+           | "arcsin" "(" infix_expr ")"  -> arcsin
+           | "arccos" "(" infix_expr ")"  -> arccos
+           | "arctan" "(" infix_expr ")"  -> arctan
+           | "sinh" "(" infix_expr ")"  -> sinh
+           | "cosh" "(" infix_expr ")"  -> cosh
+           | "tanh" "(" infix_expr ")"  -> tanh
+           | "rand" "(" infix_expr ")"   -> rand
+
 
 ?infix_term: infix_term "*" infix_factor -> mul
            | infix_term "/" infix_factor -> div
@@ -20,6 +33,7 @@
 
 ?infix_factor: factor
              | infix_factor "^" infix_factor -> pow
+             | infix_factor "nroot" infix_factor -> nroot
              | "(" "-" factor ")"                    -> neg
              | "(" infix_expr ")"
 
@@ -29,9 +43,22 @@
             | "*" "(" prefix_term (","? prefix_term)+ ")"   -> mul
             | "/" "(" prefix_term (","? prefix_term)+ ")"   -> div
             | "^" "(" prefix_term (","? prefix_term)+ ")"   -> pow
+            | "nroot" "(" prefix_term (","? prefix_term)+ ")"   -> nroot
             | "inv" "(" prefix_expr ")"                     -> inverse
             | "transpose" "(" prefix_expr ")"               -> transpose
             | "(" "-" prefix_expr ")"                      -> neg
+            | "log" "(" prefix_expr ")"                          -> log
+            | "ln" "(" prefix_expr ")"                           -> ln
+            | "sin" "(" prefix_expr ")"                           -> sin
+            | "cos" "(" prefix_expr ")"                           -> cos
+            | "tan" "(" prefix_expr ")"                           -> tan
+            | "arcsin" "(" prefix_expr ")"                       -> arcsin
+            | "arccos" "(" prefix_expr ")"                        -> arccos
+            | "arctan" "(" prefix_expr ")"                        -> arctan
+            | "sinh" "(" prefix_expr ")"                         -> sinh
+            | "cosh" "(" prefix_expr ")"                         -> cosh
+            | "tanh" "(" prefix_expr ")"                         -> tanh
+            | "rand" "(" prefix_expr ")"                                   -> rand
 
 ?prefix_term: prefix_expr
             | prefix_factor
@@ -45,9 +72,23 @@
              | "(" postfix_term (","? postfix_term)+ ")" "*"   -> mul
              | "(" postfix_term (","? postfix_term)+ ")" "/"   -> div
              | "(" postfix_term (","? postfix_term)+ ")" "^"   -> pow
+             | "(" postfix_term (","? postfix_term)+ ")" "nroot"   -> nroot
              | "inv" "(" postfix_expr ")"                      -> inverse
              | "transpose" "(" postfix_expr ")"               -> transpose
              | "(" postfix_expr "-" ")"                       -> neg
+             |  "(" postfix_expr ")" "log"                      -> log
+             |  "(" postfix_expr ")" "ln"                       -> ln
+             |  "(" postfix_expr ")" "sin"                      -> sin
+             |  "(" postfix_expr ")" "cos"                      -> cos
+             |  "(" postfix_expr ")" "tan"                      -> tan
+             |  "(" postfix_expr ")" "arcsin"                   -> arcsin
+             |  "(" postfix_expr ")" "arccos"                   -> arccos
+             |  "(" postfix_expr ")" "arctan"                   -> arctan
+             |  "(" postfix_expr ")" "sinh"                     -> sinh
+             |  "(" postfix_expr ")" "cosh"                     -> cosh
+             |  "(" postfix_expr ")" "tanh"                     -> tanh
+             |  "(" postfix_expr ")" "rand"                                  -> rand
+
 
 ?postfix_term: postfix_expr
              | postfix_factor
@@ -66,7 +107,8 @@ STRING: /"[^"]*"/
        | factor "j"    -> complex_number
        | matrix        -> matrix
        | "inv" "(" matrix ")" -> matrix_inverse
-
+       | "e"           -> cst_e
+       | "pi"          -> cst_pi
 
 ?matrix: "[" row ("," row)* "]"
 ?row: "[" factor ("," factor)* "]"

@@ -1,4 +1,5 @@
 import math
+import random
 
 from src.main.python.calculator.number_type import NumberType
 
@@ -7,7 +8,7 @@ class RealNumber(NumberType):
 
     _precision = 6
 
-    def __init__(self, value: float):
+    def __init__(self, value):
         if isinstance(value, str):
             match value:
                 case "pi":
@@ -50,7 +51,14 @@ class RealNumber(NumberType):
         return RealNumber(self.value / divisor)
 
     def pow(self, other):
-        return RealNumber(self.value ** other.get_value())
+        try:
+            return RealNumber(self.value ** other.get_value())
+        except Exception:
+            return RealNumber(float("nan"))
+
+    def rand(self):
+        random.seed()
+        return RealNumber(random.randint(0, 100) / 100)
 
     def log(self):
         if self.value <= 0:
@@ -65,11 +73,44 @@ class RealNumber(NumberType):
     def exp(self):
         return RealNumber(math.exp(self.value))
 
+    def nroot(self, other):
+        try:
+            return RealNumber((self.value ** (1 / other.get_value())))
+        except Exception:
+            return RealNumber(float("nan"))
+
     def sin(self):
         return RealNumber(math.sin(self.value))
 
     def cos(self):
         return RealNumber(math.cos(self.value))
+
+    def tan(self):
+        if abs(math.cos(self.value).real) <= 1e-14:
+            return RealNumber(float("nan"))
+        return RealNumber(math.tan(self.value))
+
+    def arcsin(self):
+        if not (-1 <= self.value <= 1):
+            return RealNumber(float("nan"))
+        return RealNumber(math.asin(self.value))
+
+    def arccos(self):
+        if not (-1 <= self.value <= 1):
+            return RealNumber(float("nan"))
+        return RealNumber(math.acos(self.value))
+
+    def arctan(self):
+        return RealNumber(math.atan(self.value))
+
+    def sinh(self):
+        return RealNumber(math.sinh(self.value))
+
+    def cosh(self):
+        return RealNumber(math.cosh(self.value))
+
+    def tanh(self):
+        return RealNumber(math.tanh(self.value))
 
     def inverse(self):
         if self.value == 0.0:

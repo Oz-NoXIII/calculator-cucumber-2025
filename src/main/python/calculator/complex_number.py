@@ -1,18 +1,19 @@
 import cmath
+import random
 
 from src.main.python.calculator.number_type import NumberType
 
 
 class ComplexNumber(NumberType):
-    def __init__(self, real: float, imag: float = 0.0):
+    def __init__(self, real, imag=0.0):
         if isinstance(real, str):
-            match value:
+            match real:
                 case "pi":
                     self.value = complex(cmath.pi, 0)
                 case "e":
                     self.value = complex(cmath.e, 0)
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {real}")
         else:
             self.value = complex(real, imag)
 
@@ -33,34 +34,70 @@ class ComplexNumber(NumberType):
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(self.value / other.get_value())
 
+    def rand(self):
+        random.seed()
+        return ComplexNumber(random.randint(0, 100) / 100, random.randint(0, 100) / 100)
+
     def inverse(self):
         if self.value == 0:
             return ComplexNumber(0, 0).set_nan()
         return ComplexNumber.from_complex(1 / self.value)
 
     def pow(self, other):
-        if other.get_value() == 0:
+        try:
+            return ComplexNumber.from_complex(self.value ** other.get_value())
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(self.value ** other.get_value())
 
     def log(self):
-        if self.value == 0:
+        try:
+            return ComplexNumber.from_complex(cmath.log10(self.value))
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(cmath.log10(self.value))
 
     def ln(self):
-        if self.value == 0:
+        try:
+            return ComplexNumber.from_complex(cmath.log(self.value))
+        except Exception:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(cmath.log(self.value))
 
     def exp(self):
         return ComplexNumber.from_complex(cmath.exp(self.value))
+
+    def nroot(self, other):
+        try:
+            return ComplexNumber.from_complex(self.value ** (1 / other.get_value()))
+        except Exception:
+            return ComplexNumber(0, 0).set_nan()
 
     def sin(self):
         return ComplexNumber.from_complex(cmath.sin(self.value))
 
     def cos(self):
         return ComplexNumber.from_complex(cmath.cos(self.value))
+
+    def tan(self):
+        if abs(cmath.cos(self.value).real) <= 1e-14:
+            return ComplexNumber(0, 0).set_nan()
+        return ComplexNumber.from_complex(cmath.tan(self.value))
+
+    def arcsin(self):
+        return ComplexNumber.from_complex(cmath.asin(self.value))
+
+    def arccos(self):
+        return ComplexNumber.from_complex(cmath.acos(self.value))
+
+    def arctan(self):
+        return ComplexNumber.from_complex(cmath.atan(self.value))
+
+    def sinh(self):
+        return ComplexNumber.from_complex(cmath.sinh(self.value))
+
+    def cosh(self):
+        return ComplexNumber.from_complex(cmath.cosh(self.value))
+
+    def tanh(self):
+        return ComplexNumber.from_complex(cmath.tanh(self.value))
 
     def modulus(self):
         return abs(self.value)

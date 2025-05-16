@@ -24,9 +24,9 @@ class Power(Operation):
     def op(self, base, exponent):
         """
         The actual computation of the power of two integers
-        :param l: The first integer
-        :param r: The second integer that should be powered to the first
-        :return: The integer that is the result of the power
+        :param base: The base
+        :param exponent: The exponent
+        :return: The result of the base to the power of the exponent
         """
 
         return base.pow(exponent)
