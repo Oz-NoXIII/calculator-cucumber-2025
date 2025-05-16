@@ -85,7 +85,7 @@ class CalculatorREPL:
             try:
                 parsed_expr = parse_expression(input_str)
                 calculator.print_result(parsed_expr)
-            except Exception as input_str:
+            except Exception:
                 self._handle_parse_error(input_str)
 
     def _handle_parse_error(self, error):
@@ -113,8 +113,8 @@ class CalculatorREPL:
                     print(f"  {var} = {val}")
             else:
                 print(result)
-        except Exception as e:
-            print(f"Error: {e}")
+        except Exception:
+            print(f"Linear equation error: '{raw_input}' is an invalid expression. \nType 'help' for examples.")
 
     def _handle_matrix_command(self, command_str):
 
@@ -149,8 +149,8 @@ class CalculatorREPL:
             for row in result.data:
                 print(row)
 
-        except Exception as e:
-            print(f"Matrix error: {e}")
+        except Exception:
+            print(f"Matrix error: '{command_str}' is an invalid expression. \nType 'help' for examples.")
 
     def _linear_mode(self):
         print("Enter each equation on a new line.")
@@ -178,8 +178,8 @@ class CalculatorREPL:
                     print(f"  {var} = {val}")
             else:
                 print(result)
-        except Exception as e:
-            print(f"Error: {e}")
+        except Exception:
+            print(f"Linear mode error: '{equations}' is an invalid expression. \nType 'help' for examples.")
 
     def _print_help(self):
         """Prints available commands."""
