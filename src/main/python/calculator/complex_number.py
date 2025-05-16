@@ -62,9 +62,10 @@ class ComplexNumber(NumberType):
         return ComplexNumber.from_complex(cmath.exp(self.value))
 
     def nroot(self, other):
-        if other.get_value() == 0:
+        try:
+            return ComplexNumber.from_complex(self.value ** (1 / other.get_value()))
+        except:
             return ComplexNumber(0, 0).set_nan()
-        return ComplexNumber.from_complex(self.value ** (1 / other.get_value()))
 
     def sin(self):
         return ComplexNumber.from_complex(cmath.sin(self.value))

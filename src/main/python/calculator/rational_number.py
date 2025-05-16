@@ -82,9 +82,10 @@ class RationalNumber(NumberType):
         return RationalNumber(frac.numerator, frac.denominator)
 
     def nroot(self, other):
-        if other.get_value() == 0:
+        try:
+            return RationalNumber((self.value ** (1 / other.get_value())))
+        except:
             return RationalNumber(0, 1).set_nan()
-        return RationalNumber((self.value ** (1 / other.get_value())))
 
     def sin(self):
         frac = Fraction(math.sin(self.value))

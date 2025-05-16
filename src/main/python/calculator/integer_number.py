@@ -60,9 +60,11 @@ class IntegerNumber(NumberType):
         return IntegerNumber(int(math.exp(self.value)))
 
     def nroot(self, other):
-        if other.get_value() == 0:
+        try:
+            result = IntegerNumber(int(self.value ** (1/other.get_value())))
+            return result
+        except Exception:
             return Integernan()
-        return IntegerNumber(int((self.value ** (1 / other.get_value()))))
 
     def sin(self):
         return IntegerNumber(int(math.sin(self.value)))
