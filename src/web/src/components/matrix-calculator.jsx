@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { EqualIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 const MatrixInput = ({ matrix, setMatrix, rows, cols }) => {
   const handleChange = (rowIndex, colIndex, value) => {
@@ -34,19 +35,17 @@ const MatrixInput = ({ matrix, setMatrix, rows, cols }) => {
 export default function MatrixCalculator() {
   const [expression, setExpression] = useState('');
   const [operation, setOperation] = useState('+');
-  const [matrixARows, setMatrixARows] = useState(3);
-  const [matrixACols, setMatrixACols] = useState(3);
-  const [matrixBRows, setMatrixBRows] = useState(3);
-  const [matrixBCols, setMatrixBCols] = useState(3);
+  const [matrixARows, setMatrixARows] = useState(2);
+  const [matrixACols, setMatrixACols] = useState(2);
+  const [matrixBRows, setMatrixBRows] = useState(2);
+  const [matrixBCols, setMatrixBCols] = useState(2);
   const [matrixA, setMatrixA] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
+    [0, 0],
+    [0, 0],
   ]);
   const [matrixB, setMatrixB] = useState([
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
+    [0, 0],
+    [0, 0],
   ]);
   const inputRef = useRef(null);
 
@@ -65,14 +64,14 @@ export default function MatrixCalculator() {
         });
 
         if (!response.ok) {
-          throw new Error("Erreur lors de l'évaluation");
+          toast.error('Error during the assessment. Check your expression !');
+        } else {
+          const data = await response.json();
+          setExpression(String(data.result));
         }
-
-        const data = await response.json();
-        setExpression(String(data.result)); // assure-toi que c'est bien une chaîne
       } catch (error) {
         console.error(error);
-        setExpression('Erreur');
+        toast.error('Request error. Check if the backend is online !');
       }
     } else {
       const start = input.selectionStart;
@@ -115,7 +114,7 @@ export default function MatrixCalculator() {
       <div className="flex flex-col w-full items-start justify-start gap-4">
         <div className="flex w-full justify-between items-center">
           <div className="flex justify-start items-center gap-3">
-            <span className="text-sm font-medium">Operation</span>
+            <span className="text-base font-medium">Operation</span>
             <select
               className="px-2 py-1 border rounded"
               value={operation}
@@ -191,6 +190,20 @@ export default function MatrixCalculator() {
                 className="w-16 text-center border rounded"
               />
             </div>
+            <button
+              onClick={() => setExpression(`inv(${JSON.stringify(matrixA)})`)}
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Inverse
+            </button>
+            <button
+              onClick={() =>
+                setExpression(`transpose(${JSON.stringify(matrixA)})`)
+              }
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Transpose
+            </button>
           </div>
           <MatrixInput
             matrix={matrixA}
@@ -200,7 +213,7 @@ export default function MatrixCalculator() {
           />
         </div>
 
-        <div className="flex flex-col space-y-2 w-full">
+        <div className="flex flex-col space-y-2 w-full mt-6">
           <div className="flex justify-start items-center gap-3">
             <label className="font-semibold">Matrix B</label>
             <div className="flex items-center gap-2">
@@ -257,6 +270,20 @@ export default function MatrixCalculator() {
                 className="w-16 text-center border rounded"
               />
             </div>
+            <button
+              onClick={() => setExpression(`inv(${JSON.stringify(matrixB)})`)}
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Inverse
+            </button>
+            <button
+              onClick={() =>
+                setExpression(`transpose(${JSON.stringify(matrixB)})`)
+              }
+              className="bg-white relative flex justify-center items-center border py-1 px-3 rounded hover:bg-gray-100 [&_svg]:size-4 disabled:text-gray-200 disabled:hover:bg-white"
+            >
+              Transpose
+            </button>
           </div>
           <MatrixInput
             matrix={matrixB}

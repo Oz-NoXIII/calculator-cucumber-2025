@@ -34,11 +34,38 @@ class TestRealNumber(unittest.TestCase):
         result = r1.inverse()
         self.assertAlmostEqual(result.get_value(), 0.2)
 
+    def test_e(self):
+        a = RealNumber("e")
+        self.assertEqual(a.get_value(), math.e)
+
+    def test_pi(self):
+        a = RealNumber("pi")
+        self.assertEqual(a.get_value(), math.pi)
+
+    def test_error_str(self):
+        self.assertRaises(ValueError, lambda: RealNumber("mauvaise valeur"))
+
+    def test_rand(self):
+        a = RealNumber(10)
+        result = a.rand()
+        self.assertTrue(0 <= result.get_value() <= 1)
+
     def test_power(self):
         r1 = RealNumber(2.0)
         r2 = RealNumber(3.0)
         result = r1.pow(r2)
         self.assertAlmostEqual(result.get_value(), 8.0)
+
+    def test_nroot(self):
+        r1 = RealNumber(8.0)
+        r2 = RealNumber(3.0)
+        result = r1.nroot(r2)
+        self.assertAlmostEqual(result.get_value(), 2.0)
+
+    def test_zero_nroot_by_zero(self):
+        a = RealNumber(0.0)
+        result = a.nroot(RealNumber(0.0))
+        self.assertTrue(result.is_nan(), "Expected NaN from 0.0 nroot 0.0")
 
     def test_sinus(self):
         a = RealNumber(math.pi / 2)
@@ -50,6 +77,16 @@ class TestRealNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), -1)
 
+    def test_tangent(self):
+        a = RealNumber(0)
+        result = a.tan()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_tangent_by_zero(self):
+        a = RealNumber(math.pi / 2)
+        result = a.tan()
+        self.assertTrue(result.is_nan(), "Expected NaN from tan (pi/2)")
+
     def test_sinus_by_zero(self):
         a = RealNumber(0)
         result = a.sin()
@@ -59,6 +96,56 @@ class TestRealNumber(unittest.TestCase):
         a = RealNumber(0)
         result = a.cos()
         self.assertEqual(result.get_value(), 1)
+
+    def test_arcsinus(self):
+        a = RealNumber(0)
+        result = a.arcsin()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arccosinus(self):
+        a = RealNumber(1)
+        result = a.arccos()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arctangent(self):
+        a = RealNumber(0)
+        result = a.arctan()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_arcsinus_by_negatif(self):
+        a = RealNumber(-10)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan(), "Expected NaN from arcsin(-10)")
+
+    def test_arccosinus_by_negatif(self):
+        a = RealNumber(-10)
+        result = a.arccos()
+        self.assertTrue(result.is_nan(), "Expected NaN from arccos(-10)")
+
+    def test_arcsinus_by_positif(self):
+        a = RealNumber(10)
+        result = a.arcsin()
+        self.assertTrue(result.is_nan(), "Expected NaN from arcsin(10)")
+
+    def test_arccosinus_by_positif(self):
+        a = RealNumber(10)
+        result = a.arccos()
+        self.assertTrue(result.is_nan(), "Expected NaN from arccos(10)")
+
+    def test_sinushyperbolic(self):
+        a = RealNumber(0)
+        result = a.sinh()
+        self.assertEqual(result.get_value(), 0)
+
+    def test_cosinushyperbolic(self):
+        a = RealNumber(0)
+        result = a.cosh()
+        self.assertEqual(result.get_value(), 1)
+
+    def test_tangenthyperbolic(self):
+        a = RealNumber(0)
+        result = a.tanh()
+        self.assertEqual(result.get_value(), 0)
 
     def test_logarithm(self):
         a = RealNumber(1)

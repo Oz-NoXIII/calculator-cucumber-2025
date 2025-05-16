@@ -1,10 +1,11 @@
 import math
+import random
 
 from src.main.python.calculator.number_type import NumberType
 
 
 class IntegerNumber(NumberType):
-    def __init__(self, value: int):
+    def __init__(self, value):
         if isinstance(value, str):
             match value:
                 case "pi":
@@ -38,8 +39,15 @@ class IntegerNumber(NumberType):
             return Integernan()
         return IntegerNumber(1 // self.value)
 
+    def rand(self):
+        random.seed()
+        return IntegerNumber(random.randint(0, self.value))
+
     def pow(self, other):
-        return IntegerNumber(self.value ** other.get_value())
+        try:
+            return IntegerNumber(self.value ** other.get_value())
+        except Exception:
+            return Integernan()
 
     def log(self):
         if self.value <= 0:
@@ -54,11 +62,43 @@ class IntegerNumber(NumberType):
     def exp(self):
         return IntegerNumber(int(math.exp(self.value)))
 
+    def nroot(self, other):
+        try:
+            result = IntegerNumber(int(self.value ** (1/other.get_value())))
+            return result
+        except Exception:
+            return Integernan()
+
     def sin(self):
         return IntegerNumber(int(math.sin(self.value)))
 
     def cos(self):
         return IntegerNumber(int(math.cos(self.value)))
+
+    def tan(self):
+        return IntegerNumber(int(math.tan(self.value)))
+
+    def arcsin(self):
+        if not (-1 <= self.value <= 1):
+            return Integernan()
+        return IntegerNumber(int(math.asin(self.value)))
+
+    def arccos(self):
+        if not (-1 <= self.value <= 1):
+            return Integernan()
+        return IntegerNumber(int(math.acos(self.value)))
+
+    def arctan(self):
+        return IntegerNumber(int(math.atan(self.value)))
+
+    def sinh(self):
+        return IntegerNumber(int(math.sinh(self.value)))
+
+    def cosh(self):
+        return IntegerNumber(int(math.cosh(self.value)))
+
+    def tanh(self):
+        return IntegerNumber(int(math.tanh(self.value)))
 
     def __str__(self):
         return str(self.value)

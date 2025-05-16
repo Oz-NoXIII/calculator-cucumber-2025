@@ -79,7 +79,7 @@ class CalculatorREPL:
             try:
                 parsed_expr = parse_expression(input_str)
                 calculator.print_result(parsed_expr)
-            except Exception as input_str:
+            except Exception:
                 self._handle_parse_error(input_str)
 
     def _handle_parse_error(self, error):
@@ -107,8 +107,8 @@ class CalculatorREPL:
                     print(f"  {var} = {val}")
             else:
                 print(result)
-        except Exception as e:
-            print(f"Error: {e}")
+        except Exception:
+            print(f"Linear equation error: '{raw_input}' is an invalid expression. \nType 'help' for examples.")
 
     def _handle_matrix_command(self, command_str):
 
@@ -143,8 +143,8 @@ class CalculatorREPL:
             for row in result.data:
                 print(row)
 
-        except Exception as e:
-            print(f"Matrix error: {e}")
+        except Exception:
+            print(f"Matrix error: '{command_str}' is an invalid expression. \nType 'help' for examples.")
 
     def _linear_mode(self):
         print("Enter each equation on a new line.")
@@ -172,8 +172,8 @@ class CalculatorREPL:
                     print(f"  {var} = {val}")
             else:
                 print(result)
-        except Exception as e:
-            print(f"Error: {e}")
+        except Exception:
+            print(f"Linear mode error: '{equations}' is an invalid expression. \nType 'help' for examples.")
 
     def _print_help(self):
         """Prints available commands."""
@@ -199,6 +199,19 @@ class CalculatorREPL:
         | Exponentiation | a ^ b               | ^(a, b) or ^(a b)   | (a, b)^ or (a b)^   |
         | Negation       | (-a)                | (-(a))              | (a-)-               |
         | Inverse        | inv(a)              | inv(a)              | inv(a)              |
+        | Logarithm      | log(a)              | log(a)              | (a)log              |
+        | Log Neperien   | ln(a)               | ln(a)               | (a)ln               |
+        | Sinus          | sin(a)              | sin(a)              | (a)sin              |
+        | Cosinus        | cos(a)              | cos(a)              | (a)cos              |
+        | Tangent        | tan(a)              | tan(a)              | (a)tan              |
+        | Arcinus        | arcsin(a)           | arcsin(a)           | (a)arcsin           |
+        | ArcCosinus     | arccos(a)           | arccos(a)           | (a)arccos           |
+        | ArcTangent     | arctan(a)           | arctan(a)           | (a)arctan           |
+        | Sinushyp       | sinh(a)             | sinh(a)             | (a)sinh             |
+        | Cosinushyp     | cosh(a)             | cosh(a)             | (a)cosh             |
+        | Tangenthyp     | tanh(a)             | tanh(a)             | (a)tanh             |
+        | Nroot          | a nroot b           | nroot(a, b)         | (a, b)nroot         |
+        | Rand           | rand(a)             | rand(a)             | (a)rand             |
         +----------------+---------------------+---------------------+---------------------+
 
         Advanced Features:

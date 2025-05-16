@@ -23,8 +23,8 @@ class Sinus(Function):
 
     def op(self, base):
         """
-        The actual computation of the sins of one integers
-        :param l: The first integer
+        The actual computation of the sinus of one integers
+        :param base: The first integer
         :return: The integer that is the result of the sinus
         """
         return base.sin()

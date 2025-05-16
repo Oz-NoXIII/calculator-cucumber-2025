@@ -120,9 +120,9 @@ class TestPower(unittest.TestCase):
         pn2 = RationalNumber(0)
         self.assertEqual(pn.pow(pn2).get_value(), 1 / 1)
 
-    def test_power_null_complex(self):
+    def test_power_nan_complex(self):
         pn = ComplexNumber(0, 0)
-        pn2 = ComplexNumber(0, 0)
+        pn2 = ComplexNumber(-1, -1)
         result = pn.pow(pn2)
         self.assertTrue(result.is_nan())
 
@@ -131,15 +131,30 @@ class TestPower(unittest.TestCase):
         pn2 = IntegerNumber(-4)
         self.assertEqual(pn.pow(pn2).get_value(), 0.0625)
 
+    def test_power_nan_integer(self):
+        pn = IntegerNumber(0)
+        pn2 = IntegerNumber(-1)
+        self.assertTrue(pn.pow(pn2).is_nan())
+
     def test_power_negative_real(self):
         pn = RealNumber(-2.0)
         pn2 = RealNumber(-4.0)
         self.assertEqual(pn.pow(pn2).get_value(), 0.0625)
 
+    def test_power_nan_real(self):
+        pn = RealNumber(0.0)
+        pn2 = RealNumber(-1.0)
+        self.assertTrue(pn.pow(pn2).is_nan())
+
     def test_power_negative_rational(self):
         pn = RationalNumber(-2, 1)
         pn2 = RationalNumber(-4, 1)
         self.assertEqual(pn.pow(pn2).get_value(), 1 / 16)
+
+    def test_power_nan_rational(self):
+        pn = RationalNumber(0, 1)
+        pn2 = RationalNumber(-1, 1)
+        self.assertTrue(pn.pow(pn2).is_nan())
 
 
 if __name__ == "__main__":

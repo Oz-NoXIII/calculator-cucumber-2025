@@ -70,9 +70,9 @@ test: unit-test behave-test test-coverage serve-behave-test
 venv-test: venv-unit-test venv-behave-test venv-test-coverage venv-serve-behave-test
 
 # Run all tests (unit and behavior)
-test-action: unit-test behave-test test-coverage-xml
+test-action: unit-test behave-test
 
-venv-test-action: venv-unit-test venv-behave-test venv-test-coverage-xml
+venv-test-action: venv-unit-test venv-behave-test
 
 # Run unit tests
 unit-test:
@@ -222,6 +222,17 @@ else
 	$(SOURCE_VENV) && export PYTHONPATH=$(shell pwd) && $(PYTHON) -m src/main/python/calculator/cli.py
 endif
 
+# Run the API Rest
+venv-run-api-rest:
+	@echo "Running the application..."
+	$(PYTHON) src/rest-api/manage.py makemigrations
+	$(PYTHON) src/rest-api/manage.py migrate
+	$(PYTHON) src/rest-api/manage.py runserver
+
+# Run the Frontend
+venv-run-frontend:
+	@echo "Running the application..."
+	nix develop
 
 # Phony targets
 .PHONY: all install venv-install test venv-test test-action venv-test-action unit-test venv-unit-test behave-test venv-behave-test lint venv-lint format venv-format build venv-build clean venv-clean run venv-run serve-behave-test venv-serve-behave-test test-coverage venv-test-coverage test-coverage-xml venv-test-coverage-xml

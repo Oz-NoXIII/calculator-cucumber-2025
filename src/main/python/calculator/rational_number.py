@@ -1,11 +1,12 @@
 import math
+import random
 from fractions import Fraction
 
 from src.main.python.calculator.number_type import NumberType
 
 
 class RationalNumber(NumberType):
-    def __init__(self, numerator: int, denominator: int = 1):
+    def __init__(self, numerator, denominator=1):
         n = numerator
         d = denominator
         if isinstance(numerator, str):
@@ -13,9 +14,9 @@ class RationalNumber(NumberType):
                 case "pi":
                     n = math.pi
                 case "e":
-                    n = mah.e
+                    n = math.e
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {numerator}")
         if isinstance(denominator, str):
             match denominator:
                 case "pi":
@@ -23,7 +24,7 @@ class RationalNumber(NumberType):
                 case "e":
                     d = math.e
                 case _:
-                    raise ValueError(f"Valeur inconnue : {value}")
+                    raise ValueError(f"Valeur inconnue : {denominator}")
         if isinstance(numerator, int) and isinstance(denominator, int):
             if denominator == 0:
                 self.value = Fraction(0, 1)
@@ -57,9 +58,15 @@ class RationalNumber(NumberType):
             return RationalNumber(0, 1).set_nan()
         return RationalNumber.from_fraction(1 / self.value)
 
+    def rand(self):
+        return RationalNumber(random.randint(0, self.value.numerator), random.randint(1, self.value.denominator))
+
     def pow(self, other):
-        frac = Fraction(self.value ** other.get_value())
-        return RationalNumber(frac.numerator, frac.denominator)
+        try:
+            frac = Fraction(self.value ** other.get_value())
+            return RationalNumber(frac.numerator, frac.denominator)
+        except Exception:
+            return RationalNumber(0, 1).set_nan()
 
     def log(self):
         if self.value <= 0:
@@ -77,12 +84,50 @@ class RationalNumber(NumberType):
         frac = Fraction(math.exp(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
+    def nroot(self, other):
+        try:
+            return RationalNumber((self.value ** (1 / other.get_value())))
+        except Exception:
+            return RationalNumber(0, 1).set_nan()
+
     def sin(self):
         frac = Fraction(math.sin(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def cos(self):
         frac = Fraction(math.cos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tan(self):
+        frac = Fraction(math.tan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arcsin(self):
+        if not (-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.asin(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arccos(self):
+        if not (-1 <= self.value <= 1):
+            return RationalNumber(0, 1).set_nan()
+        frac = Fraction(math.acos(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def arctan(self):
+        frac = Fraction(math.atan(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def sinh(self):
+        frac = Fraction(math.sinh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def cosh(self):
+        frac = Fraction(math.cosh(self.value))
+        return RationalNumber(frac.numerator, frac.denominator)
+
+    def tanh(self):
+        frac = Fraction(math.tanh(self.value))
         return RationalNumber(frac.numerator, frac.denominator)
 
     def to_mixed_str(self):

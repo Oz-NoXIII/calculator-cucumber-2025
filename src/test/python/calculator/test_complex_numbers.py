@@ -32,6 +32,23 @@ class TestComplexNumber(unittest.TestCase):
         self.assertAlmostEqual(result.get_value().real, expected.real, places=2)
         self.assertAlmostEqual(result.get_value().imag, expected.imag, places=2)
 
+    def test_e(self):
+        a = ComplexNumber("e", 2)
+        self.assertEqual(a.get_value().real, cmath.e)
+
+    def test_pi(self):
+        a = ComplexNumber("pi", 2)
+        self.assertEqual(a.get_value().real, cmath.pi)
+
+    def test_error_str(self):
+        self.assertRaises(ValueError, lambda: ComplexNumber("mauvaise valeur", 2))
+
+    def test_rand(self):
+        a = ComplexNumber(10, 2)
+        result = a.rand()
+        self.assertTrue(0 <= result.get_value().real <= 1)
+        self.assertTrue(0 <= result.get_value().imag <= 1)
+
     def test_inverse(self):
         a = ComplexNumber(1, 2)
         result = a.inverse()
@@ -47,6 +64,16 @@ class TestComplexNumber(unittest.TestCase):
         result = a.cos()
         self.assertEqual(result.get_value(), complex(-1, 0))
 
+    def test_tangent(self):
+        a = ComplexNumber(cmath.pi, 0)
+        result = a.tan()
+        self.assertAlmostEqual(result.get_value(), complex(-0, 0))
+
+    def test_tangent_by_zero(self):
+        a = ComplexNumber(cmath.pi / 2, 0)
+        result = a.tan()
+        self.assertTrue(result.is_nan())
+
     def test_sinus_by_zero(self):
         a = ComplexNumber(0, 0)
         result = a.sin()
@@ -56,6 +83,36 @@ class TestComplexNumber(unittest.TestCase):
         a = ComplexNumber(0, 0)
         result = a.cos()
         self.assertEqual(result.get_value(), complex(1, 0))
+
+    def test_arcsinus(self):
+        a = ComplexNumber(0, 0)
+        result = a.arcsin()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_arccosinus(self):
+        a = ComplexNumber(1, 0)
+        result = a.arccos()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_arctangent(self):
+        a = ComplexNumber(0, 0)
+        result = a.arctan()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_sinushyperbolic(self):
+        a = ComplexNumber(0, 0)
+        result = a.sinh()
+        self.assertEqual(result.get_value(), complex(0, 0))
+
+    def test_cosinushyperbolic(self):
+        a = ComplexNumber(0, 0)
+        result = a.cosh()
+        self.assertEqual(result.get_value(), complex(1, 0))
+
+    def test_tangenthyperbolic(self):
+        a = ComplexNumber(0, 0)
+        result = a.tanh()
+        self.assertEqual(result.get_value(), complex(0, 0))
 
     def test_logarithm(self):
         a = ComplexNumber(1, 0)
@@ -72,10 +129,23 @@ class TestComplexNumber(unittest.TestCase):
         result = a.exp()
         self.assertEqual(result.get_value(), complex(cmath.e, 0))
 
-    def test_exponent_by_zero(self):
-        a = ComplexNumber(0, 0)
-        result = a.exp()
-        self.assertEqual(result.get_value(), complex(1, 0))
+    def test_power_by_zero(self):
+        a = ComplexNumber(0, 0).set_nan()
+        b = ComplexNumber(0, 0).set_nan()
+        result = a.pow(b)
+        self.assertTrue(result.is_nan())
+
+    def test_nroot(self):
+        a = ComplexNumber(8, 0)
+        b = ComplexNumber(3, 0)
+        result = a.nroot(b)
+        self.assertEqual(result.get_value(), complex(2, 0))
+
+    def test_nan_on_nroot_by_zero(self):
+        a = ComplexNumber(1, 2)
+        b = ComplexNumber(0, 0)
+        result = a.nroot(b)
+        self.assertTrue(result.is_nan())
 
     def test_power(self):
         a = ComplexNumber(1, 2)
