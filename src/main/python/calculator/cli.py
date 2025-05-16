@@ -73,12 +73,6 @@ class CalculatorREPL:
         elif input_str.lower() == "help":
             self._print_help()
             return
-        elif input_str.lower() == "linear solver":
-            self._linear_mode()
-        elif input_str.lower().startswith("linear>"):
-            self._handle_linear_equation(input_str[7:].strip())
-        elif input_str.lower().startswith("matrix "):
-            self._handle_matrix_command(input_str[7:].strip())
 
         else:
             # Parse and evaluate the expression
@@ -232,20 +226,22 @@ class CalculatorREPL:
         Infix:       3 * (4 + 5) ^ 2
         Prefix:      *(3, ^(+(4, 5), 2))
         Postfix:     (3, ((4, 5)+, 2)^)*
-        matrix mult [[[1,2],[3,4]], [[5,6],[7,8]]]
-        matrix add [[[1,2],[3,4]], [[5,6],[7,8]]]
-        matrix inv [[1,2],[3,4]]
-        matrix trans [[1,2],[3,4]]
+        [[1,2],[3,4]] * [[5,6],[7,8]]
+        [[1,2],[3,4]] + [[5,6],[7,8]]
+        [[1,2],[3,4]] - [[5,6],[7,8]]
+        inv([[1, 2], [3, 4]])
+        transpose([[1, 2], [3, 4]])
 
         Special Commands:
         -----------------
         help   - Show this help message
         quit   - Exit the calculator
         linear mode    - Enter multiline linear equation solving mode.
-        matrix add [A,B]         - Add two matrices A and B
-        matrix mult [A,B]        - Multiply two matrices A and B
-        matrix trans A           - Transpose matrix A
-        matrix inv A             - Invert matrix A
+        matrixA + matrixB          - Add two matrices A and B
+        matrixA * matrixB         - Multiply two matrices A and B
+        matrixA - matrixB         - Subtract two matrices A and B
+        transpose(A)           - Transpose matrix A
+        inv(A)             - Invert matrix A
 
         """
         print(help_text)
