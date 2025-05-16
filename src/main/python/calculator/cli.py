@@ -1,4 +1,3 @@
-import ast
 import os
 import sys
 
@@ -7,7 +6,6 @@ from rich.console import Console
 from src.main.python.calculator import calculator
 from src.main.python.calculator.integer_number import IntegerNumber
 from src.main.python.calculator.linear_solver import LinearEquationSolver
-from src.main.python.calculator.matrix import Matrix
 from src.main.python.calculator.real_number import RealNumber
 from src.main.python.parsing.expression_parser import parse_expression
 
@@ -41,7 +39,7 @@ class CalculatorREPL:
         self._welcome_message = (
             "Calculator REPL\n"
             "Enter arithmetic expressions to evaluate.\n"
-            "Commands: <expression>, 'help', 'linear solver', 'matrix' 'quit'\n"
+            "Commands: <expression>, 'help', 'quit'\n"
         )
         self._prompt = "calc> "
 
@@ -90,62 +88,6 @@ class CalculatorREPL:
             f"Syntax error: '{error}' is an invalid expression. \nType 'help' for examples."
         )
 
-    def _handle_linear_equation(self, raw_input):
-        if not raw_input:
-            print("Please provide equations separated by semicolons.")
-            return
-
-        equations = [eq.strip() for eq in raw_input.split(";") if eq.strip()]
-
-        try:
-            solver = LinearEquationSolver(equations)
-            result = solver.solve()
-
-            if isinstance(result, dict):
-                print("Solution:")
-                for var, val in result.items():
-                    print(f"  {var} = {val}")
-            else:
-                print(result)
-        except Exception:
-            print(f"Linear equation error: '{raw_input}' is an invalid expression. \nType 'help' for examples.")
-
-    def _handle_matrix_command(self, command_str):
-
-        def wrap_matrix(raw_matrix):
-            return [[wrap_number(cell) for cell in row] for row in raw_matrix]
-
-        try:
-            parts = command_str.split(maxsplit=1)
-            if len(parts) < 2:
-                print("Usage: matrix <operation> <matrix1> [<matrix2>]")
-                return
-
-            operation, rest = parts[0], parts[1]
-            args = ast.literal_eval(rest)
-
-            if operation in {"add", "mult"}:
-                if not isinstance(args, list) or len(args) != 2:
-                    print("Provide two matrices: matrix add [matrix1, matrix2]")
-                    return
-                m1 = Matrix(wrap_matrix(args[0]))
-                m2 = Matrix(wrap_matrix(args[1]))
-                result = m1.add(m2) if operation == "add" else m1.multiply(m2)
-            elif operation == "trans":
-                result = Matrix(wrap_matrix(args)).transpose()
-            elif operation == "inv":
-                result = Matrix(wrap_matrix(args)).inverse()
-            else:
-                print(f"Unknown matrix operation: {operation}")
-                return
-
-            print("Result:")
-            for row in result.data:
-                print(row)
-
-        except Exception:
-            print(f"Matrix error: '{command_str}' is an invalid expression. \nType 'help' for examples.")
-
     def _linear_mode(self):
         print("Enter each equation on a new line.")
         print("Type 'ok' when finished.\n")
@@ -173,7 +115,9 @@ class CalculatorREPL:
             else:
                 print(result)
         except Exception:
-            print(f"Linear mode error: '{equations}' is an invalid expression. \nType 'help' for examples.")
+            print(
+                f"Linear mode error: '{equations}' is an invalid expression. \nType 'help' for examples."
+            )
 
     def _print_help(self):
         """Prints available commands."""
@@ -236,7 +180,7 @@ class CalculatorREPL:
         -----------------
         help   - Show this help message
         quit   - Exit the calculator
-        linear mode    - Enter multiline linear equation solving mode.
+        solve_linear("2x+3y=5; 3x-4z=7; y+z=10") linear equation solving mode.
         matrixA + matrixB          - Add two matrices A and B
         matrixA * matrixB         - Multiply two matrices A and B
         matrixA - matrixB         - Subtract two matrices A and B
