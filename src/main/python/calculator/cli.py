@@ -219,8 +219,9 @@ class CalculatorREPL:
         Infix:       3 * (4 + 5) ^ 2
         Prefix:      *(3, ^(+(4, 5), 2))
         Postfix:     (3, ((4, 5)+, 2)^)*
-        matrix mult [[[1,2],[3,4]], [[5,6],[7,8]]]
-        matrix add [[[1,2],[3,4]], [[5,6],[7,8]]]
+        [[1,2],[3,4]] * [[5,6],[7,8]]
+        [[1,2],[3,4]] + [[5,6],[7,8]]
+        [[1,2],[3,4]] - [[5,6],[7,8]]
         matrix inv [[1,2],[3,4]]
         matrix trans [[1,2],[3,4]]
 
@@ -229,8 +230,9 @@ class CalculatorREPL:
         help   - Show this help message
         quit   - Exit the calculator
         linear mode    - Enter multiline linear equation solving mode.
-        matrix add [A,B]         - Add two matrices A and B
-        matrix mult [A,B]        - Multiply two matrices A and B
+        matrixA + matrixB          - Add two matrices A and B
+        matrixA * matrixB         - Multiply two matrices A and B
+        matrixA - matrixB         - Subtract two matrices A and B
         matrix trans A           - Transpose matrix A
         matrix inv A             - Invert matrix A
 
