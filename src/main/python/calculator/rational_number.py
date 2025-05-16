@@ -65,7 +65,7 @@ class RationalNumber(NumberType):
         try:
             frac = Fraction(self.value ** other.get_value())
             return RationalNumber(frac.numerator, frac.denominator)
-        except:
+        except Exception:
             return RationalNumber(0, 1).set_nan()
 
     def log(self):
@@ -87,7 +87,7 @@ class RationalNumber(NumberType):
     def nroot(self, other):
         try:
             return RationalNumber((self.value ** (1 / other.get_value())))
-        except:
+        except Exception:
             return RationalNumber(0, 1).set_nan()
 
     def sin(self):
