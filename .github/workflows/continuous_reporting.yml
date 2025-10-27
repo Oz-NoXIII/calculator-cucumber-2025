@@ -105,7 +105,7 @@ jobs:
       # Artifact uploads for debugging
       - name: Upload artifacts
         if: always() && github.event_name != 'release'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-artifacts
           path: |
